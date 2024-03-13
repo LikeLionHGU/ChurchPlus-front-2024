@@ -1,8 +1,12 @@
+import { RecoilRoot } from "recoil";
+
 function App() {
   return (
-    <div>
-      <h1>Church-Plus Project 2024</h1>
-    </div>
+    <RecoilRoot>
+      <div>
+        <h1>Church-Plus Project 2024</h1>
+      </div>
+    </RecoilRoot>
   );
 }
 
