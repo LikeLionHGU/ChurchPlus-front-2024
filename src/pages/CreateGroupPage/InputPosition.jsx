@@ -14,6 +14,7 @@ import img9 from "../../assets/images/groupPositionImg/9_Enginner.svg";
 import img10 from "../../assets/images/groupPositionImg/10_Pastor.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
+import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
 // import createGroup from "../../apis/createGroup";
 
 const positionImages = [
@@ -58,27 +59,6 @@ const positionImages = [
     description: "목사님",
   },
 ];
-
-const TopNoticeBars = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding-top: 4.5rem;
-`;
-
-const Bar = styled.div`
-  width: 27%;
-  height: 5px;
-  background-color: #efeff0;
-  margin-right: 1rem;
-  border-radius: 30px;
-
-  ${(props) =>
-    props.$now &&
-    css`
-      background-color: #8248f2;
-    `}
-`;
 
 const Text = styled.div`
   font-size: 40px;
@@ -163,12 +143,7 @@ function InputPosition() {
 
   return (
     <BackgroundWrapper>
-      <TopNoticeBars>
-        <Bar />
-        <Bar />
-        <Bar $now />
-      </TopNoticeBars>
-
+      <TopCompleteBars currentPage={2} />
       <Text>포지션을 선택해주세요.</Text>
 
       <PositionContainer>

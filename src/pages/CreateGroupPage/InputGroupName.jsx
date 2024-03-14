@@ -5,58 +5,8 @@ import nextBtn from "../../assets/images/commonUI/NextButton.svg";
 import nextBtnHover from "../../assets/images/commonUI/NextButtonHover.svg";
 import askTeam from "../../assets/images/commonUI/AlreadyHaveTeam.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
-
-const TopNoticeBars = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding-top: 4.5rem;
-`;
-
-const Bar = styled.div`
-  width: 27%;
-  height: 5px;
-  background-color: #efeff0;
-  margin-right: 1rem;
-  border-radius: 30px;
-
-  ${(props) =>
-    props.$now &&
-    css`
-      background-color: #8248f2;
-    `}
-`;
-
-const TextBox = styled.div`
-  display: flex;
-  justify-content: center;
-
-  input {
-    margin-top: 3rem;
-    padding-left: 2.4rem;
-    height: 100px;
-    width: 81%;
-    border-radius: 24px;
-    border: none;
-    outline: none;
-    font-size: 40px;
-    caret-color: blue;
-
-    background-color: #efeff0;
-
-    &:focus {
-      background-color: white;
-      border: 1px solid black;
-    }
-  }
-`;
-
-const Text = styled.div`
-  padding-left: 8.5%;
-  padding-top: 15%;
-  font-size: 40px;
-  color: white;
-`;
+import { Text, TextBox } from "../../components/CreateGroupPage/Text";
+import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
 
 const Btn = styled.div`
   margin-top: 11%;
@@ -99,11 +49,7 @@ function InputGroupName() {
 
   return (
     <BackgroundWrapper>
-      <TopNoticeBars>
-        <Bar $now />
-        <Bar />
-        <Bar />
-      </TopNoticeBars>
+      <TopCompleteBars currentPage={0} />
       <Text>팀명을 입력해주세요.</Text>
       <TextBox>
         <input
