@@ -1,25 +1,10 @@
 import React, { useState } from "react";
 // import { useLocation, useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
-import nextBtnHover from "../../assets/images/commonUI/NextButtonHover.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-
-const Btn = styled.div`
-  margin-top: 11%;
-  text-align: center;
-
-  img {
-    height: 59px;
-    cursor: pointer;
-  }
-
-  img:hover {
-    content: url(${nextBtnHover});
-  }
-`;
+import { Btn } from "../../components/CreateGroupPage/Button";
 
 function InputGroupCode() {
   const [userName, setUserName] = useState("");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import completeBtn from "../../assets/images/commonUI/StartButton.svg";
 
 import img1 from "../../assets/images/groupPositionImg/1_Leader.svg";
@@ -111,8 +111,8 @@ const Btn = styled.div`
 `;
 
 function InputPosition() {
-  // const navigate = useNavigate();
-  // const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [position, setPosition] = useState(null);
 
   const handlePositionSelect = (position) => {
@@ -120,17 +120,22 @@ function InputPosition() {
     alert(`${position.description} 포지션을 선택하셨습니다.`);
   };
 
+  // state를 통해 페이지별로 사용자의 입력값이 잘 전달되고 있음
+  // const groupName = location.state.groupName;
+  // const userName = location.state.userName;
+  // console.log(groupName);
+  // console.log(userName);
+  // console.log(position);
+
   const handleCompleteBtnClick = async () => {
     if (!position) {
       alert("포지션을 선택해주세요.");
-      return; // 포지션이 선택되지 않았을 때 함수 종료
+      return;
     }
+    // const groupName = location.state.groupName;
+    // const userName = location.state.userName;
 
-    // 여기서 선택된 포지션을 활용하여 작업 수행
-    // const groupName = location.state.teamName;
-    // const nickname = location.state.userName;
-
-    const memberId = localStorage.getItem("memberId");
+    // const memberId = localStorage.getItem("memberId");
 
     try {
       // await createGroup(groupName, memberId, position, nickname);

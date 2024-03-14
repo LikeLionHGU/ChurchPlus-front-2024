@@ -1,28 +1,14 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
-// import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
-import nextBtnHover from "../../assets/images/commonUI/NextButtonHover.svg";
-import askTeam from "../../assets/images/commonUI/AlreadyHaveTeam.svg";
+import askGroup from "../../assets/images/commonUI/AlreadyHaveTeam.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
+import { Btn } from "../../components/CreateGroupPage/Button";
 
-const Btn = styled.div`
-  margin-top: 11%;
-  text-align: center;
-
-  img {
-    height: 59px;
-    cursor: pointer;
-  }
-
-  img:hover {
-    content: url(${nextBtnHover});
-  }
-`;
-
-const AskTeam = styled.img`
+const AskGroup = styled.img`
   height: 20px;
   float: right;
   margin-right: 10%;
@@ -30,12 +16,12 @@ const AskTeam = styled.img`
 `;
 
 function InputGroupName() {
-  const [teamName, setTeamName] = useState("");
-  // const navigate = useNavigate();
+  const [groupName, setGroupName] = useState("");
+  const navigate = useNavigate();
 
   const handleNextBtnClick = async () => {
-    if (teamName.trim() !== "") {
-      // navigate("/CreateName", { state: { teamName } });
+    if (groupName.trim() !== "") {
+      navigate("/InputUserName", { state: { groupName } });
     } else {
       alert("팀 이름을 입력하세요.");
     }
@@ -55,15 +41,15 @@ function InputGroupName() {
         <input
           type="text"
           autoFocus
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
           onKeyDown={handleKeyDown}
         />
       </TextBox>
       <Btn>
         <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
       </Btn>
-      <AskTeam src={askTeam} alt="이미 팀이 있으신가요?" />
+      <AskGroup src={askGroup} alt="이미 팀이 있으신가요?" />
     </BackgroundWrapper>
   );
 }
