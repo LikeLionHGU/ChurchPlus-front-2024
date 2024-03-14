@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import completeBtn from "../../assets/images/commonUI/StartButton.svg";
+import completeBtnHover from "../../assets/images/commonUI/StartButtonHover.svg";
 
 import img1 from "../../assets/images/groupPositionImg/1_Leader.svg";
 import img2 from "../../assets/images/groupPositionImg/2_MainCindy.svg";
@@ -107,6 +108,10 @@ const Btn = styled.div`
   img {
     height: 59px;
     cursor: pointer;
+  }
+
+  img:hover {
+    content: url(${completeBtnHover});
   }
 `;
 
