@@ -103,7 +103,7 @@ const Input = styled.div`
 
 function InputPosition() {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [position, setPosition] = useState(null);
 
   const handlePositionSelect = (position) => {

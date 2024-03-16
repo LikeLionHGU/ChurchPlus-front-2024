@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
 import askGroup from "../../assets/images/commonUI/AlreadyHaveTeam.svg";
-import {
-  BackgroundImage,
-  BackgroundWrapper,
-  ContentWrapper,
-} from "../../components/CreateGroupPage/Background";
+import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { AskGroup, Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
 import { Btn } from "../../components/CreateGroupPage/Button";
@@ -36,8 +32,6 @@ function InputGroupName() {
   return (
     <div>
       <BackgroundWrapper>
-        {/* <BackgroundImage /> */}
-        {/* <ContentWrapper> */}
         <TopCompleteBars currentPage={0} />
         <Text>팀명을 입력해주세요.</Text>
         <TextBox>
@@ -57,7 +51,6 @@ function InputGroupName() {
           src={askGroup}
           alt="이미 팀이 있으신가요?"
         />
-        {/* </ContentWrapper> */}
       </BackgroundWrapper>
     </div>
   );
