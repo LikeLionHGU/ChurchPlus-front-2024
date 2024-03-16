@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import completeBtn from "../../assets/images/commonUI/StartButton.svg";
-import completeBtnHover from "../../assets/images/commonUI/StartButtonHover.svg";
-
+import backBtn from "../../assets/images/commonUI/BackButton.svg";
 import img1 from "../../assets/images/groupPositionImg/1_Leader.svg";
 import img2 from "../../assets/images/groupPositionImg/2_MainCindy.svg";
 import img3 from "../../assets/images/groupPositionImg/3_SecondCindy.svg";
@@ -16,6 +15,7 @@ import img10 from "../../assets/images/groupPositionImg/10_Pastor.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
+import { BackBtn, StartBtn } from "../../components/CreateGroupPage/Button";
 // import createGroup from "../../apis/createGroup";
 
 const positionImages = [
@@ -101,20 +101,6 @@ const Input = styled.div`
   color: white;
 `;
 
-const Btn = styled.div`
-  margin-top: 0.5rem;
-  text-align: center;
-
-  img {
-    height: 59px;
-    cursor: pointer;
-  }
-
-  img:hover {
-    content: url(${completeBtnHover});
-  }
-`;
-
 function InputPosition() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -151,6 +137,10 @@ function InputPosition() {
     }
   };
 
+  const handleBackBtnClick = () => {
+    navigate("/InputUserName");
+  };
+
   return (
     <BackgroundWrapper>
       <TopCompleteBars currentPage={2} />
@@ -168,13 +158,17 @@ function InputPosition() {
         ))}
       </PositionContainer>
 
-      <Btn>
+      <BackBtn marginTop="0.5rem">
+        {" "}
+        <img onClick={handleBackBtnClick} src={backBtn} alt="이전 버튼" />
+      </BackBtn>
+      <StartBtn>
         <img
           onClick={handleCompleteBtnClick}
           src={completeBtn}
           alt="완료 버튼"
         />
-      </Btn>
+      </StartBtn>
     </BackgroundWrapper>
   );
 }

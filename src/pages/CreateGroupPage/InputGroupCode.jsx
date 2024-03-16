@@ -1,24 +1,23 @@
 import React, { useState } from "react";
-// import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
+import backBtn from "../../assets/images/commonUI/BackButton.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { Btn } from "../../components/CreateGroupPage/Button";
+import { BackBtn, Btn } from "../../components/CreateGroupPage/Button";
 
 function InputGroupCode() {
   const [userName, setUserName] = useState("");
-  // const location = useLocation();
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleNextBtnClick = async () => {
     if (userName.trim() !== "") {
-      // navigate("/CreatePosition", {
-      //   state: { userName, teamName: location.state.teamName },
-      // });
+      navigate("/InputUserName", {
+        state: { userName },
+      });
     } else {
-      alert("유저 이름을 입력하세요.");
+      alert("그룹 코드를 입력하세요.");
     }
   };
 
@@ -26,6 +25,10 @@ function InputGroupCode() {
     if (e.key === "Enter") {
       handleNextBtnClick();
     }
+  };
+
+  const handleBackBtnClick = () => {
+    navigate("/InputGroupName");
   };
 
   return (
@@ -41,6 +44,9 @@ function InputGroupCode() {
           onKeyDown={handleKeyDown}
         />
       </TextBox>
+      <BackBtn>
+        <img onClick={handleBackBtnClick} src={backBtn} alt="이전 버튼" />
+      </BackBtn>
       <Btn>
         <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
       </Btn>
