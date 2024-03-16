@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
+import backBtn from "../../assets/images/commonUI/BackButton.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { Btn } from "../../components/CreateGroupPage/Button";
+import { BackBtn, Btn } from "../../components/CreateGroupPage/Button";
 
 function InputUserName() {
   const [userName, setUserName] = useState("");
@@ -19,6 +20,10 @@ function InputUserName() {
     } else {
       alert("유저 이름을 입력하세요.");
     }
+  };
+
+  const handleBackBtnClick = () => {
+    navigate("/InputGroupName");
   };
 
   const handleKeyDown = (e) => {
@@ -40,6 +45,9 @@ function InputUserName() {
           onKeyDown={handleKeyDown}
         />
       </TextBox>
+      <BackBtn>
+        <img onClick={handleBackBtnClick} src={backBtn} alt="이전 버튼" />
+      </BackBtn>
       <Btn>
         <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
       </Btn>
