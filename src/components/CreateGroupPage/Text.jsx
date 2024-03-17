@@ -32,8 +32,8 @@ export const TextBox = styled.div`
 `;
 
 export const AskGroup = styled.img`
-  margin-top: 15px;
-  height: 27px;
+  margin-top: 209px;
+  height: 24px;
   float: left;
   padding-left: 8.5%;
   cursor: pointer;
