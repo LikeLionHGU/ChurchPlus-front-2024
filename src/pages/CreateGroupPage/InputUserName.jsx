@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import nextBtn from "../../assets/images/commonUI/NextButton.svg";
+import nextBtnSVG from "../../assets/images/commonUI/NextButtonSVG.svg";
 import backBtn from "../../assets/images/commonUI/BackButton.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { BackBtn, Btn } from "../../components/CreateGroupPage/Button";
+import { BackBtn, Btn, Btn10 } from "../../components/CreateGroupPage/Button";
 
 function InputUserName() {
   const [userName, setUserName] = useState("");
@@ -51,6 +52,9 @@ function InputUserName() {
       <Btn>
         <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
       </Btn>
+      <Btn10>
+        <img src={nextBtnSVG} alt="Next Button" />
+      </Btn10>
     </BackgroundWrapper>
   );
 }
