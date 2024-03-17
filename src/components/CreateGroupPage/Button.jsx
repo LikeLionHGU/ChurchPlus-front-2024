@@ -85,4 +85,42 @@ export const StartBtn = styled.button`
     top: 54%;
     left: 51%;
   }
+
+  /* 색 두가지로 할 경우, 디자이너님과 상의 */
+  &:hover {
+    border-color: #734cde;
+  }
+
+  &::before {
+    background: #734cde;
+    z-index: -12;
+    opacity: 1;
+    transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  &::after {
+    content: "";
+    width: 0%;
+    height: 100%;
+    display: block;
+    background: #80ffd3;
+    position: absolute;
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    left: -10%;
+    opacity: 0;
+    top: 0;
+    z-index: -15;
+    -webkit-transition: all 0.94s cubic-bezier(0.2, 0.95, 0.57, 0.99);
+    -moz-transition: all 0.4s cubic-bezier(0.2, 0.95, 0.57, 0.99);
+    -o-transition: all 0.4s cubic-bezier(0.2, 0.95, 0.57, 0.99);
+    transition: all 0.4s cubic-bezier(0.2, 0.95, 0.57, 0.99);
+    box-shadow: 2px 0px 14px rgba(0, 0, 0, 0.6);
+  }
+
+  &:hover::after {
+    opacity: 1;
+    width: 120%;
+  }
 `;
