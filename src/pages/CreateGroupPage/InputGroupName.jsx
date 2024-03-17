@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import nextBtn from "../../assets/images/commonUI/NextButton.svg";
+import nextBtnSVG from "../../assets/images/commonUI/NextButtonSVG.svg";
 import askGroup from "../../assets/images/commonUI/AlreadyHaveTeam.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { AskGroup, Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { Btn } from "../../components/CreateGroupPage/Button";
+import { NextBtn } from "../../components/CreateGroupPage/Button";
 
 function InputGroupName() {
   const [groupName, setGroupName] = useState("");
@@ -43,9 +43,9 @@ function InputGroupName() {
             onKeyDown={handleKeyDown}
           />
         </TextBox>
-        <Btn>
-          <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
-        </Btn>
+        <NextBtn>
+          <img onClick={handleNextBtnClick} src={nextBtnSVG} alt="다음 버튼" />
+        </NextBtn>
         <AskGroup
           onClick={handleAskGroupClick}
           src={askGroup}

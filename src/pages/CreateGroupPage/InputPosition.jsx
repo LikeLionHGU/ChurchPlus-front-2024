@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import completeBtn from "../../assets/images/commonUI/StartButton.svg";
-import backBtn from "../../assets/images/commonUI/BackButton.svg";
+import startBtnSVG from "../../assets/images/commonUI/StartButtonSVG.svg";
+import prevBtnSVG from "../../assets/images/commonUI/PrevButtonSVG.svg";
 import img1 from "../../assets/images/groupPositionImg/1_Leader.svg";
 import img2 from "../../assets/images/groupPositionImg/2_MainCindy.svg";
 import img3 from "../../assets/images/groupPositionImg/3_SecondCindy.svg";
@@ -15,7 +15,7 @@ import img10 from "../../assets/images/groupPositionImg/10_Pastor.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { BackBtn, StartBtn } from "../../components/CreateGroupPage/Button";
+import { PrevBtn, StartBtn } from "../../components/CreateGroupPage/Button";
 // import createGroup from "../../apis/createGroup";
 
 const positionImages = [
@@ -137,7 +137,7 @@ function InputPosition() {
     }
   };
 
-  const handleBackBtnClick = () => {
+  const handlePrevBtnClick = () => {
     navigate("/InputUserName");
   };
 
@@ -158,14 +158,14 @@ function InputPosition() {
         ))}
       </PositionContainer>
 
-      <BackBtn marginTop="0.5rem">
-        {" "}
-        <img onClick={handleBackBtnClick} src={backBtn} alt="이전 버튼" />
-      </BackBtn>
-      <StartBtn>
+      {/* <BackBtn marginTop="0.5rem">*/}
+      <PrevBtn marginTop="0rem">
+        <img onClick={handlePrevBtnClick} src={prevBtnSVG} alt="이전 버튼" />
+      </PrevBtn>
+      <StartBtn marginTop="0rem">
         <img
           onClick={handleCompleteBtnClick}
-          src={completeBtn}
+          src={startBtnSVG}
           alt="완료 버튼"
         />
       </StartBtn>

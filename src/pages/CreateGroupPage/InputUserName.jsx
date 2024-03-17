@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import nextBtn from "../../assets/images/commonUI/NextButton.svg";
 import nextBtnSVG from "../../assets/images/commonUI/NextButtonSVG.svg";
-import backBtn from "../../assets/images/commonUI/BackButton.svg";
+import prevBtnSVG from "../../assets/images/commonUI/PrevButtonSVG.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { BackBtn, Btn, Btn10 } from "../../components/CreateGroupPage/Button";
+import { NextBtn, PrevBtn } from "../../components/CreateGroupPage/Button";
 
 function InputUserName() {
   const [userName, setUserName] = useState("");
@@ -23,7 +22,7 @@ function InputUserName() {
     }
   };
 
-  const handleBackBtnClick = () => {
+  const handlePrevBtnClick = () => {
     navigate("/InputGroupName");
   };
 
@@ -46,15 +45,14 @@ function InputUserName() {
           onKeyDown={handleKeyDown}
         />
       </TextBox>
-      <BackBtn>
-        <img onClick={handleBackBtnClick} src={backBtn} alt="이전 버튼" />
-      </BackBtn>
-      <Btn>
-        <img onClick={handleNextBtnClick} src={nextBtn} alt="다음 버튼" />
-      </Btn>
-      <Btn10>
-        <img src={nextBtnSVG} alt="Next Button" />
-      </Btn10>
+
+      <PrevBtn>
+        <img onClick={handlePrevBtnClick} src={prevBtnSVG} alt="이전 버튼" />
+      </PrevBtn>
+
+      <NextBtn>
+        <img onClick={handleNextBtnClick} src={nextBtnSVG} alt="다음 버튼" />
+      </NextBtn>
     </BackgroundWrapper>
   );
 }

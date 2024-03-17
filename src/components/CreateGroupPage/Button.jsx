@@ -1,65 +1,12 @@
-import styled from "styled-components";
-import nextBtnHover from "../../assets/images/commonUI/NextButtonHover.svg";
-import backBtnHover from "../../assets/images/commonUI/BackButtonHover.svg";
-import completeBtnHover from "../../assets/images/commonUI/StartButtonHover.svg";
+import styled, { css } from "styled-components";
 
-export const Btn = styled.div`
-  margin-top: 194px;
-  text-align: center;
-
-  img {
-    height: 59px;
-    width: 143px;
-    cursor: pointer;
-    float: right;
-    margin-right: 8%;
-  }
-
-  img:hover {
-    content: url(${nextBtnHover});
-  }
-`;
-
-export const BackBtn = styled.div`
-  margin-top: ${(props) => props.marginTop || "194px"};
-  text-align: center;
-
-  img {
-    height: 59px;
-    width: 143px;
-    cursor: pointer;
-    float: left;
-    margin-left: 8.5%;
-  }
-
-  img:hover {
-    content: url(${backBtnHover});
-  }
-`;
-
-export const StartBtn = styled.div`
-  margin-top: 0.5rem;
-  text-align: center;
-
-  img {
-    height: 59px;
-    width: 168px;
-    cursor: pointer;
-    float: right;
-    margin-right: 8%;
-  }
-
-  img:hover {
-    content: url(${completeBtnHover});
-  }
-`;
-
-export const Btn10 = styled.button`
+const ButtonBase = css`
   height: 53px;
   width: 129px;
-  color: rgba(255, 255, 255, 0.9);
+
+  margin-top: ${(props) => props.marginTop || "194px"};
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 11px;
   position: relative;
   overflow: hidden;
@@ -70,8 +17,6 @@ export const Btn10 = styled.button`
   img {
     height: 43px;
     position: absolute;
-    top: 55%;
-    left: 56%;
     transform: translate(-50%, -50%);
   }
 
@@ -102,5 +47,42 @@ export const Btn10 = styled.button`
   &:hover::before {
     opacity: 1;
     width: 116%;
+  }
+`;
+
+export const NextBtn = styled.button`
+  ${ButtonBase}
+  float: right;
+  margin-right: 8%;
+
+  img {
+    top: 55%;
+    left: 56%;
+  }
+`;
+
+export const PrevBtn = styled.button`
+  ${ButtonBase}
+  float: left;
+  margin-left: 8.5%;
+
+  img {
+    top: 55%;
+    left: 47%;
+  }
+`;
+
+export const StartBtn = styled.button`
+  ${ButtonBase}
+  height: 53px;
+  width: 168px;
+
+  float: right;
+  margin-right: 8.6%;
+
+  img {
+    height: 40px;
+    top: 54%;
+    left: 51%;
   }
 `;
