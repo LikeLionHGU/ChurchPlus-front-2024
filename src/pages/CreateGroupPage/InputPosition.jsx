@@ -157,7 +157,7 @@ function InputPosition() {
       <PositionContainer>
         {positionImages.map((position, index) => (
           <PositionItem key={index} onClick={() => handlePositionSelect(index)}>
-            <ImageContainer isSelected={selectedPositionIndex === index}>
+            <ImageContainer $isSelected={selectedPositionIndex === index}>
               <PositionImage src={position.image} alt={position.description} />
             </ImageContainer>
             <Input>{position.description}</Input>
@@ -166,10 +166,10 @@ function InputPosition() {
       </PositionContainer>
 
       {/* <BackBtn marginTop="0.5rem">*/}
-      <PrevBtn marginTop="0rem">
+      <PrevBtn $marginTop="0rem">
         <img onClick={handlePrevBtnClick} src={prevBtnSVG} alt="이전 버튼" />
       </PrevBtn>
-      <StartBtn marginTop="0rem">
+      <StartBtn $marginTop="0rem">
         <img
           onClick={handleCompleteBtnClick}
           src={startBtnSVG}
