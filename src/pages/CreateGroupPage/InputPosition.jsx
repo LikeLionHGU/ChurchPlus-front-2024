@@ -82,9 +82,17 @@ const PositionItem = styled.div`
   margin-bottom: 3rem;
 `;
 
-const PositionImage = styled.img`
+const ImageContainer = styled.div`
   height: 130px;
   width: 130px;
+  border: 5px solid
+    ${({ isSelected }) => (isSelected ? "#8248f2" : "transparent")};
+  border-radius: 30px;
+`;
+
+const PositionImage = styled.img`
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
@@ -104,11 +112,11 @@ const Input = styled.div`
 function InputPosition() {
   const navigate = useNavigate();
   // const location = useLocation();
-  const [position, setPosition] = useState(null);
+  const [selectedPositionIndex, setSelectedPositionIndex] = useState(null);
 
-  const handlePositionSelect = (position) => {
-    setPosition(position.description);
-    alert(`${position.description} 포지션을 선택하셨습니다.`);
+  const handlePositionSelect = (index) => {
+    setSelectedPositionIndex(index);
+    alert(`${positionImages[index].description} 포지션을 선택하셨습니다.`);
   };
 
   // state를 통해 페이지별로 사용자의 입력값이 잘 전달되고 있음
@@ -119,7 +127,7 @@ function InputPosition() {
   // console.log(position);
 
   const handleCompleteBtnClick = async () => {
-    if (!position) {
+    if (!selectedPositionIndex === null) {
       alert("포지션을 선택해주세요.");
       return;
     }
@@ -148,11 +156,10 @@ function InputPosition() {
 
       <PositionContainer>
         {positionImages.map((position, index) => (
-          <PositionItem
-            key={index}
-            onClick={() => handlePositionSelect(position)}
-          >
-            <PositionImage src={position.image} alt={position.description} />
+          <PositionItem key={index} onClick={() => handlePositionSelect(index)}>
+            <ImageContainer isSelected={selectedPositionIndex === index}>
+              <PositionImage src={position.image} alt={position.description} />
+            </ImageContainer>
             <Input>{position.description}</Input>
           </PositionItem>
         ))}
