@@ -4,7 +4,7 @@ const ButtonBase = css`
   height: 53px;
   width: 129px;
 
-  margin-top: ${(props) => props.marginTop || "194px"};
+  margin-top: ${(props) => props.$marginTop || "194px"};
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 11px;
@@ -86,7 +86,6 @@ export const StartBtn = styled.button`
     left: 51%;
   }
 
-  /* 색 두가지로 할 경우, 디자이너님과 상의 */
   &:hover {
     border-color: #734cde;
   }
