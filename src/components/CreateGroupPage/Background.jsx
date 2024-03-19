@@ -11,7 +11,7 @@ export const BackgroundWrapper = styled.div`
   height: 100vh;
   background-size: 400%;
 
-  animation: bgAnimation 5s ease-in-out infinite;
+  animation: bgAnimation 3s ease-in-out infinite;
 
   @keyframes bgAnimation {
     0% {
