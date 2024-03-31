@@ -64,7 +64,7 @@ const LoginSignupBtn = styled.img`
 function HomePage() {
   const navigate = useNavigate();
   const handleLoginBtnClick = () => {
-    navigate("/HomePage1");
+    navigate("/LoginPage");
   };
   return (
     <Wrapper>
