@@ -9,6 +9,7 @@ import LoginPage from "./pages/HomePage/LoginPage/LoginPage";
 import Loading from "./pages/HomePage/LoginPage/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
+          <Route path="/Main" element={<MainPage />}></Route>
           <Route path="/InputGroupCode" element={<InputGroupCode />}></Route>
           <Route path="/InputGroupName" element={<InputGroupName />}></Route>
           <Route path="/InputUserName" element={<InputUserName />}></Route>
