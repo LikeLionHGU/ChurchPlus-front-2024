@@ -17,7 +17,7 @@ function InputGroupCode() {
         state: { userName },
       });
     } else {
-      alert("그룹 코드를 입력하세요.");
+      alert("초대 코드를 입력하세요.");
     }
   };
 
@@ -34,7 +34,7 @@ function InputGroupCode() {
   return (
     <BackgroundWrapper>
       <TopCompleteBars currentPage={0} />
-      <Text>코드를 입력해주세요.</Text>
+      <Text>초대코드를 입력해주세요.</Text>
       <TextBox>
         <input
           type="text"
