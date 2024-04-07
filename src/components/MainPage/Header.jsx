@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import userIcon from "../../assets/Icons/userIcon.svg";
+import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
   height: 80px;
@@ -40,16 +41,30 @@ const Icons = styled.div`
 `;
 
 function Header() {
+  const [isTeamManagementModalOpen, setTeamManagementModalOpen] =
+    useState(false);
+
+  const toggleTeamManagementModal = () => {
+    setTeamManagementModalOpen((prevState) => !prevState);
+    document.body.style.overflow = isTeamManagementModalOpen
+      ? "auto"
+      : "hidden";
+  };
+
   return (
     <Wrapper>
       <Menu>일정표 관리</Menu>
-      <Menu>팀 관리</Menu>
+      <Menu onClick={toggleTeamManagementModal}>팀 관리</Menu>
       <Menu>악보 보관함</Menu>
       <Menu>콘티 보관함</Menu>
       <Icons>
         <img src={bellIcon} alt="벨아이콘"></img>
         <img src={userIcon} alt="벨아이콘"></img>
       </Icons>
+      <TeamManagementModal
+        isOpen={isTeamManagementModalOpen}
+        onClose={toggleTeamManagementModal}
+      />
     </Wrapper>
   );
 }
