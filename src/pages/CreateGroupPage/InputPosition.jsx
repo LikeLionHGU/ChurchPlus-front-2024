@@ -87,7 +87,7 @@ const ImageContainer = styled.div`
   height: 130px;
   width: 130px;
   border: 5px solid
-    ${({ $isSelected }) => ($isSelected ? "#8248f2" : "transparent")};
+    ${({ $isSelected }) => ($isSelected ? "#325692" : "transparent")};
   border-radius: 30px;
 `;
 
