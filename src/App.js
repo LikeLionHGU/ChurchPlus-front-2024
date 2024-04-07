@@ -16,14 +16,13 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
+          {/* <Route path="/" element={<Homepage />}></Route> */}
+          <Route path="/" element={<LoginPage />}></Route>
           <Route path="/Main" element={<MainPage />}></Route>
           <Route path="/InputGroupCode" element={<InputGroupCode />}></Route>
           <Route path="/InputGroupName" element={<InputGroupName />}></Route>
           <Route path="/InputUserName" element={<InputUserName />}></Route>
           <Route path="/InputPosition" element={<InputPosition />}></Route>
-          <Route path="/LoginPage" element={<LoginPage />}></Route>
-          {/* <Route path="/LoginPage" element={<LoginPage />}></Route> */}
           <Route path="/loading" element={<Loading />}></Route>
           <Route path="/SelectTeamPage" element={<SelectTeamPage />}></Route>
         </Routes>
