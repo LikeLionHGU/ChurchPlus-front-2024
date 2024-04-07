@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import nextBtnSVG from "../../assets/images/commonUI/NextButtonSVG.svg";
 import prevBtnSVG from "../../assets/images/commonUI/PrevButtonSVG.svg";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
-import { Text, TextBox } from "../../components/CreateGroupPage/Text";
+import { BlueText, Text, TextBox } from "../../components/CreateGroupPage/Text";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
 import { NextBtn, PrevBtn } from "../../components/CreateGroupPage/Button";
 
@@ -18,7 +18,7 @@ function InputUserName() {
         state: { userName, groupName: location.state.groupName },
       });
     } else {
-      alert("유저 이름을 입력하세요.");
+      alert("이름을 입력하세요.");
     }
   };
 
@@ -35,7 +35,9 @@ function InputUserName() {
   return (
     <BackgroundWrapper>
       <TopCompleteBars currentPage={1} />
-      <Text>이름을 입력해주세요.</Text>
+      <Text>
+        <BlueText>이름</BlueText>을 입력해주세요.
+      </Text>
       <TextBox>
         <input
           type="text"
