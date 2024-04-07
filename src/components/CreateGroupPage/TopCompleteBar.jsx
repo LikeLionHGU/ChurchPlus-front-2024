@@ -18,7 +18,7 @@ const Bar = styled.div`
   ${(props) =>
     props.$now &&
     css`
-      background-color: #8248f2;
+      background-color: #aec3de;
     `}
 `;
 
