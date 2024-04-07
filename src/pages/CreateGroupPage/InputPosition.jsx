@@ -16,6 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
 import { PrevBtn, StartBtn } from "../../components/CreateGroupPage/Button";
+import { BlueText } from "../../components/CreateGroupPage/Text";
 // import createGroup from "../../apis/createGroup";
 
 const positionImages = [
@@ -65,7 +66,7 @@ const Text = styled.div`
   font-size: 40px;
   padding-left: 8.5%;
   padding-top: 4%;
-  color: white;
+  color: black;
 `;
 
 const PositionContainer = styled.div`
@@ -104,9 +105,10 @@ const PositionImage = styled.img`
 
 const Input = styled.div`
   padding-top: 20px;
+  font-family: "GmarketSansLight";
   font-size: 30px;
   text-align: center;
-  color: white;
+  color: black;
 `;
 
 function InputPosition() {
@@ -152,7 +154,9 @@ function InputPosition() {
   return (
     <BackgroundWrapper>
       <TopCompleteBars currentPage={2} />
-      <Text>포지션을 선택해주세요.</Text>
+      <Text>
+        <BlueText>포지션</BlueText>을 선택해주세요.
+      </Text>
 
       <PositionContainer>
         {positionImages.map((position, index) => (

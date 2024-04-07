@@ -4,7 +4,11 @@ export const Text = styled.div`
   padding-left: 8.5%;
   padding-top: 183px;
   font-size: 40px;
-  color: white;
+  color: black;
+`;
+
+export const BlueText = styled.span`
+  color: #325692;
 `;
 
 export const TextBox = styled.div`
@@ -19,6 +23,7 @@ export const TextBox = styled.div`
     border-radius: 24px;
     border: none;
     outline: none;
+    font-family: "GmarketSansLight";
     font-size: 40px;
     caret-color: blue;
 
