@@ -14,15 +14,27 @@ const Wrapper = styled.div`
 `;
 
 const HomePageLogo = styled.img`
-  margin-top: 240px;
-  width: 324px;
-  height: 137px;
+  margin-top: 180px;
+  margin-left: auto;
+  margin-right: 244px;
+  width: 240px;
+  height: 90px;
+`;
+
+const IntroText = styled.div`
+  font-size: 28px;
+  margin-top: 17px;
+  margin-left: auto;
+  margin-right: 215px;
+  /* font-weight: lighter; 이거 왜 안먹음..? */
 `;
 
 const HomePageBtn = styled.img`
-  width: 375px;
-  height: 60px;
-  margin-top: 115px;
+  width: 271px;
+  height: 47px;
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: 221px;
   cursor: pointer;
 `;
 
@@ -45,8 +57,16 @@ const GoogleLogin = () => {
   };
 
   return (
-    <Wrapper style={{ backgroundImage: `url(${homePage})` }}>
+    <Wrapper>
       <HomePageLogo src={homePageLogo} alt="홈페이지 로고" />
+      <IntroText>
+        <p>
+          <b>구름</b>처럼 흩어져있는
+        </p>
+        <p>
+          악보들을 한 곳에서, <b>구름</b>
+        </p>
+      </IntroText>
       <HomePageBtn
         onClick={handleLogin}
         src={GoogleLoginBtn}

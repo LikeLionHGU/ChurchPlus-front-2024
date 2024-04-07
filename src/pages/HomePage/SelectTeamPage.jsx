@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import homePage from "../../asset/Images/Background/HomePage.svg";
+// import homePage from "../../asset/Images/Background/HomePage.svg";
 import homePageLogo from "../../asset/Images/Logos/HomePageLogo.svg";
 import ChoseGroupImg from "../../asset/Images/Icons/ChoseGroupImg.svg";
 import CreateGroup from "../../asset/Images/Icons/CreateGroup.svg";
@@ -18,23 +18,23 @@ const Wrapper = styled.div`
 `;
 
 const HomePageLogo = styled.img`
-  margin-top: 100px;
-  width: 324px;
-  height: 137px;
+  margin-top: 110px;
+  width: 271px;
+  height: 101px;
 `;
 
 const ChoseGroup = styled.div`
-  margin-top: 23px;
-  font-size: 32px;
-  color: white;
-  font-weight: lighter;
+  margin-top: 40px;
+  font-size: 35px;
+  color: black;
+  font-weight: 100;
 `;
 const SelectGroupContainer = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 64px;
+  margin-top: 30px;
 `;
 
 const GroupContainer = styled.div`
@@ -47,49 +47,56 @@ const Groups = styled.div`
   flex-direction: column;
 `;
 
-const CreateGroupImg = styled.img`
-  width: 180px;
-  height: 180px;
+const CreateGroupImg = styled.div`
+  display: flex;
+  background-color: #efeff0;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 230px;
   border-radius: 30px;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.25);
 `;
 
 const CreateGroupText = styled.div`
-  font-size: 29px;
+  font-size: 25px;
   text-align: center;
-  color: white;
+  color: black;
   margin-top: 17px;
   font-weight: lighter;
 `;
 
 const Group = styled.img`
-  width: 180px;
-  height: 180px;
+  width: 230px;
+  height: 230px;
   margin-right: 145px;
   border-radius: 30px;
   cursor: pointer;
   overflow: hidden;
 `;
 const GroupName = styled.div`
-  font-size: 29px;
+  font-size: 25px;
   text-align: center;
   margin-right: 145px;
   margin-top: 17px;
-  color: white;
+  color: black;
   font-weight: lighter;
 `;
 
-const ManageProFile = styled.img`
-  width: 205px;
-  height: 47px;
-  margin-top: 68px;
+const AlreadyHaveTeamText = styled.div`
+  margin-left: auto;
+  margin-right: 100px;
+  text-decoration: underline;
+  margin-top: 65px;
   cursor: pointer;
+  color: #474b54;
 `;
 
 function SelectTeamPage() {
   return (
-    <Wrapper style={{ backgroundImage: `url(${homePage})` }}>
+    <Wrapper>
       <HomePageLogo src={homePageLogo} alt="홈페이지 로고" />
       <ChoseGroup>이용할 팀을 선택해주세요.</ChoseGroup>
       <SelectGroupContainer>
@@ -101,13 +108,15 @@ function SelectTeamPage() {
 
           <Groups>
             <Link to={"/InputGroupName"}>
-              <CreateGroupImg src={CreateGroup} alt="팀 생성" />
+              <CreateGroupImg>
+                <img src={CreateGroup} alt=""></img>
+              </CreateGroupImg>
             </Link>
             <CreateGroupText>팀 생성</CreateGroupText>
           </Groups>
         </GroupContainer>
       </SelectGroupContainer>
-      <ManageProFile src={ManageProFileImg} alt="" />
+      <AlreadyHaveTeamText>이미 팀이 있으신가요?</AlreadyHaveTeamText>
     </Wrapper>
   );
 }
