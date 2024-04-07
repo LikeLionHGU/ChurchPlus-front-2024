@@ -1,15 +1,15 @@
 import { RecoilRoot } from "recoil";
-import InputGroupName from "./Pages/CreateGroupPage/InputGroupName";
-import InputUserName from "./Pages/CreateGroupPage/InputUserName";
-import InputPosition from "./Pages/CreateGroupPage/InputPosition";
-import InputGroupCode from "./Pages/CreateGroupPage/InputGroupCode";
-import Homepage from "./Pages/HomePage/HomePage";
-import LoginPage from "./Pages/HomePage/LoginPage/LoginPage";
+import InputGroupName from "./pages/CreateGroupPage/InputGroupName";
+import InputUserName from "./pages/CreateGroupPage/InputUserName";
+import InputPosition from "./pages/CreateGroupPage/InputPosition";
+import InputGroupCode from "./pages/CreateGroupPage/InputGroupCode";
+import Homepage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/HomePage/LoginPage/LoginPage";
 // import LoginPage from "./Pages/HomePage/LoginPage/LoginPage";
-import Loading from "./Pages/HomePage/LoginPage/Loading";
+import Loading from "./pages/HomePage/LoginPage/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SelectTeamPage from "./Pages/HomePage/SelectTeamPage";
-import MainPage from "./Pages/MainPage";
+import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
