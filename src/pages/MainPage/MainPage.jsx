@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../components/MainPage/Header";
-import MainContent from "../components/MainPage/MainContent";
-import SideBar from "../components/MainPage/SideBar";
+import Header from "../../components/MainPage/Header";
+import MainContent from "../../components/MainPage/MainContent";
+import SideBar from "../../components/MainPage/SideBar";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
