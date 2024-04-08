@@ -102,7 +102,9 @@ function SelectTeamPage() {
       <SelectGroupContainer>
         <GroupContainer>
           <Groups>
-            <Group src={ChoseGroupImg} alt=" 첫번째 팀" />
+            <Link to={"/main"}>
+              <Group src={ChoseGroupImg} alt=" 첫번째 팀" />
+            </Link>
             <GroupName>강물예배팀</GroupName>
           </Groups>
 
