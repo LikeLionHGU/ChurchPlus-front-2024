@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import KeySelectDropdown from "./KeySelectDropdown";
 import VersionSelectDropdown from "./VersionSelectDropdown";
 import AddBtn from "./AddBtn";
-import IntroModal from "../../Pages/MainPage/IntroModal";
+import IntroModal from "../../pages/MainPage/IntroModal";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
