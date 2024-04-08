@@ -9,7 +9,7 @@ import LoginPage from "./pages/HomePage/LoginPage/LoginPage";
 import Loading from "./pages/HomePage/LoginPage/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
   return (
