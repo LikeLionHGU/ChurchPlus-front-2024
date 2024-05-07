@@ -5,6 +5,7 @@ import KeySelectDropdown from "./KeySelectDropdown";
 import VersionSelectDropdown from "./VersionSelectDropdown";
 import AddBtn from "./AddBtn";
 import IntroModal from "../../pages/MainPage/IntroModal";
+import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -47,6 +48,7 @@ function MainContent() {
         <VersionSelectDropdown />
         <AddBtn />
         <IntroModal />
+        <UploadMusicModal />
       </FunctionWrapper>
       <Contents>폴더, 악보</Contents>
     </Wrapper>
