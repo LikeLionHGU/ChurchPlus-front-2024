@@ -8,11 +8,11 @@ const Wrapper = styled.div`
   width: 203px;
 `;
 const GroomLogo = styled.div`
-  padding-top: 18px;
+  padding-top: 40px;
   padding-left: 33px;
   cursor: pointer;
   img {
-    height: 45px;
+    height: 48px;
     width: 133px;
   }
 `;

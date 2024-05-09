@@ -14,21 +14,23 @@ const Wrapper = styled.div`
 `;
 
 const KeyDropdown = styled.div`
-  background-color: rgba(173, 173, 173, 0.2);
-  width: 6rem;
-  height: 2.2rem;
-  padding-top: 0.5rem;
+  font-family: "GmarketSansMedium";
+  width: 107px;
+  height: 31px;
+  padding-left: 10px;
+  padding-top: 11px;
+  border: 1px solid #9d9d9d;
   border-radius: 16px;
-  margin-bottom: 0.3rem;
+  /* margin-bottom: 0.3rem; */
   text-align: center;
   font-size: 16px;
 
   cursor: pointer;
 
   img {
-    height: 0.4rem;
-    padding-top: 0.6rem;
-    padding-right: 0.7rem;
+    height: 8px;
+    padding-top: 7px;
+    padding-right: 22px;
     float: right;
   }
 `;

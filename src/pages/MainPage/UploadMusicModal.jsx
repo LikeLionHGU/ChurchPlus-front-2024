@@ -26,6 +26,7 @@ const Overlay = styled.div`
 `;
 
 const ModalOpen = styled.div`
+  font-family: "GmarketSansLight";
   display: flex;
   align-items: center;
   height: 41px;
@@ -34,7 +35,7 @@ const ModalOpen = styled.div`
   text-align: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid #9d9d9d;
   border-radius: 10px;
   padding-right: 10px;
 
