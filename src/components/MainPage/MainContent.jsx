@@ -47,13 +47,30 @@ const SheetMusicItem = styled.div`
   margin-bottom: 20px;
 `;
 
+const SheetMusicContainer = styled.div`
+  /* width: 270px;
+  height: 184px; */
+  /* margin-right: 20px;
+  margin-bottom: 29px;
+  border-radius: 16px; */
+`;
+
 const SheetMusicImage = styled.img`
-  width: 270px;
+  width: 275px;
   height: 184px;
+  object-fit: cover;
+  object-position: top;
+  cursor: pointer;
+
   margin-right: 20px;
   margin-bottom: 29px;
   border-radius: 16px;
-  cursor: pointer;
+
+  filter: opacity(0.7) drop-shadow(0 0 0 #bdbdbd);
+
+  &:hover {
+    filter: opacity(0.8) drop-shadow(0 0 0 #7b7b7b);
+  }
 `;
 
 const SheetMusicDetails = styled.div`
@@ -193,11 +210,13 @@ function MainContent() {
               </SheetMusicItem>
             ))
           : sheetMusicData.map((sheetMusic, index) => (
-              <SheetMusicImage
-                key={index}
-                src={sheetMusic.imageUrl}
-                alt={`악보 이미지 ${index}`}
-              />
+              <SheetMusicContainer>
+                <SheetMusicImage
+                  key={index}
+                  src={sheetMusic.imageUrl}
+                  alt={`악보 이미지 ${index}`}
+                />
+              </SheetMusicContainer>
             ))}
       </Contents>
     </Wrapper>
