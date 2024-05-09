@@ -32,7 +32,7 @@ const TeamDropdown = styled.div`
   align-items: center;
   padding-left: 60px;
   /* justify-content: center; */
-  margin-top: 18px;
+  margin-top: 30px;
   margin-bottom: 11px;
   margin-right: 10px;
 `;
