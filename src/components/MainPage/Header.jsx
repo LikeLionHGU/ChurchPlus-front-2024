@@ -1,70 +1,73 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
-import userIcon from "../../assets/Icons/userIcon.svg";
-import TeamManagementModal from "./TeamManagementModal";
+import settingIcon from "../../assets/Icons/setting.svg";
+import userImgIcon from "../../assets/Icons/userImg.svg";
+import { BlueText } from "../CreateGroupPage/Text";
+// import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
-  height: 80px;
+  height: 100px;
   width: 100%;
-  box-shadow: 0 7px 7px -7px #d2d2d2;
+  display: flex;
 `;
 
-const Menu = styled.button`
+const Menu = styled.div`
   font-family: "GmarketSansMedium";
-  font-size: 18px;
-  color: #0d2040;
+  font-size: 30px;
+  color: #325692;
   border: none;
-  height: 60px;
-  width: 193px;
+  height: 42px;
+  width: 153px;
   cursor: pointer;
   border-radius: 10px;
   background-color: white;
-  margin-top: 12px;
-  margin-left: 12px;
+  padding-top: 55px;
+  padding-left: 37px;
+  margin-right: 733px;
+`;
 
-  &:hover {
-    background-color: rgba(204, 223, 255, 0.2);
-  }
+const PersonInfo = styled.div`
+  font-family: "GmarketSansMedium";
+  font-size: 20px;
+  padding-top: 47px;
+  justify-content: flex-end;
 `;
 
 const Icons = styled.div`
   float: right;
-  margin-right: 34px;
-  margin-top: 20px;
+  padding-top: 44px;
 
   img {
     cursor: pointer;
-    margin-right: 28px;
+    height: 24px;
+    margin-right: 20px;
     vertical-align: middle;
   }
 `;
 
 function Header() {
-  const [isTeamManagementModalOpen, setTeamManagementModalOpen] =
-    useState(false);
+  // const [isTeamManagementModalOpen, setTeamManagementModalOpen] =
+  //   useState(false);
 
-  const toggleTeamManagementModal = () => {
-    setTeamManagementModalOpen((prevState) => !prevState);
-    document.body.style.overflow = isTeamManagementModalOpen
-      ? "auto"
-      : "hidden";
-  };
+  // const toggleTeamManagementModal = () => {
+  //   setTeamManagementModalOpen((prevState) => !prevState);
+  //   document.body.style.overflow = isTeamManagementModalOpen
+  //     ? "auto"
+  //     : "hidden";
+  // };
 
   return (
     <Wrapper>
-      <Menu>일정표 관리</Menu>
-      <Menu onClick={toggleTeamManagementModal}>팀 관리</Menu>
       <Menu>악보 보관함</Menu>
-      <Menu>콘티 보관함</Menu>
       <Icons>
         <img src={bellIcon} alt="벨아이콘"></img>
-        <img src={userIcon} alt="벨아이콘"></img>
+        <img src={settingIcon} alt="환경설정 아이콘"></img>
+        <img src={userImgIcon} alt="유저 이미지 아이콘"></img>
       </Icons>
-      <TeamManagementModal
-        isOpen={isTeamManagementModalOpen}
-        onClose={toggleTeamManagementModal}
-      />
+      <PersonInfo>
+        김교회 | <BlueText>인도자</BlueText>
+      </PersonInfo>
     </Wrapper>
   );
 }
