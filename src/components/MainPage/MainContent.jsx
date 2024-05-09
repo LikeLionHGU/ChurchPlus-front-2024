@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import KeySelectDropdown from "./KeySelectDropdown";
-import VersionSelectDropdown from "./VersionSelectDropdown";
 import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
 
 const Wrapper = styled.div`
@@ -35,7 +34,6 @@ function MainContent() {
         <SearchBar setSearch={setSearch} placeholder="곡 제목 검색" />
         <SearchBar setSearch={setSearch} placeholder="곡 버전 검색" />
         <KeySelectDropdown />
-        <VersionSelectDropdown />
         <UploadMusicModal />
       </FunctionWrapper>
       <Contents>폴더, 악보</Contents>
