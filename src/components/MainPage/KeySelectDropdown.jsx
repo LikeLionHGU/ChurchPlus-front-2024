@@ -17,7 +17,7 @@ const KeyDropdown = styled.div`
   font-family: "GmarketSansMedium";
   width: 107px;
   height: 31px;
-  padding-left: 9px;
+  padding-left: 10px;
   padding-top: 11px;
   border: 1px solid #9d9d9d;
   border-radius: 16px;
