@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import MainPageIcon from "../../asset/Images/Icons/MainPageIcon.svg"
-import ContiCreateIcon from "../../asset/Images/Icons/ContiCreate.svg"
-import ContiStorageIcon from "../../asset/Images/Icons/ContiStorage.svg"
-import ManageGroup from "../../asset/Images/Icons/ManageGroup.svg"
-import TeamDropdownIcon from "../../asset/Images/Icons/TeamDropdownIcon.svg"
+import MainPageIcon from "../../asset/Images/Icons/MainPageIcon.svg";
+import ContiCreateIcon from "../../asset/Images/Icons/ContiCreate.svg";
+import ContiStorageIcon from "../../asset/Images/Icons/ContiStorage.svg";
+import ManageGroup from "../../asset/Images/Icons/ManageGroup.svg";
+import TeamDropdownIcon from "../../asset/Images/Icons/TeamDropdownIcon.svg";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,10 +27,11 @@ const TeamDropdown = styled.div`
   /* background-color: rgba(204, 223, 255, 0.5); */
   /* border: none; */
   /* border-radius: 10px; */
-  font-size: 15px;
+  font-size: 19px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 60px;
+  /* justify-content: center; */
   margin-top: 18px;
   margin-bottom: 11px;
   margin-right: 10px;
@@ -44,11 +45,10 @@ const Items = styled.div`
   font-family: "GmarketSansMidium";
   /* margin-top: 5px; */
   cursor: pointer;
-  padding-left: 9px;
+  padding-left: 20px;
   padding-top: 12px;
   padding-bottom: 12px;
-  font-size: 14px;
-  margin-left: 5px;
+  font-size: 18px;
   color: #3e5692;
   display: flex;
   align-items: center;
@@ -57,13 +57,13 @@ const Items = styled.div`
     border-radius: 10px;
     font-weight: 700;
   }
-  img{
+  img {
     padding-right: 10px;
   }
-  span{
+  span {
     margin-top: 3px;
   }
-`
+`;
 
 // const DropdownItem = styled.div`
 //   margin: 28px 0px 28px 0px;
@@ -84,42 +84,42 @@ const Items = styled.div`
 // `;
 
 function SelectMenu() {
-//   const options = [
-//     "1",
-//     "2",
-//     "3",
-//     "4",
-//     "5",
-//     "6",
-//     "7",
-//     "8",
-//     "9",
-//     "10",
-//     "11",
-//     "12",
-//   ];
+  //   const options = [
+  //     "1",
+  //     "2",
+  //     "3",
+  //     "4",
+  //     "5",
+  //     "6",
+  //     "7",
+  //     "8",
+  //     "9",
+  //     "10",
+  //     "11",
+  //     "12",
+  //   ];
 
   return (
     <Wrapper>
       <TeamDropdown>
         글로리아 팀
-        <img src={TeamDropdownIcon} alt=""/>  
+        <img src={TeamDropdownIcon} alt="" />
       </TeamDropdown>
       <Dropdown>
         <Items>
-          <img src={MainPageIcon} alt=""/>
+          <img src={MainPageIcon} alt="" />
           <span>메인 페이지</span>
         </Items>
         <Items>
-          <img src={ContiCreateIcon} alt=""/>
+          <img src={ContiCreateIcon} alt="" />
           <span>콘티 생성하기</span>
         </Items>
         <Items>
-          <img src={ContiStorageIcon} alt=""/>
+          <img src={ContiStorageIcon} alt="" />
           <span>콘티 보관하기</span>
         </Items>
         <Items>
-          <img src={ManageGroup} alt=""/>
+          <img src={ManageGroup} alt="" />
           <span>팀 관리</span>
         </Items>
         {/* <DropdownItem>
