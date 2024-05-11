@@ -116,12 +116,14 @@ function SelectMenu() {
         </Items>
         <Items>
           <img src={ContiStorageIcon} alt="" />
-          <span>콘티 보관하기</span>
+          <span>콘티 보관함</span>
         </Items>
+        <Link to={"/ManageTeamPage"} style={{ textDecoration: 'none' }}>
         <Items>
           <img src={ManageGroup} alt="" />
           <span>팀 관리</span>
         </Items>
+        </Link>
         {/* <DropdownItem>
           {options.map((option) => (
             <Link
