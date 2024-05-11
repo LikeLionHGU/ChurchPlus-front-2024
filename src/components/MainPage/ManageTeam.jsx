@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import ManageTeamImg from "../../asset/Images/Icons/ManageTeamImg.svg"
+import CopyIcon from "../../asset/Images/Icons/CopyIcon.svg"
 import styled from "styled-components";
 
 
@@ -79,6 +80,16 @@ const UserTeamName = styled.div`
 
 const UserTeamInviteCode = styled.div`
     margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+`
+
+const InviteCodeText = styled.div`
+    margin-right: 2px;
+`
+
+const CopyImg = styled.img`
+    margin-top: 2px;
 `
 
 const InfoChangeBtn = styled.div`
@@ -203,7 +214,10 @@ export default function ManageTeam(){
                 </TypeOfInfo>
                 <UserInfo>
                     <UserTeamName>강물예배 팀</UserTeamName>
-                    <UserTeamInviteCode>100432</UserTeamInviteCode>
+                    <UserTeamInviteCode>
+                        <InviteCodeText>100432</InviteCodeText>
+                        <CopyImg src={CopyIcon} alt=""/>
+                    </UserTeamInviteCode>
                 </UserInfo>
             </PreviewInfo>
             <InfoChangeBtn>저장</InfoChangeBtn>
