@@ -104,6 +104,8 @@ const BottomContents = styled.div`
     margin-top: 24px;
     margin-left: 36px;
     font-size: 20px;
+    width: 1117px;
+
     span{
         margin-left: 26px;
     }
@@ -239,6 +241,8 @@ export default function ManageTeam(){
             <Position><span></span></Position>
             <Note><span></span></Note>
         </TransparentBox>
+        <InfoChangeBtn>저장</InfoChangeBtn>
+
         </BottomContents>
         </>
     )
