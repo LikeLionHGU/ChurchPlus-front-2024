@@ -10,6 +10,7 @@ import Loading from "./pages/HomePage/LoginPage/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
 import MainPage from "./pages/MainPage/MainPage";
+import ManageTeamPage from "./pages/MainPage/ManageTeamPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/InputPosition" element={<InputPosition />}></Route>
           <Route path="/loading" element={<Loading />}></Route>
           <Route path="/SelectTeamPage" element={<SelectTeamPage />}></Route>
+          <Route path="/ManageTeamPage" element={<ManageTeamPage/>}></Route> 
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
