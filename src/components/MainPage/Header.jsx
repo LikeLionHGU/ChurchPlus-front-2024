@@ -9,6 +9,7 @@ import { BlueText } from "../CreateGroupPage/Text";
 const Wrapper = styled.div`
   height: 100px;
   width: 100%;
+  /* border: 1px solid red; */
   display: flex;
 `;
 
@@ -24,17 +25,18 @@ const Menu = styled.div`
   background-color: white;
   padding-top: 55px;
   padding-left: 37px;
-  margin-right: 733px;
+  /* margin-right: 733px; */
 `;
 
 const PersonInfo = styled.div`
   font-family: "GmarketSansMedium";
   font-size: 20px;
   padding-top: 47px;
-  justify-content: flex-end;
+  margin-right: 60px;
 `;
 
 const Icons = styled.div`
+  margin-left: auto;
   float: right;
   padding-top: 44px;
 

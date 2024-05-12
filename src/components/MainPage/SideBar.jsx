@@ -1,8 +1,8 @@
 import React from "react";
-import UserInfo from "./UserInfo";
 import styled from "styled-components";
 import SelectMenu from "./SelectMenu";
 import Logo from "../../assets/logo/GroomLogo.svg";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 203px;
@@ -18,10 +18,14 @@ const GroomLogo = styled.div`
 `;
 
 function SideBar() {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/Main");
+  };
   return (
     <Wrapper>
-      {/* <UserInfo /> */}
-      <GroomLogo>
+      <GroomLogo onClick={handleLogoClick}>
         <img src={Logo} alt="groom 로고" />
       </GroomLogo>
       <SelectMenu />
