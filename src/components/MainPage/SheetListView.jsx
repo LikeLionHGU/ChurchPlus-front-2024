@@ -8,38 +8,16 @@ const SheetListView = ({ sheetMusicData }) => {
   return (
     <>
       <Table headersName={["이름", "곡 버전", "Key"]}>
-        <TableRow>
-          <TableColumn>
-            <img src={pageIcon} alt="페이지 아이콘" />
-            아주아주 긴 글 첫번째 게시글입니다.
-          </TableColumn>
-          <TableColumn>2020-10-25</TableColumn>
-          <TableColumn>6</TableColumn>
-        </TableRow>
-        <TableRow>
-          <TableColumn>
-            <img src={pageIcon} alt="페이지 아이콘" />
-            두번째 게시글입니다.
-          </TableColumn>
-          <TableColumn>2020-10-25</TableColumn>
-          <TableColumn>5</TableColumn>
-        </TableRow>
-        <TableRow>
-          <TableColumn>
-            <img src={pageIcon} alt="페이지 아이콘" />
-            세번째 게시글입니다.
-          </TableColumn>
-          <TableColumn>2020-10-25</TableColumn>
-          <TableColumn>1</TableColumn>
-        </TableRow>
-        <TableRow>
-          <TableColumn>
-            <img src={pageIcon} alt="페이지 아이콘" />
-            네번째 게시글입니다.
-          </TableColumn>
-          <TableColumn>2020-10-25</TableColumn>
-          <TableColumn>2</TableColumn>
-        </TableRow>
+        {sheetMusicData.map((sheetMusic, index) => (
+          <TableRow key={index}>
+            <TableColumn>
+              <img src={pageIcon} alt="페이지 아이콘" />
+              {sheetMusic.title}
+            </TableColumn>
+            <TableColumn>{sheetMusic.version}버전</TableColumn>
+            <TableColumn>{sheetMusic.key}</TableColumn>
+          </TableRow>
+        ))}
       </Table>
     </>
   );

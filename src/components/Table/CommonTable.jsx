@@ -9,8 +9,9 @@ const Table = styled.table`
 
 const TableHeaderColumn = styled.td`
   padding: 0;
-  font-size: 14px;
-  padding: 10px 5px;
+  font-size: 15px;
+  padding-bottom: 8px;
+  width: 355px;
 `;
 
 const CommonTable = (props) => {
@@ -25,6 +26,7 @@ const CommonTable = (props) => {
           })}
         </tr>
       </thead>
+
       <tbody>{children}</tbody>
     </Table>
   );
