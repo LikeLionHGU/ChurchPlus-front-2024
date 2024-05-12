@@ -6,9 +6,10 @@ import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
 import viewListIcon from "../../assets/Icons/viewList.svg";
 import viewGridIcon from "../../assets/Icons/viewGrid.svg";
 import pageIcon from "../../assets/Icons/page.svg";
+import SheetListView from "./SheetListView";
 
 const Wrapper = styled.div`
-  border: 2px solid pink;
+  /* border: 2px solid pink; */
   height: 100%;
   padding-top: 23px;
   padding-left: 36px;
@@ -18,7 +19,7 @@ const FunctionWrapper = styled.div`
   display: flex;
   height: 42px;
   margin-bottom: 34px;
-  width: calc(100% - 20px);
+  width: 100%;
   /* border: 1px solid #3e5692; */
 `;
 
@@ -27,7 +28,7 @@ const Icons = styled.div`
   padding-top: 9px;
   /* border: 1px solid red; */
   height: 24px;
-  padding-right: 26px;
+  padding-right: 46px;
   img {
     margin-right: 11px;
     cursor: pointer;
@@ -35,9 +36,8 @@ const Icons = styled.div`
 `;
 
 const Contents = styled.div`
-  height: 100vh;
   width: 100%;
-  /* border: 1px solid #3e5692; */
+  border: 1px solid #3e5692;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -168,6 +168,41 @@ function MainContent() {
       title: "기쁨의 옷을 입은",
       version: "어노인팅",
     },
+    {
+      imageUrl:
+        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+      key: "C",
+      title: "기쁨의 옷을 입은",
+      version: "어노인팅",
+    },
+    {
+      imageUrl:
+        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+      key: "C",
+      title: "기쁨의 옷을 입은",
+      version: "어노인팅",
+    },
+    {
+      imageUrl:
+        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+      key: "C",
+      title: "기쁨의 옷을 입은",
+      version: "어노인팅",
+    },
+    {
+      imageUrl:
+        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+      key: "C",
+      title: "기쁨의 옷을 입은",
+      version: "어노인팅",
+    },
+    {
+      imageUrl:
+        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+      key: "C",
+      title: "기쁨의 옷을 입은",
+      version: "어노인팅",
+    },
   ];
 
   return (
@@ -219,6 +254,7 @@ function MainContent() {
               </SheetMusicContainer>
             ))}
       </Contents>
+      <SheetListView sheetMusicData={sheetMusicData} />
     </Wrapper>
   );
 }
