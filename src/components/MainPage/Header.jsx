@@ -9,7 +9,7 @@ import { BlueText } from "../CreateGroupPage/Text";
 const Wrapper = styled.div`
   height: 100px;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
 `;
 

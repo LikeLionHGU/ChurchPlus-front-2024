@@ -8,7 +8,7 @@ import viewGridIcon from "../../assets/Icons/viewGrid.svg";
 import pageIcon from "../../assets/Icons/page.svg";
 
 const Wrapper = styled.div`
-  /* border: 2px solid pink; */
+  border: 2px solid pink;
   height: 100%;
   padding-top: 23px;
   padding-left: 36px;
@@ -23,11 +23,11 @@ const FunctionWrapper = styled.div`
 `;
 
 const Icons = styled.div`
-  padding-left: 233px;
+  margin-left: auto;
   padding-top: 9px;
   /* border: 1px solid red; */
   height: 24px;
-
+  padding-right: 26px;
   img {
     margin-right: 11px;
     cursor: pointer;
@@ -36,7 +36,7 @@ const Icons = styled.div`
 
 const Contents = styled.div`
   height: 100vh;
-  width: calc(100% - 5px);
+  width: 100%;
   /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
