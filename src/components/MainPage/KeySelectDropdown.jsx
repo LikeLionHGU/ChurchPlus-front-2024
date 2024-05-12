@@ -36,52 +36,60 @@ const KeyDropdown = styled.div`
 `;
 
 const KeyItems = styled.div`
-  border: 1px solid #281a47;
+  margin-top: 6px;
+  border: 1px solid #9d9d9d;
   font-size: 18px;
-  width: 17.5rem;
-  height: 6.8rem;
-  border-radius: 1.4rem;
+  width: 266px;
+  height: 88px;
+  border-radius: 10px;
   background-color: white;
 
-  display: ${({ isActive }) =>
-    isActive ? "block" : "none"}; /* isActive 상태에 따라 표시 여부 결정 */
+  display: ${({ isActive }) => (isActive ? "block" : "none")};
 `;
 
 const KeyItemTop = styled.div`
-  padding-left: 1.8rem;
-  padding-top: 1.4rem;
-  padding-bottom: 1.2rem;
+  margin: 14px 0 10px 20px;
+  /* border: 1px solid red; */
+  height: 28px;
+  width: 215px;
+  font-size: 18px;
 
-  Span {
-    border-radius: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    margin-right: 0.4rem;
+  span {
+    border: 0.9px solid black;
+    height: 28px;
+    width: 33px;
+    border-radius: 6px;
+    padding: 4.4px;
+    margin-right: 8px;
 
     cursor: pointer;
   }
-
-  Span:hover {
-    background-color: #dfdfdf;
+  span:hover {
+    background-color: #e8e8e8;
   }
 `;
 
 const KeyItemBottom = styled.div`
-  padding-left: 1.3rem;
-  Span {
-    border-radius: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    margin-right: 0.4rem;
+  margin: 11px 0 10px 20px;
+  /* border: 1px solid red; */
+  height: 28px;
+  width: 226px;
+  font-size: 18px;
+
+  span {
+    border: 0.9px solid black;
+    height: 28px;
+    width: 33px;
+    border-radius: 6px;
+    padding: 4.3px;
+    margin-right: 10px;
 
     cursor: pointer;
   }
 
-  Span:hover {
-    background-color: #dfdfdf;
+  span:hover {
+    background-color: #e8e8e8;
   }
-`;
-
-const Span = styled.span`
-  border: 1px solid #281a47;
 `;
 
 function SelectKeyDropdown({ setSelectedKey }) {
@@ -148,24 +156,24 @@ function SelectKeyDropdown({ setSelectedKey }) {
           {isActive && (
             <KeyItemTop>
               {keyOptions1.map((keyOption) => (
-                <Span
+                <span
                   key={keyOption.value} // key 속성은 고유해야 함.
                   onClick={(e) => handleSelect(keyOption)}
                 >
                   {keyOption.label}
-                </Span>
+                </span>
               ))}
             </KeyItemTop>
           )}
           {isActive && (
             <KeyItemBottom>
               {keyOptions2.map((keyOption) => (
-                <Span
+                <span
                   key={keyOption.value} // key 속성은 고유해야 하므로 keyOption.value로 변경
                   onClick={(e) => handleSelect(keyOption)}
                 >
                   {keyOption.label}
-                </Span>
+                </span>
               ))}
             </KeyItemBottom>
           )}
