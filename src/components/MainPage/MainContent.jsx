@@ -5,7 +5,6 @@ import KeySelectDropdown from "./KeySelectDropdown";
 import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
 import viewListIcon from "../../assets/Icons/viewList.svg";
 import viewGridIcon from "../../assets/Icons/viewGrid.svg";
-import pageIcon from "../../assets/Icons/page.svg";
 import SheetListView from "./SheetListView";
 
 const Wrapper = styled.div`
@@ -36,24 +35,13 @@ const Icons = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 100%;
-  border: 1px solid #3e5692;
+  width: 96%;
+  /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
 `;
 
-const SheetMusicItem = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-`;
-
-const SheetMusicContainer = styled.div`
-  /* width: 270px;
-  height: 184px; */
-  /* margin-right: 20px;
-  margin-bottom: 29px;
-  border-radius: 16px; */
-`;
+const SheetMusicContainer = styled.div``;
 
 const SheetMusicImage = styled.img`
   width: 275px;
@@ -71,39 +59,6 @@ const SheetMusicImage = styled.img`
   &:hover {
     filter: opacity(0.8) drop-shadow(0 0 0 #7b7b7b);
   }
-`;
-
-const SheetMusicDetails = styled.div`
-  display: flex;
-  align-items: center;
-
-  img {
-    /* border: 1px solid red; */
-    margin-right: 20px;
-  }
-  span {
-    /* border: 1px solid blue; */
-    margin-right: 20px;
-  }
-`;
-
-const ListViewHeader = styled.div`
-  display: ${(props) =>
-    props.isListView ? "block" : "none"}; /* 리스트 뷰일 때만 표시 */
-  height: 20px;
-  padding-bottom: 22px;
-  font-family: "GmarketSansMedium";
-  font-size: 15px;
-  /* border: 1px solid red; */
-
-  span {
-    margin-right: 355px;
-  }
-`;
-
-const GrayLine = styled.div`
-  border-bottom: 1px solid #a6a6a6;
-  padding-top: 19px;
 `;
 
 function MainContent() {
@@ -227,34 +182,20 @@ function MainContent() {
         </Icons>
       </FunctionWrapper>
       <Contents>
-        <ListViewHeader isListView={isListView}>
-          <span>이름</span>
-          <span>곡 버전</span>
-          <span>Key</span>
-        </ListViewHeader>
-        {isListView
-          ? sheetMusicData.map((sheetMusic, index) => (
-              <SheetMusicItem key={index}>
-                <SheetMusicDetails>
-                  <img src={pageIcon} alt="페이지 아이콘" />
-                  <span>{sheetMusic.title}</span>
-                  <span>{sheetMusic.version} 버전</span>
-                  <span>{sheetMusic.key}</span>
-                </SheetMusicDetails>
-                <GrayLine />
-              </SheetMusicItem>
-            ))
-          : sheetMusicData.map((sheetMusic, index) => (
-              <SheetMusicContainer>
-                <SheetMusicImage
-                  key={index}
-                  src={sheetMusic.imageUrl}
-                  alt={`악보 이미지 ${index}`}
-                />
-              </SheetMusicContainer>
-            ))}
+        {isListView ? (
+          <SheetListView sheetMusicData={sheetMusicData} />
+        ) : (
+          sheetMusicData.map((sheetMusic, index) => (
+            <SheetMusicContainer>
+              <SheetMusicImage
+                key={index}
+                src={sheetMusic.imageUrl}
+                alt={`악보 이미지 ${index}`}
+              />
+            </SheetMusicContainer>
+          ))
+        )}
       </Contents>
-      <SheetListView sheetMusicData={sheetMusicData} />
     </Wrapper>
   );
 }
