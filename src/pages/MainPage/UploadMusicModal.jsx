@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import OpenUploadMusic from "../../asset/Images/Logos/OpenUploadMusicLogo.svg";
+import OpenUploadMusic from "../../assets/Icons/OpenUploadMusicLogo.svg";
 import ImageUploadLogo from "../../asset/Images/Logos/ImageUploadLogo.svg";
 import ConvertToPDF from "../../asset/Images/Icons/ConvertToPdf.svg";
 import PrintingMusic from "../../asset/Images/Icons/PrintingMusic.svg";
