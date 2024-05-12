@@ -6,6 +6,7 @@ import ContiCreateIcon from "../../asset/Images/Icons/ContiCreate.svg";
 import ContiStorageIcon from "../../asset/Images/Icons/ContiStorage.svg";
 import ManageGroup from "../../asset/Images/Icons/ManageGroup.svg";
 import TeamDropdownIcon from "../../asset/Images/Icons/TeamDropdownIcon.svg";
+import SelectGroupDropdown from "./SelectGroupDropdown";
 
 const Wrapper = styled.div`
   display: flex;
@@ -102,8 +103,9 @@ function SelectMenu() {
   return (
     <Wrapper>
       <TeamDropdown>
-        글로리아 팀
-        <img src={TeamDropdownIcon} alt="" />
+        <SelectGroupDropdown />
+        {/* 글로리아 팀 */}
+        {/* <img src={TeamDropdownIcon} alt="" /> */}
       </TeamDropdown>
       <Dropdown>
         <Items>
