@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Table = styled.table`
-  width: 100%;
+  width: 96%;
   margin: 0 auto;
   border-spacing: 0;
 `;

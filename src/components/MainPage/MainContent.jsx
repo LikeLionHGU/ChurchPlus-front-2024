@@ -35,7 +35,7 @@ const Icons = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 96%;
+  width: 100%;
   /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
