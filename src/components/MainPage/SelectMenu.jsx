@@ -108,18 +108,22 @@ function SelectMenu() {
         {/* <img src={TeamDropdownIcon} alt="" /> */}
       </TeamDropdown>
       <Dropdown>
+        <Link to={"/Main"} style={{ textDecoration: 'none' }}>
         <Items>
           <img src={MainPageIcon} alt="" />
           <span>메인 페이지</span>
         </Items>
+        </Link>
         <Items>
           <img src={ContiCreateIcon} alt="" />
           <span>콘티 생성하기</span>
         </Items>
+        <Link to={"/ContiStoragePage"} style={{ textDecoration: 'none' }}>
         <Items>
           <img src={ContiStorageIcon} alt="" />
           <span>콘티 보관함</span>
         </Items>
+        </Link>
         <Link to={"/ManageTeamPage"} style={{ textDecoration: 'none' }}>
         <Items>
           <img src={ManageGroup} alt="" />
