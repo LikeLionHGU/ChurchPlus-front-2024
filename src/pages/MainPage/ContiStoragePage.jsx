@@ -1,5 +1,5 @@
 import React from "react";
-import MainContent from "../../components/MainPage/MainContent";
+import ManageTeam from "../../components/MainPage/ManageTeam";
 import SideBar from "../../components/MainPage/SideBar";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
@@ -7,6 +7,7 @@ import settingIcon from "../../assets/Icons/setting.svg";
 import userImgIcon from "../../assets/Icons/userImg.svg";
 import { HeaderWrapper, Menu, PersonInfo, Icons  } from "../../components/CommonUI/Header";
 import { BlueText } from "../../components/CreateGroupPage/Text";
+import ContiStorage from "../../components/MainPage/ContiStorage";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,13 +18,13 @@ const ContentWrapper = styled.div`
   height: calc(100vh + 177px);
 `;
 
-function MainPage() {
+function ContiStoragePage() {
   return (
     <Wrapper>
       <SideBar />
       <ContentWrapper>
-      <HeaderWrapper>
-          <Menu>악보 보관함</Menu>
+        <HeaderWrapper>
+          <Menu>콘티 보관함</Menu>
           <Icons>
             <img src={bellIcon} alt="벨아이콘"></img>
             <img src={settingIcon} alt="환경설정 아이콘"></img>
@@ -33,10 +34,10 @@ function MainPage() {
             김교회 | <BlueText>인도자</BlueText>
           </PersonInfo>
         </HeaderWrapper>
-        <MainContent />
+        <ContiStorage/>
       </ContentWrapper>
     </Wrapper>
   );
 }
 
-export default MainPage;
+export default ContiStoragePage;

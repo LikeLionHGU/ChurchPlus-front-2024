@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ManageTeamPage from "./pages/MainPage/ManageTeamPage";
+import ContiStoragePage from "./pages/MainPage/ContiStoragePage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/loading" element={<Loading />}></Route>
           <Route path="/SelectTeamPage" element={<SelectTeamPage />}></Route>
           <Route path="/ManageTeamPage" element={<ManageTeamPage/>}></Route> 
+          <Route path="/ContiStoragePage" element={<ContiStoragePage/>}></Route>
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
