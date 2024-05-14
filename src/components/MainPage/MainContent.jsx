@@ -41,7 +41,19 @@ const Contents = styled.div`
   flex-wrap: wrap;
 `;
 
-const SheetMusicContainer = styled.div``;
+const SheetMusicContainer = styled.div`
+  position: relative;
+
+  &:hover .sheet-music-image {
+    filter: brightness(60%);
+    transform: scale(1.1);
+    transform-origin: center;
+  }
+
+  &:hover .sheet-info-overlay {
+    opacity: 1;
+  }
+`;
 
 const SheetMusicImage = styled.img`
   width: 275px;
@@ -49,15 +61,30 @@ const SheetMusicImage = styled.img`
   object-fit: cover;
   object-position: top;
   cursor: pointer;
-
   margin-right: 20px;
   margin-bottom: 29px;
   border-radius: 16px;
-
   filter: opacity(0.7) drop-shadow(0 0 0 #bdbdbd);
+  transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out;
+`;
 
-  &:hover {
-    filter: opacity(0.8) drop-shadow(0 0 0 #7b7b7b);
+const SheetInfoOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 23px;
+  opacity: 0;
+  color: White;
+  transition: opacity 0.3s ease-in-out;
+
+  p {
+    position: absolute;
+    bottom: 88px;
   }
 `;
 
@@ -186,13 +213,20 @@ function MainContent() {
           <SheetListView sheetMusicData={sheetMusicData} />
         ) : (
           sheetMusicData.map((sheetMusic, index) => (
-            <SheetMusicContainer>
-              <SheetMusicImage
-                key={index}
-                src={sheetMusic.imageUrl}
-                alt={`악보 이미지 ${index}`}
-              />
-            </SheetMusicContainer>
+            <div key={index}>
+              <SheetMusicContainer>
+                <SheetMusicImage
+                  className="sheet-music-image"
+                  src={sheetMusic.imageUrl}
+                  alt={`악보 이미지 ${index}`}
+                />
+                <SheetInfoOverlay className="sheet-info-overlay">
+                  <p>
+                    {sheetMusic.title} | {sheetMusic.key} Key
+                  </p>
+                </SheetInfoOverlay>
+              </SheetMusicContainer>
+            </div>
           ))
         )}
       </Contents>
