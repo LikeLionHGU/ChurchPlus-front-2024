@@ -42,12 +42,8 @@ const SearchBtn = styled.button`
 `;
 
 function SearchBar({ setSearch, placeholder }) {
-  const [searchInput, setSearchInput] = useState("");
-
   const handleInputChange = (e) => {
-    const inputValue = e.target.value;
-    setSearchInput(inputValue);
-    setSearch(inputValue);
+    setSearch(e.target.value);
   };
 
   return (
@@ -56,7 +52,6 @@ function SearchBar({ setSearch, placeholder }) {
         <input
           type="text"
           name="searchMusicName"
-          value={searchInput}
           onChange={handleInputChange}
           placeholder={placeholder}
         />
