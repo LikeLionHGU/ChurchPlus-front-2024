@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
@@ -19,7 +19,7 @@ const Menu = styled.div`
   color: #325692;
   border: none;
   height: 42px;
-  width: 153px;
+  width: 200px;
   cursor: pointer;
   border-radius: 10px;
   background-color: white;
@@ -48,7 +48,7 @@ const Icons = styled.div`
   }
 `;
 
-function Header() {
+function Header({ menu }) {
   // const [isTeamManagementModalOpen, setTeamManagementModalOpen] =
   //   useState(false);
 
@@ -61,7 +61,7 @@ function Header() {
 
   return (
     <Wrapper>
-      <Menu>악보 보관함</Menu>
+      <Menu>{menu}</Menu>
       <Icons>
         <img src={bellIcon} alt="벨아이콘"></img>
         <img src={settingIcon} alt="환경설정 아이콘"></img>
