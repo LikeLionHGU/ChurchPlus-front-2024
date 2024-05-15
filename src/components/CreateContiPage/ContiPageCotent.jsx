@@ -1,35 +1,49 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SearchBar from "./SearchBar";
-import KeySelectDropdown from "./KeySelectDropdown";
-import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
-import viewListIcon from "../../assets/Icons/viewList.svg";
-import viewGridIcon from "../../assets/Icons/viewGrid.svg";
-import SheetListView from "./SheetListView";
+import SearchBar from "../MainPage/SearchBar";
+import KeySelectDropdown from "../MainPage/KeySelectDropdown";
+import { BlueText } from "../CreateGroupPage/Text";
+import checkIcon from "../../assets/Icons/check.svg";
+import nextBtnIcon from "../../assets/Icons/nextStepBtn.svg";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
   height: 100%;
-  padding-top: 23px;
   padding-left: 36px;
 `;
 
 const FunctionWrapper = styled.div`
   display: flex;
-  height: 42px;
-  margin-bottom: 34px;
+  height: 66px;
+  margin-bottom: 33px;
   width: 100%;
   /* border: 1px solid #3e5692; */
 `;
 
-const Icons = styled.div`
+const SearchComponents = styled.div`
+  display: flex;
+  padding-top: 23px;
+`;
+
+const Info = styled.div`
   margin-left: auto;
-  padding-top: 9px;
-  /* border: 1px solid red; */
-  height: 24px;
-  padding-right: 46px;
+  margin-right: 40px;
+`;
+
+const SelectConti = styled.div`
+  font-size: 16px;
+  margin-bottom: 14px;
   img {
-    margin-right: 11px;
+    height: 20px;
+    vertical-align: middle;
+  }
+`;
+const NumOfConti = styled.div`
+  font-size: 24px;
+  img {
+    height: 24px;
+    vertical-align: middle;
+    padding-left: 10px;
     cursor: pointer;
   }
 `;
@@ -63,7 +77,7 @@ const SheetMusicImage = styled.img`
   margin-right: 20px;
   margin-bottom: 29px;
   border-radius: 16px;
-  filter: opacity(0.7) drop-shadow(0 0 0 #bdbdbd);
+  filter: opacity(0.7) drop-shadow(0 0 0 #292929);
   transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out;
 `;
 
@@ -88,8 +102,7 @@ const SheetInfoOverlay = styled.div`
   }
 `;
 
-function MainContent() {
-  const [isListView, setIsListView] = useState(false);
+function ContiPageContent() {
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
 
@@ -208,48 +221,42 @@ function MainContent() {
   return (
     <Wrapper>
       <FunctionWrapper>
-        <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
-        <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
-        <KeySelectDropdown />
-        <UploadMusicModal />
-
-        <Icons>
-          <img
-            src={viewListIcon}
-            alt="리스트뷰 아이콘"
-            onClick={() => setIsListView(true)}
-          />
-          <img
-            src={viewGridIcon}
-            alt="그리드뷰 아이콘"
-            onClick={() => setIsListView(false)}
-          />
-        </Icons>
+        <SearchComponents>
+          <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
+          <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
+          <KeySelectDropdown />
+        </SearchComponents>
+        <Info>
+          <SelectConti>
+            곡을 선택해주세요
+            <img src={checkIcon} alt="체크 아이콘" />
+          </SelectConti>
+          <NumOfConti>
+            현재 <BlueText>2</BlueText>곡이 담겨있어요
+            <img src={nextBtnIcon} alt="다음버튼 아이콘" />
+          </NumOfConti>
+        </Info>
       </FunctionWrapper>
       <Contents>
-        {isListView ? (
-          <SheetListView sheetMusicData={filteredData} />
-        ) : (
-          filteredData.map((sheetMusic, index) => (
-            <div key={index}>
-              <SheetMusicContainer>
-                <SheetMusicImage
-                  className="sheet-music-image"
-                  src={sheetMusic.imageUrl}
-                  alt={`악보 이미지 ${index}`}
-                />
-                <SheetInfoOverlay className="sheet-info-overlay">
-                  <p>
-                    {sheetMusic.title} | {sheetMusic.key} Key
-                  </p>
-                </SheetInfoOverlay>
-              </SheetMusicContainer>
-            </div>
-          ))
-        )}
+        {filteredData.map((sheetMusic, index) => (
+          <div key={index}>
+            <SheetMusicContainer>
+              <SheetMusicImage
+                className="sheet-music-image"
+                src={sheetMusic.imageUrl}
+                alt={`악보 이미지 ${index}`}
+              />
+              <SheetInfoOverlay className="sheet-info-overlay">
+                <p>
+                  {sheetMusic.title} | {sheetMusic.key} Key
+                </p>
+              </SheetInfoOverlay>
+            </SheetMusicContainer>
+          </div>
+        ))}
       </Contents>
     </Wrapper>
   );
 }
 
-export default MainContent;
+export default ContiPageContent;
