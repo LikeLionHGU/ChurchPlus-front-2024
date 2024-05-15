@@ -90,7 +90,8 @@ const SheetInfoOverlay = styled.div`
 
 function MainContent() {
   const [isListView, setIsListView] = useState(false);
-  const [, setSearch] = useState("");
+  const [titleSearch, setTitleSearch] = useState("");
+  const [versionSearch, setVersionSearch] = useState("");
 
   // 악보이미지 더미
   const sheetMusicData = [
@@ -187,11 +188,28 @@ function MainContent() {
     },
   ];
 
+  const filteredData = sheetMusicData.filter((sheetMusic) => {
+    const formattedTitle = sheetMusic.title.toLowerCase().replace(/\s/g, "");
+    const formattedVersion = sheetMusic.version
+      .toLowerCase()
+      .replace(/\s/g, "");
+
+    const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
+    const formattedVersionSearch = versionSearch
+      .toLowerCase()
+      .replace(/\s/g, "");
+
+    return (
+      formattedTitle.includes(formattedTitleSearch) &&
+      formattedVersion.includes(formattedVersionSearch)
+    );
+  });
+
   return (
     <Wrapper>
       <FunctionWrapper>
-        <SearchBar setSearch={setSearch} placeholder="곡 제목 검색" />
-        <SearchBar setSearch={setSearch} placeholder="곡 버전 검색" />
+        <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
+        <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
         <KeySelectDropdown />
         <UploadMusicModal />
 
@@ -210,9 +228,9 @@ function MainContent() {
       </FunctionWrapper>
       <Contents>
         {isListView ? (
-          <SheetListView sheetMusicData={sheetMusicData} />
+          <SheetListView sheetMusicData={filteredData} />
         ) : (
-          sheetMusicData.map((sheetMusic, index) => (
+          filteredData.map((sheetMusic, index) => (
             <div key={index}>
               <SheetMusicContainer>
                 <SheetMusicImage
