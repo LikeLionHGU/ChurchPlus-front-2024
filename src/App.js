@@ -12,6 +12,7 @@ import SelectTeamPage from "./pages/HomePage/SelectTeamPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ManageTeamPage from "./pages/MainPage/ManageTeamPage";
 import ContiStoragePage from "./pages/MainPage/ContiStoragePage";
+import CreateContiPage from "./pages/MainPage/CreateContiPage";
 
 function App() {
   return (
@@ -27,8 +28,12 @@ function App() {
           <Route path="/InputPosition" element={<InputPosition />}></Route>
           <Route path="/loading" element={<Loading />}></Route>
           <Route path="/SelectTeamPage" element={<SelectTeamPage />}></Route>
-          <Route path="/ManageTeamPage" element={<ManageTeamPage/>}></Route> 
-          <Route path="/ContiStoragePage" element={<ContiStoragePage/>}></Route>
+          <Route path="/ManageTeamPage" element={<ManageTeamPage />}></Route>
+          <Route
+            path="/ContiStoragePage"
+            element={<ContiStoragePage />}
+          ></Route>
+          <Route path="/CreateContiPage" element={<CreateContiPage />}></Route>
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
