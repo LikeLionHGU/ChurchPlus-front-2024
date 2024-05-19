@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import NotUsedToIt from "../../asset/Images/Icons/NotUsedToIt.svg";
-import LittleBitFamiliar from "../../asset/Images/Icons/LittleBitFamiliar.svg";
-import Famiiliary from "../../asset/Images/Icons/Familiary.svg";
-import ExitButton from "../../asset/Images/Buttons/ExitButton.svg";
+import LittleBitFamiliar from "../../../asset/Images/Icons/LittleBitFamiliar.svg";
+import Famiiliary from "../../../asset/Images/Icons/Familiary.svg";
+import NotUsedToIt from "../../../asset/Images/Icons/NotUsedToIt.svg";
+import ExitButton from "../../../asset/Images/Buttons/ExitButton.svg";
+import { useSetRecoilState } from "recoil";
+import { introModalState, searchBarModalState } from "../../../atom";
+import { useRecoilState } from "recoil";
+
 
 const modalStyles = `
   width: 100vw;
@@ -128,7 +132,9 @@ const ConfirmButton = styled.div`
 `;
 
 export default function IntroModal() {
-  const [introModal, setIntroModal] = useState(false);
+  const setSearchBarModal = useSetRecoilState(searchBarModalState);
+  const [introModal, setIntroModal] = useRecoilState(introModalState);
+
   const toggleIntroModal = () => {
     setIntroModal((prevState) => !prevState);
   };
@@ -140,6 +146,11 @@ export default function IntroModal() {
       document.body.style.overflow = "auto";
     }
   }, [introModal]);
+
+  const openSearchBarModal = () => {
+    toggleIntroModal();
+    setSearchBarModal(true);
+  }
 
   return (
     <>
@@ -159,9 +170,9 @@ export default function IntroModal() {
               서비스를 이용해본 경험이 있으신가요?
             </HaveYouTriedItBefore>
             <CardContainer>
-              <Card>
+            <Card onClick={openSearchBarModal}>
                 <img src={NotUsedToIt} alt="" />
-                <CardText>익숙하지 않음</CardText>
+                <CardText>약간 익숙함</CardText>
               </Card>
               <Card>
                 <img src={LittleBitFamiliar} alt="" />
@@ -172,7 +183,7 @@ export default function IntroModal() {
                 <CardText>아주 익숙함</CardText>
               </Card>
             </CardContainer>
-            <ConfirmButton>확인</ConfirmButton>
+            <ConfirmButton onClick={toggleIntroModal}>확인</ConfirmButton>
           </ModalContent>
         </Modal>
       )}
