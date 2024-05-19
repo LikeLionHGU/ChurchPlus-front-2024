@@ -6,6 +6,11 @@ import UploadMusicModal from "../../pages/MainPage/UploadMusicModal";
 import viewListIcon from "../../assets/Icons/viewList.svg";
 import viewGridIcon from "../../assets/Icons/viewGrid.svg";
 import SheetListView from "./SheetListView";
+import IntroModal from "../../pages/MainPage/Intro/IntroModal";
+import SearchBarModal from "../../pages/MainPage/Intro/SearchBarModal";
+import KeyModal from "../../pages/MainPage/Intro/KeyModal";
+import UploadModal from "../../pages/MainPage/Intro/UploadModal";
+
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -92,7 +97,7 @@ function MainContent() {
   const [isListView, setIsListView] = useState(false);
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
-
+  
   // 악보이미지 더미
   const sheetMusicData = [
     {
@@ -212,6 +217,10 @@ function MainContent() {
         <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
         <KeySelectDropdown />
         <UploadMusicModal />
+        <IntroModal />
+        <SearchBarModal />
+        <KeyModal />
+        <UploadModal/>
 
         <Icons>
           <img
