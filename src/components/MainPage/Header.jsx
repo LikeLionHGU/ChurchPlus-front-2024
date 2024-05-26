@@ -71,7 +71,7 @@ function Header({ menu }) {
       <PersonInfo>
         김교회 | <BlueText>인도자</BlueText>
       </PersonInfo>
-      {/* <ReadContiModal /> */}
+      <ReadContiModal />
     </Wrapper>
   );
 }

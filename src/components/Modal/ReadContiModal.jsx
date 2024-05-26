@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import shareIcon from "../../assets/Icons/ShareConti.svg";
 import printIcon from "../../assets/Icons/printPage.svg";
+import editBtn from "../../assets/Icons/EditBtn.svg";
 
 const modalStyles = `
   width: 100vw;
@@ -85,6 +86,14 @@ const ContiInfo = styled.div`
   /* border: 1px solid red; */
   width: 419px;
   height: 500px;
+
+  img {
+    cursor: pointer;
+    margin-top: 60px;
+    margin-left: 355px;
+    width: 79px;
+    height: 51px;
+  }
 `;
 
 const BoldText = styled.div`
@@ -146,6 +155,7 @@ export default function ReadContiModal() {
                 <LightText>
                   https://github.com/LikeLionHGU/ChurchPlus-front-2024
                 </LightText>
+                <img src={editBtn} alt="수정버튼" />
               </ContiInfo>
             </ModalContent>
           </ContiModal>
@@ -155,93 +165,3 @@ export default function ReadContiModal() {
     </>
   );
 }
-
-// const ModalTop = styled.div`
-//   display: flex;
-//   font-size: 22px;
-// `;
-
-// const Title = styled.div`
-//   text-align: center;
-//   width: 25rem;
-//   height: 2.5rem;
-//   margin-left: 6rem;
-//   margin-right: 3.9rem;
-//   border-bottom: 1px solid #c1c1c1;
-// `;
-
-// const Icons = styled.div`
-//   img {
-//     padding-top: 0.8rem;
-//     height: 1.7rem;
-//   }
-
-//   img:not(:last-child) {
-//     padding-right: 1rem;
-//   }
-// `;
-
-// const ModalBody = styled.div`
-//   display: flex;
-// `;
-
-// const Photo = styled.div`
-//   margin-right: 2rem;
-//   width: 495px;
-//   height: 35.5rem;
-
-//   //이미지 영역 확인용
-//   border: 1px solid #c5bed3;
-
-//   img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: contain;
-//     background-position: top; /* 이미지의 상단부터 보이도록 설정 */
-//   }
-// `;
-
-// const Link = styled.div`
-//   display: flex;
-//   width: 15rem;
-//   padding-top: 1rem;
-//   margin-bottom: 0.8rem;
-//   justify-content: left;
-//   cursor: pointer;
-//   overflow: auto;
-
-//   &::-webkit-scrollbar {
-//     display: none;
-//   }
-
-//   div {
-//     color: #281a47;
-//   }
-//   img {
-//     padding-top: 0.2rem;
-//     height: 1.2rem;
-//   }
-// `;
-
-// const Text = styled.div`
-//   background-color: #ffffff;
-//   width: 13rem;
-//   height: 26rem;
-//   border-radius: 1.5rem;
-//   text-align: center;
-//   padding: 1rem;
-//   padding-top: 2rem;
-//   white-space: pre-line; /* 엔터를 <br> 태그로 변환하여 줄 바꿈 처리 */
-//   overflow: auto;
-
-//   &::-webkit-scrollbar {
-//     display: none; /* 크롬, 사파리, 오페라, 엣지 */
-//   }
-// `;
-
-// const CloseModal = styled.div`
-//   cursor: pointer;
-//   img {
-//     height: 3rem;
-//   }
-// `;
