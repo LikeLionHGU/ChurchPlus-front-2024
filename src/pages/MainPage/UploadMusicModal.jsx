@@ -30,7 +30,7 @@ const ModalOpen = styled.div`
   display: flex;
   align-items: center;
   height: 41px;
-  width: 145px;
+  min-width: 145px;
   font-size: 20px;
   text-align: center;
   justify-content: center;
