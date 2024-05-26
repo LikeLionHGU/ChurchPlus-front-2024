@@ -8,7 +8,6 @@ import { useSetRecoilState } from "recoil";
 import { introModalState, searchBarModalState } from "../../../atom";
 import { useRecoilState } from "recoil";
 
-
 const modalStyles = `
   width: 100vw;
   height: 100vh;
@@ -91,8 +90,9 @@ const HaveYouTriedItBefore = styled.div`
 const CardContainer = styled.div`
   display: flex;
   margin-top: 25px;
-  width: 900px;
+  width: 591px;
   justify-content: space-between;
+  /* border: 1px solid red; */
 `;
 
 const Card = styled.div`
@@ -150,12 +150,12 @@ export default function IntroModal() {
   const openSearchBarModal = () => {
     toggleIntroModal();
     setSearchBarModal(true);
-  }
+  };
 
   return (
     <>
       <ModalOpen onClick={toggleIntroModal}>
-        <div>Intro Modal</div>
+        <div>인트로 모달</div>
       </ModalOpen>
       {introModal && (
         <Modal>
@@ -170,15 +170,15 @@ export default function IntroModal() {
               서비스를 이용해본 경험이 있으신가요?
             </HaveYouTriedItBefore>
             <CardContainer>
-            <Card onClick={openSearchBarModal}>
+              <Card onClick={openSearchBarModal}>
                 <img src={NotUsedToIt} alt="" />
-                <CardText>약간 익숙함</CardText>
+                <CardText>익숙하지 않음</CardText>
               </Card>
-              <Card>
+              {/* <Card>
                 <img src={LittleBitFamiliar} alt="" />
                 <CardText>약간 익숙함</CardText>
-              </Card>
-              <Card>
+              </Card> */}
+              <Card onClick={toggleIntroModal}>
                 <img src={Famiiliary} alt="" />
                 <CardText>아주 익숙함</CardText>
               </Card>
