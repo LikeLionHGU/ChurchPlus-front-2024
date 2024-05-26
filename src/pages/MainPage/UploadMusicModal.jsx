@@ -267,7 +267,7 @@ export default function UploadMusicModal() {
                 ref={fileInputRef}
               />
             </UploadImageBtn>
-            <SubmitBtn>저장</SubmitBtn>
+            <SubmitBtn onClick={toggleUploadMusicModal}>저장</SubmitBtn>
           </ModalContent>
         </Modal>
       )}
