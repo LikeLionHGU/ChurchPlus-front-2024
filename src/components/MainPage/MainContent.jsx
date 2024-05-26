@@ -11,7 +11,6 @@ import SearchBarModal from "../../pages/MainPage/Intro/SearchBarModal";
 import KeyModal from "../../pages/MainPage/Intro/KeyModal";
 import UploadModal from "../../pages/MainPage/Intro/UploadModal";
 
-
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
   height: 100%;
@@ -24,7 +23,7 @@ const FunctionWrapper = styled.div`
   height: 42px;
   margin-bottom: 34px;
   width: 100%;
-  /* border: 1px solid #3e5692; */
+  border: 1px solid #3e5692;
 `;
 
 const Icons = styled.div`
@@ -32,6 +31,7 @@ const Icons = styled.div`
   padding-top: 9px;
   /* border: 1px solid red; */
   height: 24px;
+  min-width: 70px;
   padding-right: 46px;
   img {
     margin-right: 11px;
@@ -97,7 +97,7 @@ function MainContent() {
   const [isListView, setIsListView] = useState(false);
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
-  
+
   // 악보이미지 더미
   const sheetMusicData = [
     {
@@ -220,7 +220,7 @@ function MainContent() {
         <IntroModal />
         <SearchBarModal />
         <KeyModal />
-        <UploadModal/>
+        <UploadModal />
 
         <Icons>
           <img
