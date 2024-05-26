@@ -106,10 +106,10 @@ const LightText = styled.div`
   padding-bottom: 30px;
 `;
 
-export default function ReadContiModal() {
+export default function ModifyContiModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleReadContiModal = () => {
+  const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
   };
 
@@ -128,7 +128,7 @@ export default function ReadContiModal() {
     <>
       {isModalOpen && (
         <Modal>
-          <Overlay onClick={toggleReadContiModal} />
+          <Overlay onClick={toggleModifyContiModal} />
           <ContiModal>
             <ModalTop>
               <ContiTitle>예수로 살리</ContiTitle>
@@ -155,14 +155,17 @@ export default function ReadContiModal() {
                 <LightText>
                   https://github.com/LikeLionHGU/ChurchPlus-front-2024
                 </LightText>
-                {/* 읽기만 하는 모달은 버튼 따로 필요없을듯 */}
-                {/* <img src={editBtn} alt="수정버튼" /> */}
+                <img
+                  src={editBtn}
+                  alt="수정버튼"
+                  onClick={toggleModifyContiModal}
+                />
               </ContiInfo>
             </ModalContent>
           </ContiModal>
         </Modal>
       )}
-      <button onClick={toggleReadContiModal}>콘티모달</button>
+      <button onClick={toggleModifyContiModal}>콘티수정모달</button>
     </>
   );
 }

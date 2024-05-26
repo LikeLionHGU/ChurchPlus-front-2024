@@ -228,7 +228,11 @@ export default function ContiStepModal() {
                   </LightText>
                   <BoldText>메모</BoldText>
                   <textarea placeholder="메모를 자유롭게 입력하세요"></textarea>
-                  <img src={saveBtn} alt="저장버튼" />
+                  <img
+                    src={saveBtn}
+                    alt="저장버튼"
+                    onClick={toggleContiStepModal}
+                  />
                 </ContiInfo>
               </ModalContent>
               <Arrow src={rightArrow} onClick={handleNextStep} />
