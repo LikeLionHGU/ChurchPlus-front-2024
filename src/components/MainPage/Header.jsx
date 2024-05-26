@@ -4,6 +4,7 @@ import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
 import userImgIcon from "../../assets/Icons/userImg.svg";
 import { BlueText } from "../CreateGroupPage/Text";
+import ReadContiModal from "../Modal/ReadContiModal";
 // import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
@@ -70,6 +71,7 @@ function Header({ menu }) {
       <PersonInfo>
         김교회 | <BlueText>인도자</BlueText>
       </PersonInfo>
+      {/* <ReadContiModal /> */}
     </Wrapper>
   );
 }
