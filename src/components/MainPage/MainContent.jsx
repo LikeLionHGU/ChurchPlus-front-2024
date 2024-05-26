@@ -97,6 +97,7 @@ function MainContent() {
   const [isListView, setIsListView] = useState(false);
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
+  const [keySearch, setKeySearch] = useState("");
 
   // 악보이미지 더미
   const sheetMusicData = [
@@ -198,7 +199,6 @@ function MainContent() {
     const formattedVersion = sheetMusic.version
       .toLowerCase()
       .replace(/\s/g, "");
-
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
     const formattedVersionSearch = versionSearch
       .toLowerCase()
@@ -206,7 +206,8 @@ function MainContent() {
 
     return (
       formattedTitle.includes(formattedTitleSearch) &&
-      formattedVersion.includes(formattedVersionSearch)
+      formattedVersion.includes(formattedVersionSearch) &&
+      (keySearch === "" || sheetMusic.key === keySearch)
     );
   });
 
@@ -215,7 +216,7 @@ function MainContent() {
       <FunctionWrapper>
         <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
         <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
-        <KeySelectDropdown />
+        <KeySelectDropdown setSearch={setKeySearch} />
         <UploadMusicModal />
         <IntroModal />
         <SearchBarModal />

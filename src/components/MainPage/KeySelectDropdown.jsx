@@ -101,7 +101,7 @@ const KeyItemBottom = styled.div`
   }
 `;
 
-function SelectKeyDropdown({ setSelectedKey }) {
+function SelectKeyDropdown({ setSearch }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState({ label: "", value: "" });
   const dropdownRef = useRef(null); // 드롭다운 요소에 대한 ref를 생성
@@ -145,10 +145,10 @@ function SelectKeyDropdown({ setSelectedKey }) {
     if (selected.label === keyOption.label) {
       // 이미 선택된 레이블을 다시 선택한 경우 선택을 해제
       setSelected({ label: "", value: "" });
-      setSelectedKey(""); // 선택이 해제되었음을 상위 컴포넌트에 알림
+      setSearch(""); // 선택이 해제되었음을 상위 컴포넌트에 알림
     } else {
       setSelected(keyOption);
-      setSelectedKey(keyOption.label); // 선택한 키 레이블을 상위 컴포넌트로 전달
+      setSearch(keyOption.label); // 선택한 키 레이블을 상위 컴포넌트로 전달
     }
     setIsActive(false);
   };
