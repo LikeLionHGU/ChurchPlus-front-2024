@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: calc(100vw - 203px);
+  width: calc(100% - 203px);
   height: calc(100vh + 177px);
 `;
 

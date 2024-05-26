@@ -11,7 +11,6 @@ import SearchBarModal from "../../pages/MainPage/Intro/SearchBarModal";
 import KeyModal from "../../pages/MainPage/Intro/KeyModal";
 import UploadModal from "../../pages/MainPage/Intro/UploadModal";
 
-
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
   height: 100%;
@@ -32,6 +31,7 @@ const Icons = styled.div`
   padding-top: 9px;
   /* border: 1px solid red; */
   height: 24px;
+  min-width: 70px;
   padding-right: 46px;
   img {
     margin-right: 11px;
@@ -97,7 +97,8 @@ function MainContent() {
   const [isListView, setIsListView] = useState(false);
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
-  
+  const [keySearch, setKeySearch] = useState("");
+
   // 악보이미지 더미
   const sheetMusicData = [
     {
@@ -198,7 +199,6 @@ function MainContent() {
     const formattedVersion = sheetMusic.version
       .toLowerCase()
       .replace(/\s/g, "");
-
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
     const formattedVersionSearch = versionSearch
       .toLowerCase()
@@ -206,7 +206,8 @@ function MainContent() {
 
     return (
       formattedTitle.includes(formattedTitleSearch) &&
-      formattedVersion.includes(formattedVersionSearch)
+      formattedVersion.includes(formattedVersionSearch) &&
+      (keySearch === "" || sheetMusic.key === keySearch)
     );
   });
 
@@ -215,12 +216,12 @@ function MainContent() {
       <FunctionWrapper>
         <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
         <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
-        <KeySelectDropdown />
+        <KeySelectDropdown setSearch={setKeySearch} />
         <UploadMusicModal />
         <IntroModal />
         <SearchBarModal />
         <KeyModal />
-        <UploadModal/>
+        <UploadModal />
 
         <Icons>
           <img

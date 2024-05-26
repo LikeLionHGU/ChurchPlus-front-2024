@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg"
+import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
 import { borderRadius, fontFamily, width } from "@mui/system";
 
 export default function SelectYearDropdown() {
@@ -18,7 +18,7 @@ export default function SelectYearDropdown() {
 
   const menuItemStyle = {
     fontFamily: "GmarketSansLight",
-    fontSize: "23px",
+    fontSize: "18px",
     width: "200px",
     height: "39px",
     "&:hover": {
@@ -26,11 +26,7 @@ export default function SelectYearDropdown() {
     },
   };
 
-  const options = [
-    "2022",
-    "2023",
-    "2024",
-  ];
+  const options = ["2022", "2023", "2024"];
 
   return (
     <div>
@@ -40,7 +36,11 @@ export default function SelectYearDropdown() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", fontSize: "28px", fontFamily: "GmarketSansLight" }}
+        sx={{
+          color: "black",
+          fontSize: "22px",
+          fontFamily: "GmarketSansLight",
+        }}
       >
         2024년
         <img src={DateDropdown} alt="" />

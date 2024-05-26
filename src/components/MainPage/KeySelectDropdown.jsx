@@ -2,6 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import vectorIcons from "../../assets/Icons/Vector.svg";
 
+const KeyItems = styled.div`
+  margin-top: 6px;
+  border: 1px solid #9d9d9d;
+  font-size: 18px;
+  width: 266px;
+  height: 88px;
+  border-radius: 10px;
+  background-color: white;
+
+  display: ${({ isActive }) => (isActive ? "block" : "none")};
+`;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: left;
@@ -10,7 +22,16 @@ const Wrapper = styled.div`
   margin-right: 20px;
 
   position: relative;
+  /* 부모 컨테이너를 기준으로 자식 컴포넌트의 위치를 조정하기 위해 relative를 설정  */
   z-index: 1;
+
+  /* isActive가 true일 때만 드롭다운을 보이도록 설정 */
+  ${KeyItems} {
+    display: ${({ isActive }) => (isActive ? "block" : "none")};
+    position: absolute; /* 드롭다운을 절대 위치로 설정 */
+    top: 45px; /* 드롭다운이 키 컴포넌트 아래에 위치하도록 조정 */
+    left: 0;
+  }
 `;
 
 const KeyDropdown = styled.div`
@@ -33,18 +54,6 @@ const KeyDropdown = styled.div`
     padding-right: 22px;
     float: right;
   }
-`;
-
-const KeyItems = styled.div`
-  margin-top: 6px;
-  border: 1px solid #9d9d9d;
-  font-size: 18px;
-  width: 266px;
-  height: 88px;
-  border-radius: 10px;
-  background-color: white;
-
-  display: ${({ isActive }) => (isActive ? "block" : "none")};
 `;
 
 const KeyItemTop = styled.div`
@@ -92,7 +101,7 @@ const KeyItemBottom = styled.div`
   }
 `;
 
-function SelectKeyDropdown({ setSelectedKey }) {
+function SelectKeyDropdown({ setSearch }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState({ label: "", value: "" });
   const dropdownRef = useRef(null); // 드롭다운 요소에 대한 ref를 생성
@@ -136,15 +145,15 @@ function SelectKeyDropdown({ setSelectedKey }) {
     if (selected.label === keyOption.label) {
       // 이미 선택된 레이블을 다시 선택한 경우 선택을 해제
       setSelected({ label: "", value: "" });
-      setSelectedKey(""); // 선택이 해제되었음을 상위 컴포넌트에 알림
+      setSearch(""); // 선택이 해제되었음을 상위 컴포넌트에 알림
     } else {
       setSelected(keyOption);
-      setSelectedKey(keyOption.label); // 선택한 키 레이블을 상위 컴포넌트로 전달
+      setSearch(keyOption.label); // 선택한 키 레이블을 상위 컴포넌트로 전달
     }
     setIsActive(false);
   };
   return (
-    <Wrapper>
+    <Wrapper isActive={isActive}>
       <div ref={dropdownRef}>
         <KeyDropdown onClick={(e) => setIsActive(!isActive)}>
           {selected.label !== "" ? selected.label : ""} Key
