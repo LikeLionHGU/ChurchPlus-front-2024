@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg"
+import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
 import { borderRadius, fontFamily, width } from "@mui/system";
 
 export default function SelectMonthDropdown() {
@@ -49,7 +49,11 @@ export default function SelectMonthDropdown() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", fontSize: "28px", fontFamily: "GmarketSansLight" }}
+        sx={{
+          color: "black",
+          fontSize: "22px",
+          fontFamily: "GmarketSansLight",
+        }}
       >
         1월
         <img src={DateDropdown} alt="" />
