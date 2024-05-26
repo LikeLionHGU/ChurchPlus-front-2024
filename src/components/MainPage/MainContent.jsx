@@ -23,7 +23,7 @@ const FunctionWrapper = styled.div`
   height: 42px;
   margin-bottom: 34px;
   width: 100%;
-  border: 1px solid #3e5692;
+  /* border: 1px solid #3e5692; */
 `;
 
 const Icons = styled.div`
