@@ -14,7 +14,7 @@ import ManageTeamPage from "./pages/MainPage/ManageTeamPage";
 import ContiStoragePage from "./pages/MainPage/ContiStoragePage";
 import CreateContiPage from "./pages/MainPage/CreateContiPage";
 import CreateNewGroupPage from "./pages/CreateGroupPage/CreateNewGroupPage";
-import JoinAlreadyExistGroupPage from "./pages/CreateGroupPage/JoinAlreadyExistGroupPage";
+import JoinExistGroupPage from "./pages/CreateGroupPage/JoinExistGroupPage";
 
 function App() {
   return (
@@ -28,10 +28,7 @@ function App() {
             path="/CreateNewGroup"
             element={<CreateNewGroupPage />}
           ></Route>
-          <Route
-            path="/JoinGroup"
-            element={<JoinAlreadyExistGroupPage />}
-          ></Route>
+          <Route path="/JoinGroup" element={<JoinExistGroupPage />}></Route>
           <Route path="/InputGroupCode" element={<InputGroupCode />}></Route>
           <Route path="/InputGroupName" element={<InputGroupName />}></Route>
           <Route path="/InputUserName" element={<InputUserName />}></Route>
