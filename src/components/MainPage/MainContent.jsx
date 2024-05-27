@@ -40,7 +40,7 @@ const Icons = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 100%;
+  min-width: 1200px;
   /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
@@ -48,6 +48,7 @@ const Contents = styled.div`
 
 const SheetMusicContainer = styled.div`
   position: relative;
+  /* border: 1px solid #3e5692; */
 
   &:hover .sheet-music-image {
     filter: brightness(60%);
