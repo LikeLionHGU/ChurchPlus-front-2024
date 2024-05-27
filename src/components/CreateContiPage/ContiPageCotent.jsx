@@ -50,7 +50,8 @@ const NumOfConti = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 100%;
+  /* width: 100%; */
+  min-width: 1200px;
   /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
