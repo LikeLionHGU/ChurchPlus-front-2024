@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import startBtnSVG from "../../assets/images/commonUI/StartButtonSVG.svg";
-import prevBtnSVG from "../../assets/images/commonUI/PrevButtonSVG.svg";
 import img1 from "../../assets/images/groupPositionImg/1_Leader.svg";
 import img2 from "../../assets/images/groupPositionImg/2_MainCindy.svg";
 import img3 from "../../assets/images/groupPositionImg/3_SecondCindy.svg";
@@ -14,9 +12,9 @@ import img9 from "../../assets/images/groupPositionImg/9_Enginner.svg";
 import img10 from "../../assets/images/groupPositionImg/10_Pastor.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
-import { TopCompleteBars } from "../../components/CreateGroupPage/TopCompleteBar";
-import { PrevBtn, StartBtn } from "../../components/CreateGroupPage/Button";
 import { BlueText } from "../../components/CreateGroupPage/Text";
+import groomLogo from "../../assets/logo/GroomLogo.svg";
+import startBtn from "../../assets/Icons/StartBtn.svg";
 // import createGroup from "../../apis/createGroup";
 
 const positionImages = [
@@ -62,32 +60,41 @@ const positionImages = [
   },
 ];
 
+const Logo = styled.img`
+  height: 48px;
+  width: 123px;
+  margin-left: 40px;
+  margin-top: 36px;
+`;
+
 const Text = styled.div`
   font-size: 40px;
   padding-left: 8.5%;
-  padding-top: 4%;
+  margin-top: 50px;
   color: black;
+  /* border: 1px solid red; */
 `;
 
 const PositionContainer = styled.div`
-  margin: 2rem auto 0rem auto;
+  margin: 76px auto 0px auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   width: 85%;
+  /* border: 1px solid red; */
 `;
 
 const PositionItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 54px;
 `;
 
 const ImageContainer = styled.div`
-  height: 130px;
-  width: 130px;
-  border: 5px solid
-    ${({ $isSelected }) => ($isSelected ? "#325692" : "transparent")};
+  height: 120px;
+  width: 120px;
+  border: 7px solid
+    ${({ $isSelected }) => ($isSelected ? "#ccdfff" : "transparent")};
   border-radius: 30px;
 `;
 
@@ -109,6 +116,16 @@ const Input = styled.div`
   font-size: 30px;
   text-align: center;
   color: black;
+`;
+
+const StartBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  img {
+    cursor: pointer;
+    width: 148px;
+    height: 50px;
+  }
 `;
 
 function InputPosition() {
@@ -147,13 +164,9 @@ function InputPosition() {
     }
   };
 
-  const handlePrevBtnClick = () => {
-    navigate("/InputUserName");
-  };
-
   return (
     <BackgroundWrapper>
-      <TopCompleteBars currentPage={2} />
+      <Logo src={groomLogo} alt="그룸 로고" />
       <Text>
         <BlueText>포지션</BlueText>을 선택해주세요.
       </Text>
@@ -168,17 +181,8 @@ function InputPosition() {
           </PositionItem>
         ))}
       </PositionContainer>
-
-      {/* <BackBtn marginTop="0.5rem">*/}
-      <PrevBtn $marginTop="0rem">
-        <img onClick={handlePrevBtnClick} src={prevBtnSVG} alt="이전 버튼" />
-      </PrevBtn>
-      <StartBtn $marginTop="0rem">
-        <img
-          onClick={handleCompleteBtnClick}
-          src={startBtnSVG}
-          alt="완료 버튼"
-        />
+      <StartBtn>
+        <img onClick={handleCompleteBtnClick} src={startBtn} alt="완료 버튼" />
       </StartBtn>
     </BackgroundWrapper>
   );

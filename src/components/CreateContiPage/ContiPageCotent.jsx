@@ -40,6 +40,7 @@ const SelectConti = styled.div`
 `;
 const NumOfConti = styled.div`
   font-size: 24px;
+  min-width: 300px;
   img {
     height: 24px;
     vertical-align: middle;

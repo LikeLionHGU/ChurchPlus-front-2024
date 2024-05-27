@@ -36,6 +36,30 @@ export const TextBox = styled.div`
   }
 `;
 
+export const TextBoxVer2 = styled.div`
+  display: flex;
+
+  input {
+    margin-top: 32px;
+    padding-left: 2.4rem;
+    height: 70px;
+    width: 682px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    font-family: "GmarketSansLight";
+    font-size: 40px;
+    caret-color: blue;
+
+    background-color: #efeff0;
+
+    &:focus {
+      background-color: white;
+      border: 1px solid black;
+    }
+  }
+`;
+
 export const AskGroup = styled.img`
   margin-top: 209px;
   height: 24px;
