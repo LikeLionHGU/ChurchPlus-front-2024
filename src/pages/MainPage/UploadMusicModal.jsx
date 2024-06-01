@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import OpenUploadMusic from "../../assets/Icons/OpenUploadMusicLogo.svg";
 import ImageUploadLogo from "../../asset/Images/Logos/ImageUploadLogo.svg";
-import ConvertToPDF from "../../asset/Images/Icons/ConvertToPdf.svg";
-import PrintingMusic from "../../asset/Images/Icons/PrintingMusic.svg";
+import UploadMusicDropdown from "./UploadMusicDropdown.jsx"
+import ExitButton from "../../asset/Images/Buttons/ExitButton.svg"
 
 const modalStyles = `
   width: 100vw;
@@ -67,12 +67,13 @@ const ModalContent = styled.div`
 
 const TopContainer = styled.div`
   display: flex;
-  width: 950px;
-  margin-top: 25px;
+  width: 1000px;
+  margin-top: 10px;
 `;
 
 const Images = styled.img`
-  margin-left: 18px;
+  margin-left: auto;
+  cursor: pointer;
 `;
 
 const MiddleContainer = styled.div`
@@ -115,6 +116,24 @@ const InputValue = styled.input`
   padding-left: 10px;
 `;
 
+const InputKeyValue = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #c0c0c0;
+  color: gray;
+  border-radius: 10px;
+  margin-top: 5px;
+  height: 38px;
+  font-family: "GmarketSansLight";
+  padding-left: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  img{
+    margin-right: 10px;
+  }
+`;
+
 const UploadImageBtn = styled.div`
   width: 220px;
   height: 38px;
@@ -142,7 +161,7 @@ const SubmitBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 50px;
+  margin-right: 30px;
   box-shadow: 0 0 6px rgba(80, 80, 80, 0.2);
   cursor: pointer;
   padding-top: 2px;
@@ -216,8 +235,7 @@ export default function UploadMusicModal() {
           <Overlay onClick={toggleUploadMusicModal} />
           <ModalContent>
             <TopContainer>
-              <Images src={ConvertToPDF} alt="" />
-              <Images src={PrintingMusic} alt="" />
+              <Images src={ExitButton} alt="" onClick={toggleUploadMusicModal}/>
             </TopContainer>
             <MiddleContainer>
               <UploadImage>
@@ -246,7 +264,7 @@ export default function UploadMusicModal() {
                 </InputContainer>
                 <InputContainer>
                   <InputText>곡 코드</InputText>
-                  <InputValue placeholder="곡의 코드를 선택해주세요" />
+                  <UploadMusicDropdown />
                 </InputContainer>{" "}
                 <InputContainer>
                   <InputText>곡 버전</InputText>

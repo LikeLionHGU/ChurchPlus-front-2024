@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import LittleBitFamiliar from "../../../asset/Images/Icons/LittleBitFamiliar.svg";
 import Famiiliary from "../../../asset/Images/Icons/Familiary.svg";
 import NotUsedToIt from "../../../asset/Images/Icons/NotUsedToIt.svg";
 import ExitButton from "../../../asset/Images/Buttons/ExitButton.svg";

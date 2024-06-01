@@ -32,7 +32,7 @@ const Menu = styled.div`
 `;
 
 const PersonInfo = styled.div`
-  font-family: "GmarketSansMedium";
+  font-family: "GmarketSansLight";
   font-size: 20px;
   padding-top: 47px;
   margin-right: 60px;
