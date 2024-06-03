@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "../Table/CommonTable";
 import TableColumn from "../Table/CommonTableColumn";
 import TableRow from "../Table/CommonTableRow";
-import pageIcon from "../../assets/Icons/page.svg";
 
 const SelectContiOrderList = ({ sheetMusicData }) => {
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleCheckboxChange = (index) => {
+    setSelectedRows((prevSelectedRows) => {
+      if (prevSelectedRows.includes(index)) {
+        return prevSelectedRows.filter((i) => i !== index);
+      } else {
+        return [...prevSelectedRows, index];
+      }
+    });
+  };
+
   return (
     <>
       <Table headersName={["이름", "곡 버전", "Key"]}>
         {sheetMusicData.map((sheetMusic, index) => (
-          <TableRow hoverColor={"#f1f1f1"} key={index}>
+          <TableRow
+            hoverColor={"#f1f1f1"}
+            key={index}
+            selected={selectedRows.includes(index)}
+          >
             <TableColumn>
-              <img src={pageIcon} alt="페이지 아이콘" />
+              <input
+                type="checkbox"
+                checked={selectedRows.includes(index)}
+                onChange={() => handleCheckboxChange(index)}
+              />
               {sheetMusic.title}
             </TableColumn>
             <TableColumn>{sheetMusic.version}버전</TableColumn>
