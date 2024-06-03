@@ -6,6 +6,8 @@ import { BlueText } from "../CreateGroupPage/Text";
 import checkIcon from "../../assets/Icons/check.svg";
 import nextBtnIcon from "../../assets/Icons/nextStepBtn.svg";
 import SelectContiOrderList from "./SelectContiOrderList";
+import { useRecoilValue } from "recoil";
+import { selectedRowsAtom } from "../../recoil/atoms/selectRowsAtom";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -62,6 +64,7 @@ function ContiPageContent() {
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
   const [keySearch, setKeySearch] = useState("");
+  const selectedRows = useRecoilValue(selectedRowsAtom);
 
   // 악보이미지 더미
   const sheetMusicData = [
@@ -189,7 +192,7 @@ function ContiPageContent() {
             <img src={checkIcon} alt="체크 아이콘" />
           </SelectConti>
           <NumOfConti>
-            현재 <BlueText>2</BlueText>곡이 담겨있어요
+            현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨있어요
             <img src={nextBtnIcon} alt="다음버튼 아이콘" />
           </NumOfConti>
         </Info>

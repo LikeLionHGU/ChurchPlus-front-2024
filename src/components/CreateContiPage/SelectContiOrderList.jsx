@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../Table/CommonTable";
 import TableColumn from "../Table/CommonTableColumn";
 import TableRow from "../Table/CommonTableRow";
+import { useRecoilState } from "recoil";
+import { selectedRowsAtom } from "../../recoil/atoms/selectRowsAtom";
 
 const SelectContiOrderList = ({ sheetMusicData }) => {
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useRecoilState(selectedRowsAtom);
 
   const handleCheckboxChange = (index) => {
     setSelectedRows((prevSelectedRows) => {
