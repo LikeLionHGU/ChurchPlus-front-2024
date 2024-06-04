@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 
 const KeyDropdown = styled.div`
   font-family: "GmarketSansMedium";
-  width: 107px;
+  width: 97px;
   height: 31px;
   padding-left: 10px;
   padding-top: 11px;
@@ -51,7 +51,7 @@ const KeyDropdown = styled.div`
   img {
     height: 8px;
     padding-top: 7px;
-    padding-right: 22px;
+    padding-right: 20px;
     float: right;
   }
 `;
