@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
-import userImgIcon from "../../assets/Icons/userImg.svg";
 import { BlueText } from "../CreateGroupPage/Text";
 import ReadContiModal from "../Modal/ReadContiModal";
 import ContiStepModal from "../Modal/ContiStepModal";
@@ -46,7 +45,8 @@ const Icons = styled.div`
   img {
     cursor: pointer;
     height: 24px;
-    margin-right: 20px;
+    margin-right: 12px;
+    padding-top: 2px;
     vertical-align: middle;
   }
 `;
@@ -66,9 +66,8 @@ function Header({ menu }) {
     <Wrapper>
       <Menu>{menu}</Menu>
       <Icons>
-        <img src={bellIcon} alt="벨아이콘"></img>
         <img src={settingIcon} alt="환경설정 아이콘"></img>
-        <img src={userImgIcon} alt="유저 이미지 아이콘"></img>
+        <img src={bellIcon} alt="벨아이콘"></img>
       </Icons>
       <PersonInfo>
         김교회 | <BlueText>인도자</BlueText>
