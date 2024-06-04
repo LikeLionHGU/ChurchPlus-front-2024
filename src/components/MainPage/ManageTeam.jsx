@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ManageTeamImg from "../../asset/Images/Icons/ManageTeamImg.svg"
 import CopyIcon from "../../asset/Images/Icons/CopyIcon.svg"
 import styled from "styled-components";
+import getGroupInfo from "../../apis/getGroupInfo";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 
 const TopContents = styled.div`
@@ -90,6 +92,7 @@ const InviteCodeText = styled.div`
 
 const CopyImg = styled.img`
     margin-top: 2px;
+    cursor: pointer;
 `
 
 const InfoChangeBtn = styled.div`
@@ -159,6 +162,19 @@ const TransparentBox = styled.div`
 export default function ManageTeam(){
   const [previewUrl, setPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
+  const [groupInfo, setGroupInfo] = useState([]);
+
+  const groupId = localStorage.getItem("groupId");
+
+  useEffect(() => {
+    const fetchGroupInfo = async () => {
+        const fetchedGroupInfo = await getGroupInfo(groupId);
+        setGroupInfo(fetchedGroupInfo);
+      }
+      fetchGroupInfo();
+    }, [groupId]);
+
+    console.log("groupInfo: ", groupInfo);
   
   const handleImageUploadClick = () => {
     fileInputRef.current.click();
@@ -212,13 +228,18 @@ export default function ManageTeam(){
                     <TeamName>팀 이름</TeamName>
                     <InviteCode>초대코드</InviteCode>
                 </TypeOfInfo>
+                {groupInfo.length > 0 &&(
                 <UserInfo>
-                    <UserTeamName>강물예배 팀</UserTeamName>
+                    <UserTeamName>{groupInfo[0].groupName}</UserTeamName>
                     <UserTeamInviteCode>
-                        <InviteCodeText>100432</InviteCodeText>
-                        <CopyImg src={CopyIcon} alt=""/>
+                        <InviteCodeText>{groupInfo[0].invitation_code}</InviteCodeText>
+                       <CopyToClipboard text={groupInfo[0].invitation_code}
+                       onCopy={() => alert("초대코드가 복사되었습니다.")}>
+                        <CopyImg src={CopyIcon} alt="" />
+                        </CopyToClipboard>
                     </UserTeamInviteCode>
                 </UserInfo>
+                )}
             </PreviewInfo>
             <InfoChangeBtn>저장</InfoChangeBtn>
         </TeamInfo>
@@ -229,20 +250,22 @@ export default function ManageTeam(){
             <Position><span>포지션</span></Position>
             <Note><span>비고</span></Note>
         </BlueBox>
-        <TransparentBox>
-            <Name><span>김리더</span></Name>
-            <Position><span>리더</span></Position>
-            <Note><span>010-0000-0000</span></Note>
-        </TransparentBox>
-        <TransparentBox>
-            <Name><span>이건반</span></Name>
-            <Position><span>건반</span></Position>
-            <Note><span>010-0000-0000</span></Note>
-        </TransparentBox><TransparentBox>
-            <Name><span>박기타</span></Name>
-            <Position><span>기타</span></Position>
-            <Note><span></span></Note>
-        </TransparentBox><TransparentBox>
+       
+        {groupInfo.map((userInfo, index) => (
+          <TransparentBox key={index}>
+            <Name>
+              <span>{userInfo.nickname}</span>
+            </Name>
+            <Position>
+              <span>{userInfo.position}</span>
+            </Position>
+            <Note>
+              <span>010-0000-0000</span>
+            </Note>
+          </TransparentBox>
+          
+        ))}
+<TransparentBox>
             <Name><span></span></Name>
             <Position><span></span></Position>
             <Note><span></span></Note>
@@ -255,8 +278,6 @@ export default function ManageTeam(){
             <Position><span></span></Position>
             <Note><span></span></Note>
         </TransparentBox>
-        <InfoChangeBtn>저장</InfoChangeBtn>
-
         </BottomContents>
         </>
     )

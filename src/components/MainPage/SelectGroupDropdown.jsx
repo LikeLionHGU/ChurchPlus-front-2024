@@ -5,6 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import TeamDropdownIcon from "../../asset/Images/Icons/TeamDropdownIcon.svg";
 import { borderRadius, fontFamily, width } from "@mui/system";
+import { useState } from "react";
+import groupList from "../../apis/groupList"
+import { useEffect } from "react";
+import PresentGroupName from "../../apis/getPresentGroupName";
 
 export default function SelectGroupDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -14,6 +18,11 @@ export default function SelectGroupDropdown() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleTeamClick = (group) => {
+    localStorage.setItem("groupId", group.groupId);
+    window.location.reload();
   };
 
   const menuItemStyle = {
@@ -26,6 +35,24 @@ export default function SelectGroupDropdown() {
     },
   };
 
+const memberId = localStorage.getItem("memberId");
+const [groups,setGroups] = useState([]);
+const groupId = localStorage.getItem("groupId");
+const [presentGroupName, setPresentGroupName] = useState([]);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      const fetchedGroups = await groupList(memberId);
+      setGroups(fetchedGroups);
+    };
+    const fetchPresentGroupName = async () => {
+      const fetchedPresentGroupName = await PresentGroupName(groupId);
+      setPresentGroupName(fetchedPresentGroupName);
+    }
+    fetchGroups();
+    fetchPresentGroupName();
+  }, [memberId]);
+console.log(presentGroupName);
   return (
     <div>
       <Button
@@ -36,7 +63,7 @@ export default function SelectGroupDropdown() {
         onClick={handleClick}
         sx={{ color: "black", fontSize: "20px" }}
       >
-        글로리아팀
+        {presentGroupName.groupName}
         <img src={TeamDropdownIcon} alt="" />
       </Button>
       <Menu
@@ -52,15 +79,14 @@ export default function SelectGroupDropdown() {
           sx: { borderRadius: "10px" },
         }}
       >
-        <MenuItem sx={menuItemStyle} onClick={handleClose}>
-          제이어스팀
+        {groups.map((group, index) =>(
+          <div key ={index}>
+             <MenuItem sx={menuItemStyle} onClick={() => handleTeamClick(group)}>
+          {group.groupName}
         </MenuItem>
-        <MenuItem sx={menuItemStyle} onClick={handleClose}>
-          강물예배팀
-        </MenuItem>
-        <MenuItem sx={menuItemStyle} onClick={handleClose}>
-          구름팀
-        </MenuItem>
+          </div>
+        ))}
+        
       </Menu>
     </div>
   );
