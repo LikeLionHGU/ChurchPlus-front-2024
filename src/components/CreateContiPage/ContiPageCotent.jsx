@@ -34,10 +34,12 @@ const Info = styled.div`
 `;
 
 const SelectConti = styled.div`
-  font-size: 16px;
-  margin-bottom: 14px;
+  font-size: 17px;
+  margin-bottom: 12px;
+  text-align: right;
   img {
-    height: 20px;
+    height: 27px;
+    padding-top: 2px;
     vertical-align: middle;
   }
 `;
@@ -45,9 +47,10 @@ const NumOfConti = styled.div`
   font-size: 24px;
   min-width: 300px;
   img {
-    height: 24px;
+    height: 25px;
     vertical-align: middle;
     padding-left: 10px;
+    padding-bottom: 4px;
     cursor: pointer;
   }
 `;
@@ -192,7 +195,7 @@ function ContiPageContent() {
             <img src={checkIcon} alt="체크 아이콘" />
           </SelectConti>
           <NumOfConti>
-            현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨있어요
+            현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨 있어요
             <img src={nextBtnIcon} alt="다음버튼 아이콘" />
           </NumOfConti>
         </Info>
