@@ -4,7 +4,7 @@ import axios from "axios";
 const sendAccessTokenToBackend = async (accessToken) => {
   try {
     const serverResponse = await axios.post(
-      `${process.env.REACT_APP_HOST_URL}church+/member/kakao/callback`,
+      `${process.env.REACT_APP_HOST_URL}/church+/member/login`,
       {}, // 요청 바디가 없는 경우 빈 객체 전달
       {
         headers: {

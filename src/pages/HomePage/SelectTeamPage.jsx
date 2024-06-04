@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import homePage from "../../asset/Images/Background/HomePage.svg";
 import homePageLogo from "../../asset/Images/Logos/HomePageLogo.svg";
@@ -7,6 +7,7 @@ import CreateGroup from "../../asset/Images/Icons/CreateGroup.svg";
 import ManageProFileImg from "../../asset/Images/Buttons/ManageProFile.svg";
 import { Link } from "react-router-dom";
 import InputGroupName from "../CreateGroupPage/InputGroupName";
+import groupList from "../../apis/groupList";
 
 const Wrapper = styled.div`
   display: flex;
@@ -95,21 +96,44 @@ const AlreadyHaveTeamText = styled.div`
 `;
 
 function SelectTeamPage() {
+const memberId = localStorage.getItem("memberId");
+const [groups,setGroups] = useState([]);
+  
+useEffect(() => {
+  const fetchGroups = async () => {
+    const fetchedGroups = await groupList(memberId);
+    setGroups(fetchedGroups);
+  };
+  fetchGroups();
+}, [memberId]);
+
+const handleTeamClick = (group) => {
+  // alert(`${group.groupName}팀을 선택하셨습니다.`);
+  localStorage.setItem("groupId", group.groupId);
+};
+
   return (
     <Wrapper>
       <HomePageLogo src={homePageLogo} alt="홈페이지 로고" />
       <ChoseGroup>이용할 팀을 선택해주세요.</ChoseGroup>
       <SelectGroupContainer>
         <GroupContainer>
-          <Groups>
+          
+              {groups.map((group,index) =>(
+                <div key={index}>
+            <Groups>
             <Link to={"/main"}>
-              <Group src={ChoseGroupImg} alt=" 첫번째 팀" />
+            <Group src={ChoseGroupImg} alt=" 첫번째 팀" 
+            onClick={() => handleTeamClick(group)}/>
             </Link>
-            <GroupName>강물예배팀</GroupName>
+            <GroupName>{group.groupName}</GroupName>
           </Groups>
+                </div>
+              ))}
+              
 
           <Groups>
-            <Link to={"/InputGroupName"}>
+            <Link to={"/CreateNewGroup"}>
               <CreateGroupImg>
                 <img src={CreateGroup} alt=""></img>
               </CreateGroupImg>

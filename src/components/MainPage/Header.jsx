@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect} from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
@@ -7,6 +7,7 @@ import { BlueText } from "../CreateGroupPage/Text";
 import ReadContiModal from "../Modal/ReadContiModal";
 import ContiStepModal from "../Modal/ContiStepModal";
 import ModifyContiModal from "../Modal/ModifyContiModal";
+import getPositionAndUserName from "../../apis/getPositionAndUserName";
 // import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
@@ -52,16 +53,18 @@ const Icons = styled.div`
 `;
 
 function Header({ menu }) {
-  // const [isTeamManagementModalOpen, setTeamManagementModalOpen] =
-  //   useState(false);
+  const memberId = localStorage.getItem("memberId");
+  const groupId = localStorage.getItem("groupId");
+  const [userInfo, setUserInfo] = useState([]);
 
-  // const toggleTeamManagementModal = () => {
-  //   setTeamManagementModalOpen((prevState) => !prevState);
-  //   document.body.style.overflow = isTeamManagementModalOpen
-  //     ? "auto"
-  //     : "hidden";
-  // };
-
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const fetchedUserInfo = await getPositionAndUserName(memberId, groupId);
+      setUserInfo(fetchedUserInfo);
+    };
+    fetchUserInfo();
+  }, [memberId], [groupId]);
+    console.log("nickname: ", userInfo)
   return (
     <Wrapper>
       <Menu>{menu}</Menu>
@@ -71,7 +74,8 @@ function Header({ menu }) {
         <img src={userImgIcon} alt="유저 이미지 아이콘"></img>
       </Icons>
       <PersonInfo>
-        김교회 | <BlueText>인도자</BlueText>
+      {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText>
+      {/* {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText> */}
       </PersonInfo>
       <ReadContiModal />
       <ContiStepModal />
