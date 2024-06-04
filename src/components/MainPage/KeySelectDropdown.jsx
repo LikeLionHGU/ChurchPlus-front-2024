@@ -6,10 +6,11 @@ const KeyItems = styled.div`
   margin-top: 6px;
   border: 1px solid #9d9d9d;
   font-size: 18px;
-  width: 266px;
+  width: 280px;
   height: 88px;
   border-radius: 10px;
   background-color: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.08);
 
   display: ${({ isActive }) => (isActive ? "block" : "none")};
 `;
@@ -36,7 +37,7 @@ const Wrapper = styled.div`
 
 const KeyDropdown = styled.div`
   font-family: "GmarketSansMedium";
-  width: 107px;
+  width: 97px;
   height: 31px;
   padding-left: 10px;
   padding-top: 11px;
@@ -51,13 +52,13 @@ const KeyDropdown = styled.div`
   img {
     height: 8px;
     padding-top: 7px;
-    padding-right: 22px;
+    padding-right: 20px;
     float: right;
   }
 `;
 
 const KeyItemTop = styled.div`
-  margin: 14px 0 10px 20px;
+  margin: 14px 0 10px 25px;
   /* border: 1px solid red; */
   height: 28px;
   width: 215px;
@@ -79,7 +80,7 @@ const KeyItemTop = styled.div`
 `;
 
 const KeyItemBottom = styled.div`
-  margin: 11px 0 10px 20px;
+  margin: 11px 0 10px 25px;
   /* border: 1px solid red; */
   height: 28px;
   width: 226px;

@@ -7,9 +7,9 @@ const Search = styled.div`
   margin-right: 20px;
 
   input {
-    padding-left: 25px;
+    padding-left: 16px;
     font-family: "GmarketSansLight";
-    width: 234px;
+    width: 220px;
     height: 42px;
     border: 1px solid #9d9d9d;
     /* box-shadow: 0px 0px 7px #c0bfbf; */
@@ -29,7 +29,7 @@ const Search = styled.div`
 const SearchBtn = styled.button`
   position: absolute;
 
-  left: 220px;
+  left: 198px;
   top: 0;
   border: none;
   background: transparent;

@@ -50,7 +50,7 @@ const ModalContent = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 590px;
+  height: 630px;
   width: 1050px;
   background-color: white;
   border: none;
@@ -68,11 +68,17 @@ const HeaderContainer = styled.div`
   grid-template-columns: 1fr 11fr 1fr;
 `;
 
+const GroomText = styled.div`
+  color: #0d2040;
+`;
+
 const WelcomeTOGroom = styled.div`
-  font-size: 35px;
-  margin-top: 75px;
+  font-family: "GmarketSansLight";
+  font-size: 38px;
+  margin-top: 62px;
   display: flex;
   justify-content: center;
+  color: #514642;
 `;
 
 const Exit = styled.img`
@@ -82,13 +88,14 @@ const Exit = styled.img`
 `;
 
 const HaveYouTriedItBefore = styled.div`
-  font-size: 17px;
+  font-size: 20px;
   margin-top: 30px;
+  font-family: "GmarketSansLight";
 `;
 
 const CardContainer = styled.div`
   display: flex;
-  margin-top: 25px;
+  margin-top: 50px;
   width: 591px;
   justify-content: space-between;
   /* border: 1px solid red; */
@@ -97,8 +104,8 @@ const CardContainer = styled.div`
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  width: 224px;
-  height: 280px;
+  width: 244px;
+  height: 300px;
   box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   cursor: pointer;
@@ -109,25 +116,26 @@ const CardText = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 0 0 10px 10px;
-  height: 40px;
+  height: 47px;
   background-color: #0d2040;
   margin-top: auto;
-  color: white;
+  color: #ededed;
+  font-size: 20px;
 `;
 
 const ConfirmButton = styled.div`
-  width: 95px;
-  height: 35px;
+  /* border: 1px solid red; */
+  width: 103px;
+  height: 45px;
   border-radius: 14px;
   color: white;
   background-color: #3e5692;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  margin-top: 47px;
+  font-size: 22px;
+  margin-top: 50px;
   cursor: pointer;
-  padding-top: 5px;
 `;
 
 export default function IntroModal() {
@@ -162,7 +170,9 @@ export default function IntroModal() {
           <ModalContent>
             <HeaderContainer>
               <div />
-              <WelcomeTOGroom>Groom에 오신 것을 환영합니다 !</WelcomeTOGroom>
+              <WelcomeTOGroom>
+                <GroomText>groom</GroomText>에 오신 것을 환영합니다 !
+              </WelcomeTOGroom>
               <Exit src={ExitButton} alt="" onClick={toggleIntroModal} />
             </HeaderContainer>
             <HaveYouTriedItBefore>
