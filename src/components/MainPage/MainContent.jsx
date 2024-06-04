@@ -10,6 +10,7 @@ import IntroModal from "../../pages/MainPage/Intro/IntroModal";
 import SearchBarModal from "../../pages/MainPage/Intro/SearchBarModal";
 import KeyModal from "../../pages/MainPage/Intro/KeyModal";
 import UploadModal from "../../pages/MainPage/Intro/UploadModal";
+import DefaultGroomImg from "../../assets/Icons/DefaultGroom.svg";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -44,6 +45,27 @@ const Contents = styled.div`
   /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
+`;
+
+const DefaultSection = styled.div`
+  /* border: 1px solid #3e5692; */
+  width: 322px;
+  height: 316px;
+  margin-top: 173px;
+  margin-left: 360px;
+
+  img {
+    margin-left: 17px;
+    height: 209;
+    width: 288px;
+  }
+`;
+
+const DefaultText = styled.div`
+  font-size: 30px;
+  color: #aec3de;
+  margin-left: 4px;
+  margin-top: 64px;
 `;
 
 const SheetMusicContainer = styled.div`
@@ -102,97 +124,97 @@ function MainContent() {
 
   // 악보이미지 더미
   const sheetMusicData = [
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "주님 말씀하시면",
-      version: "마커스",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "주님 말씀하시면",
+    //   version: "마커스",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
+    // {
+    //   imageUrl:
+    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
+    //   key: "C",
+    //   title: "기쁨의 옷을 입은",
+    //   version: "어노인팅",
+    // },
   ];
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
@@ -238,7 +260,12 @@ function MainContent() {
         </Icons>
       </FunctionWrapper>
       <Contents>
-        {isListView ? (
+        {sheetMusicData.length === 0 && filteredData.length === 0 ? (
+          <DefaultSection>
+            <img src={DefaultGroomImg} alt="디폴트 구름 이미지"></img>
+            <DefaultText>악보를 업로드 해보세요!</DefaultText>
+          </DefaultSection>
+        ) : isListView ? (
           <SheetListView sheetMusicData={filteredData} />
         ) : (
           filteredData.map((sheetMusic, index) => (
