@@ -15,7 +15,8 @@ import { BackgroundWrapper } from "../../components/CreateGroupPage/Background";
 import { BlueText } from "../../components/CreateGroupPage/Text";
 import groomLogo from "../../assets/logo/GroomLogo.svg";
 import startBtn from "../../assets/Icons/StartBtn.svg";
-// import createGroup from "../../apis/createGroup";
+import createGroup from "../../apis/createGroup";
+
 
 const positionImages = [
   {
@@ -131,22 +132,27 @@ const StartBtn = styled.div`
 function InputPosition() {
   const navigate = useNavigate();
   // const location = useLocation();
-  const [selectedPositionIndex, setSelectedPositionIndex] = useState(null);
+  const [position, setposition] = useState(null);
+  const location = useLocation();
+  const memberId = localStorage.getItem("memberId");
+
 
   const handlePositionSelect = (index) => {
-    setSelectedPositionIndex(index);
+    setposition(positionImages[index].description);
     alert(`${positionImages[index].description} 포지션을 선택하셨습니다.`);
   };
 
   // state를 통해 페이지별로 사용자의 입력값이 잘 전달되고 있음
-  // const groupName = location.state.groupName;
-  // const userName = location.state.userName;
-  // console.log(groupName);
-  // console.log(userName);
-  // console.log(position);
+  const groupName = location.state.groupName;
+  const nickname = location.state.userName;
+  console.log("groupName is",groupName);
+  console.log("nickname is",nickname);
+  console.log("memberId is",memberId);
+  console.log("position is",position);
+  
 
   const handleCompleteBtnClick = async () => {
-    if (!selectedPositionIndex === null) {
+    if (!position === null) {
       alert("포지션을 선택해주세요.");
       return;
     }
@@ -156,9 +162,9 @@ function InputPosition() {
     // const memberId = localStorage.getItem("memberId");
 
     try {
-      // await createGroup(groupName, memberId, position, nickname);
-      // // alert(`그룹이 정상적으로 추가되었습니다.`);
-      // navigate("/SelectTeam");
+      await createGroup(groupName, memberId, position, nickname);
+      // alert(`그룹이 정상적으로 추가되었습니다.`);
+      navigate("/SelectTeamPage");
     } catch (error) {
       console.error("그룹 추가 실패:", error);
     }
@@ -174,7 +180,7 @@ function InputPosition() {
       <PositionContainer>
         {positionImages.map((position, index) => (
           <PositionItem key={index} onClick={() => handlePositionSelect(index)}>
-            <ImageContainer $isSelected={selectedPositionIndex === index}>
+            <ImageContainer $isSelected={position === index}>
               <PositionImage src={position.image} alt={position.description} />
             </ImageContainer>
             <Input>{position.description}</Input>

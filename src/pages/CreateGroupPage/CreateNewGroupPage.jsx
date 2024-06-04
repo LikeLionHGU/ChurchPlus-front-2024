@@ -3,7 +3,7 @@ import { BlueText, TextBoxVer2 } from "../../components/CreateGroupPage/Text";
 import nextBtn from "../../assets/Icons/GroupNextBtn.svg";
 import groomLogo from "../../assets/logo/GroomLogo.svg";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Logo = styled.img`
   height: 48px;
@@ -38,6 +38,7 @@ function CreateNewGroupPage() {
   const [groupName, setGroupName] = useState("");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -45,10 +46,17 @@ function CreateNewGroupPage() {
     }
   };
 
-  const handleNextBtnClick = () => {
-    navigate("/InputPosition");
+  const handleNextBtnClick = async() => {
+    if(userName.trim() !=="" && groupName.trim() !==""){
+    navigate("/InputPosition",{
+      state: { userName, groupName},
+    });
+  }else {
+    alert("빈칸을 채워주세요.");
+  }
   };
-
+  console.log(groupName);
+  console.log(userName);
   return (
     <div>
       <Logo src={groomLogo} alt="로고"></Logo>
