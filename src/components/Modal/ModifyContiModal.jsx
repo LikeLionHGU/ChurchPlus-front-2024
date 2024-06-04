@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import exitBtnIcon from "../../assets/Icons/ExitBtn.svg";
+import binIcon from "../../assets/Icons/Bin.svg";
 import shareIcon from "../../assets/Icons/ShareConti.svg";
 import printIcon from "../../assets/Icons/printPage.svg";
 import editBtn from "../../assets/Icons/EditBtn.svg";
@@ -40,7 +42,7 @@ const ModalTop = styled.div`
   display: flex;
   /* border: 1px solid green; */
   margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: 9px;
   height: 40px;
 `;
 
@@ -57,7 +59,7 @@ const Icons = styled.div`
 
   img {
     cursor: pointer;
-    margin-left: 15px;
+    margin-right: 15px;
   }
 `;
 
@@ -66,10 +68,10 @@ const ModalContent = styled.div`
 `;
 
 const ContiImage = styled.div`
-  margin-left: 150px;
+  margin-left: 140px;
   margin-right: 121px;
-  width: 350px;
-  height: 470px;
+  width: 360px;
+  height: 480px;
 
   /* border: 1px solid #5c39a2; */
 
@@ -81,19 +83,35 @@ const ContiImage = styled.div`
   }
 `;
 
-const ContiInfo = styled.div`
-  padding-top: 30px;
+const Icon2 = styled.div`
+  /* float: right; */
+  display: flex;
+  justify-content: right;
   /* border: 1px solid red; */
+  margin-bottom: 24px;
+  padding-right: 35px;
+`;
+
+const Img = styled.img`
+  height: 24px;
+  width: 24px;
+  margin-left: 16px;
+  cursor: pointer;
+`;
+
+const ContiInfo = styled.div`
+  /* padding-top: 30px; */
+  /* border: 1px solid blue; */
   width: 419px;
   height: 500px;
+`;
 
-  img {
-    cursor: pointer;
-    margin-top: 60px;
-    margin-left: 355px;
-    width: 79px;
-    height: 51px;
-  }
+const ContiInfoImg = styled.img`
+  cursor: pointer;
+  margin-top: 75px;
+  margin-left: 355px;
+  width: 79px;
+  height: 51px;
 `;
 
 const BoldText = styled.div`
@@ -103,7 +121,7 @@ const BoldText = styled.div`
 const LightText = styled.div`
   font-family: "GmarketSansLight";
   font-size: 16px;
-  padding-bottom: 30px;
+  padding-bottom: 35px;
 `;
 
 export default function ModifyContiModal() {
@@ -133,8 +151,7 @@ export default function ModifyContiModal() {
             <ModalTop>
               <ContiTitle>예수로 살리</ContiTitle>
               <Icons>
-                <img src={shareIcon} alt="유저 이미지 아이콘" />
-                <img src={printIcon} alt="유저 이미지 아이콘" />
+                <img src={exitBtnIcon} alt="캔슬 아이콘" />
               </Icons>
             </ModalTop>
             <ModalContent>
@@ -144,7 +161,13 @@ export default function ModifyContiModal() {
                   alt="Conti Image"
                 />
               </ContiImage>
+
               <ContiInfo>
+                <Icon2>
+                  <Img src={binIcon} alt="쓰레기통 아이콘" />
+                  <Img src={shareIcon} alt="공유 아이콘" />
+                  <Img src={printIcon} alt="프린트 아이콘" />
+                </Icon2>
                 <BoldText>곡 제목</BoldText>
                 <LightText>예수로 살리</LightText>
                 <BoldText>곡 코드</BoldText>
@@ -155,7 +178,7 @@ export default function ModifyContiModal() {
                 <LightText>
                   https://github.com/LikeLionHGU/ChurchPlus-front-2024
                 </LightText>
-                <img
+                <ContiInfoImg
                   src={editBtn}
                   alt="수정버튼"
                   onClick={toggleModifyContiModal}

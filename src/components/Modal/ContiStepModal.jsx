@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import saveBtn from "../../assets/Icons/SaveBtn.svg";
-import leftArrow from "../../assets/Icons/leftArrow.svg"; // 왼쪽 화살표 아이콘
-import rightArrow from "../../assets/Icons/rightArrow.svg"; // 오른쪽 화살표 아이콘
+import leftArrow from "../../assets/Icons/leftArrow.svg";
+import rightArrow from "../../assets/Icons/rightArrow.svg";
 import { BlueText } from "../CreateGroupPage/Text";
 
 const modalStyles = `
