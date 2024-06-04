@@ -104,16 +104,21 @@ const InputContainer = styled.div`
   margin-bottom: 30px;
 `;
 const InputText = styled.div`
-  font-size: 15px;
+  font-size: 16px;
 `;
 
 const InputValue = styled.input`
-  border: 1px solid #c0c0c0;
+  border: 1px solid #a6a6a6;
   border-radius: 10px;
-  margin-top: 5px;
+  margin-top: 8px;
   height: 38px;
   font-family: "GmarketSansLight";
+  padding-top: 4px;
   padding-left: 10px;
+
+  &::placeholder {
+    font-size: 16px;
+  }
 `;
 
 const InputKeyValue = styled.div`
@@ -165,6 +170,7 @@ const SubmitBtn = styled.div`
   box-shadow: 0 0 6px rgba(80, 80, 80, 0.2);
   cursor: pointer;
   padding-top: 2px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.05);
 `;
 
 export default function UploadMusicModal() {
