@@ -3,7 +3,7 @@ import styled from "styled-components";
 import KeyDropdownIcon from "../../asset/Images/Icons/TeamDropdownIcon.svg";
 
 const KeyItems = styled.div`
-  margin-top: 6px;
+  margin-top: 8px;
   border: 1px solid #9d9d9d;
   font-size: 18px;
   width: 308px;
@@ -34,13 +34,14 @@ const KeyDropdown = styled.div`
   align-items: center;
   justify-content: space-between;
   border: 1px solid #c0c0c0;
-  color: ${({ isSelected }) => (isSelected ? "black" : "gray")}; /* Conditional color */
+  color: ${({ isSelected }) =>
+    isSelected ? "black" : "gray"}; /* Conditional color */
   border-radius: 10px;
   margin-top: 5px;
-  height: 38px;
+  height: 42px;
   font-family: "GmarketSansLight";
   padding-left: 10px;
-  font-size: 13px;
+  font-size: 16px;
   cursor: pointer;
   img {
     margin-right: 10px;
@@ -141,7 +142,9 @@ function SelectKeyDropdown() {
           isSelected={selected.label !== ""}
           onClick={() => setIsActive(!isActive)}
         >
-          {selected.label !== "" ? `${selected.label} Key` : "곡의 코드를 선택해주세요"}
+          {selected.label !== ""
+            ? `${selected.label} Key`
+            : "곡의 코드를 선택해주세요"}
           <img src={KeyDropdownIcon} alt="키 드롭다운 아이콘" />
         </KeyDropdown>
         <KeyItems style={{ display: isActive ? "block" : "none" }}>

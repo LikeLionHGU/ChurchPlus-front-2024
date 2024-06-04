@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import exitBtnIcon from "../../assets/Icons/ExitBtn.svg";
+import binIcon from "../../assets/Icons/Bin.svg";
 import shareIcon from "../../assets/Icons/ShareConti.svg";
 import printIcon from "../../assets/Icons/printPage.svg";
 import editBtn from "../../assets/Icons/EditBtn.svg";
+import saveBtn from "../../assets/Icons/SaveBtn.svg";
 
 const modalStyles = `
   width: 100vw;
@@ -38,14 +41,12 @@ const ContiModal = styled.div`
 
 const ModalTop = styled.div`
   display: flex;
-  /* border: 1px solid green; */
   margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: 9px;
   height: 40px;
 `;
 
 const ContiTitle = styled.div`
-  /* border: 1px solid red; */
   margin-left: 480px;
   font-size: 24px;
   font-family: "GmarketSansLight";
@@ -57,7 +58,7 @@ const Icons = styled.div`
 
   img {
     cursor: pointer;
-    margin-left: 15px;
+    margin-right: 15px;
   }
 `;
 
@@ -66,12 +67,10 @@ const ModalContent = styled.div`
 `;
 
 const ContiImage = styled.div`
-  margin-left: 150px;
+  margin-left: 140px;
   margin-right: 121px;
-  width: 350px;
-  height: 470px;
-
-  /* border: 1px solid #5c39a2; */
+  width: 360px;
+  height: 480px;
 
   img {
     width: 100%;
@@ -81,36 +80,80 @@ const ContiImage = styled.div`
   }
 `;
 
+const Icon2 = styled.div`
+  display: flex;
+  justify-content: right;
+  margin-bottom: 24px;
+  padding-right: 35px;
+`;
+
+const Img = styled.img`
+  height: 24px;
+  width: 24px;
+  margin-left: 16px;
+  cursor: pointer;
+`;
+
 const ContiInfo = styled.div`
-  padding-top: 30px;
-  /* border: 1px solid red; */
   width: 419px;
   height: 500px;
+`;
 
-  img {
-    cursor: pointer;
-    margin-top: 60px;
-    margin-left: 355px;
-    width: 79px;
-    height: 51px;
-  }
+const Btn = styled.img`
+  cursor: pointer;
+  margin-top: 75px;
+  margin-left: 355px;
+  width: 79px;
+  height: 51px;
 `;
 
 const BoldText = styled.div`
   font-size: 18px;
   padding-bottom: 12px;
 `;
+
 const LightText = styled.div`
   font-family: "GmarketSansLight";
   font-size: 16px;
-  padding-bottom: 30px;
+  padding-bottom: 35px;
+  color: ${({ isEditable }) => (isEditable ? "gray" : "#0d2030")};
+`;
+
+const EditableInput = styled.input`
+  font-family: "GmarketSansLight";
+  font-size: 16px;
+  padding-bottom: 35px;
+  color: gray;
+  border: none;
+  /* border-bottom: 1px solid gray; */
+  outline: none;
+  width: 419px;
 `;
 
 export default function ModifyContiModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+  const [contiData, setContiData] = useState({
+    title: "예수로 살리",
+    key: "G Key",
+    version: "마커스",
+    link: "https://github.com/LikeLionHGU/ChurchPlus-front-2024",
+  });
 
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
+  };
+
+  const toggleEditMode = () => {
+    setIsEditable((prevState) => !prevState);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContiData({
+      ...contiData,
+      [name]: value,
+    });
   };
 
   useEffect(() => {
@@ -133,8 +176,11 @@ export default function ModifyContiModal() {
             <ModalTop>
               <ContiTitle>예수로 살리</ContiTitle>
               <Icons>
-                <img src={shareIcon} alt="유저 이미지 아이콘" />
-                <img src={printIcon} alt="유저 이미지 아이콘" />
+                <img
+                  onClick={toggleModifyContiModal}
+                  src={exitBtnIcon}
+                  alt="캔슬 아이콘"
+                />
               </Icons>
             </ModalTop>
             <ModalContent>
@@ -144,21 +190,57 @@ export default function ModifyContiModal() {
                   alt="Conti Image"
                 />
               </ContiImage>
+
               <ContiInfo>
+                <Icon2>
+                  <Img src={binIcon} alt="쓰레기통 아이콘" />
+                  <Img src={shareIcon} alt="공유 아이콘" />
+                  <Img src={printIcon} alt="프린트 아이콘" />
+                </Icon2>
                 <BoldText>곡 제목</BoldText>
-                <LightText>예수로 살리</LightText>
+                {isEditable ? (
+                  <EditableInput
+                    name="title"
+                    value={contiData.title}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <LightText>{contiData.title}</LightText>
+                )}
                 <BoldText>곡 코드</BoldText>
-                <LightText>G Key</LightText>
+                {isEditable ? (
+                  <EditableInput
+                    name="key"
+                    value={contiData.key}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <LightText>{contiData.key}</LightText>
+                )}
                 <BoldText>곡 버전</BoldText>
-                <LightText>마커스</LightText>
+                {isEditable ? (
+                  <EditableInput
+                    name="version"
+                    value={contiData.version}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <LightText>{contiData.version}</LightText>
+                )}
                 <BoldText>영상 링크</BoldText>
-                <LightText>
-                  https://github.com/LikeLionHGU/ChurchPlus-front-2024
-                </LightText>
-                <img
-                  src={editBtn}
+                {isEditable ? (
+                  <EditableInput
+                    name="link"
+                    value={contiData.link}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <LightText>{contiData.link}</LightText>
+                )}
+                <Btn
+                  src={isEditable ? saveBtn : editBtn}
                   alt="수정버튼"
-                  onClick={toggleModifyContiModal}
+                  onClick={toggleEditMode}
                 />
               </ContiInfo>
             </ModalContent>
