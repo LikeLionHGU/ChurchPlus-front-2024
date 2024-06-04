@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import OpenUploadMusic from "../../assets/Icons/OpenUploadMusicLogo.svg";
 import ImageUploadLogo from "../../asset/Images/Logos/ImageUploadLogo.svg";
-import UploadMusicDropdown from "./UploadMusicDropdown.jsx"
-import ExitButton from "../../asset/Images/Buttons/ExitButton.svg"
+import UploadMusicDropdown from "./UploadMusicDropdown.jsx";
+import ExitButton from "../../asset/Images/Buttons/ExitButton.svg";
 
 const modalStyles = `
   width: 100vw;
@@ -37,14 +37,14 @@ const ModalOpen = styled.div`
   cursor: pointer;
   border: 1px solid #9d9d9d;
   border-radius: 10px;
-  padding-right: 10px;
+  padding-right: 6px;
 
   &:hover {
     background-color: #dfdfdf;
   }
 
   img {
-    padding: 10px;
+    padding: 5px;
   }
 `;
 
@@ -129,7 +129,7 @@ const InputKeyValue = styled.div`
   padding-left: 10px;
   font-size: 13px;
   cursor: pointer;
-  img{
+  img {
     margin-right: 10px;
   }
 `;
@@ -235,7 +235,11 @@ export default function UploadMusicModal() {
           <Overlay onClick={toggleUploadMusicModal} />
           <ModalContent>
             <TopContainer>
-              <Images src={ExitButton} alt="" onClick={toggleUploadMusicModal}/>
+              <Images
+                src={ExitButton}
+                alt=""
+                onClick={toggleUploadMusicModal}
+              />
             </TopContainer>
             <MiddleContainer>
               <UploadImage>
