@@ -4,6 +4,7 @@ import OpenUploadMusic from "../../assets/Icons/OpenUploadMusicLogo.svg";
 import ImageUploadLogo from "../../asset/Images/Logos/ImageUploadLogo.svg";
 import UploadMusicDropdown from "./UploadMusicDropdown.jsx";
 import ExitButton from "../../asset/Images/Buttons/ExitButton.svg";
+import createMusic from "../../apis/createSheet.jsx";
 
 const modalStyles = `
   width: 100vw;
@@ -173,29 +174,202 @@ const SubmitBtn = styled.div`
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.05);
 `;
 
+// export default function UploadMusicModal() {
+//   const [uploadMusicModal, UploadMusicModal] = useState(false);
+//   const [previewUrl, setPreviewUrl] = useState(null);
+//   const [formData, setFormData] = useState({
+//     musicName: "",
+//     code: "",
+//     version: "",
+//     link: "",
+//   });
+//   const toggleUploadMusicModal = () => {
+//     UploadMusicModal((prevState) => !prevState);
+//     setFormData({
+//       musicName: "",
+//       code: "",
+//       version: "",
+//       link: "",
+//     });
+//     setPreviewUrl(null);
+//     if (fileInputRef.current) {
+//       fileInputRef.current.value = null; // Clear file input
+//     }
+//   };
+//   const fileInputRef = useRef(null);
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prevFormData) => ({
+//       ...prevFormData,
+//       [name]: value,
+//     }));
+
+//     console.log(`${name}: ${value}`);
+//   };
+
+//   const handleImageUploadClick = () => {
+//     fileInputRef.current.click();
+//   };
+
+//   const handleFileInputChange = (event) => {
+//     const file = event.target.files[0];
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//       setPreviewUrl(reader.result);
+//       //사용자가 업로드한 이미지 확인
+//       console.log("Uploaded image:", reader.result);
+//     };
+//     reader.readAsDataURL(file);
+//   };
+
+//   useEffect(() => {
+//     if (uploadMusicModal) {
+//       document.body.style.overflow = "hidden";
+//     } else {
+//       document.body.style.overflow = "auto";
+//     }
+//   }, [uploadMusicModal]);
+
+//   const handleSubmit = async () => {
+//     console.log(formData);
+//     try {
+//       const { musicName, code, link, description, version } = formData;
+//       //만일 사용자가 폴더 이름에 -를 사용할 경우 에러 발생할 수 있음
+//       const path = `main`;
+//       const formattedPath = path.replace("/", "-");
+//       const groupId = localStorage.getItem("groupId");
+
+//       const formDataToSend = new FormData();
+//       formDataToSend.append("musicName", musicName);
+//       formDataToSend.append("code", code);
+//       formDataToSend.append("link", link);
+//       formDataToSend.append("description", description);
+//       formDataToSend.append("groupId", groupId);
+//       formDataToSend.append("version", version);
+//       formDataToSend.append("path", formattedPath);
+//       if (fileInputRef.current.files.length > 0) {
+//         formDataToSend.append("image", fileInputRef.current.files[0]);
+//       }
+
+//       // createMusic 함수 호출
+//       await createMusic(formDataToSend);
+
+//       toggleUploadMusicModal();
+//       window.location.reload();
+//     } catch (error) {
+//       // 에러 처리
+//       console.error("악보 추가 실패:", error);
+//       // 에러 상태에 따라 사용자에게 알림을 제공하는 등의 추가 작업 수행 가능
+//     }
+//   };
+
+//   return (
+//     <>
+//       <ModalOpen onClick={toggleUploadMusicModal}>
+//         <img src={OpenUploadMusic} alt="" />
+//         <div>악보 업로드</div>
+//       </ModalOpen>
+//       {uploadMusicModal && (
+//         <Modal>
+//           <Overlay onClick={toggleUploadMusicModal} />
+//           <ModalContent>
+//             <TopContainer>
+//               <Images
+//                 src={ExitButton}
+//                 alt=""
+//                 onClick={toggleUploadMusicModal}
+//               />
+//             </TopContainer>
+//             <MiddleContainer>
+//               <UploadImage>
+//                 {previewUrl ? (
+//                   <img
+//                     src={previewUrl}
+//                     alt="Uploaded"
+//                     style={{
+//                       width: "100%",
+//                       height: "100%",
+//                       objectFit: "cover",
+//                     }}
+//                   />
+//                 ) : (
+//                   <img
+//                     src={ImageUploadLogo}
+//                     alt="악보추가 이미지"
+//                     border="0"
+//                   ></img>
+//                 )}
+//               </UploadImage>
+//               <RightContainer>
+//                 <InputContainer>
+//                   <InputText>곡 제목</InputText>
+//                   <InputValue placeholder="곡 제목을 입력해주세요" />
+//                 </InputContainer>
+//                 <InputContainer>
+//                   <InputText>곡 코드</InputText>
+//                   <UploadMusicDropdown />
+//                 </InputContainer>{" "}
+//                 <InputContainer>
+//                   <InputText>곡 버전</InputText>
+//                   <InputValue placeholder="곡의 버전을 선택해주세요" />
+//                 </InputContainer>{" "}
+//                 <InputContainer>
+//                   <InputText>영상 링크</InputText>
+//                   <InputValue placeholder="https://www.youtube.com" />
+//                 </InputContainer>
+//               </RightContainer>
+//             </MiddleContainer>
+//             <UploadImageBtn onClick={handleImageUploadClick}>
+//               악보 업로드
+//               <input
+//                 type="file"
+//                 style={{ display: "none" }}
+//                 onChange={handleFileInputChange}
+//                 ref={fileInputRef}
+//               />
+//             </UploadImageBtn>
+//             <SubmitBtn onClick={handleSubmit}>저장</SubmitBtn>
+//           </ModalContent>
+//         </Modal>
+//       )}
+//     </>
+//   );
+// }
+
 export default function UploadMusicModal() {
-  const [uploadMusicModal, UploadMusicModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [formData, setFormData] = useState({
     musicName: "",
     code: "",
     version: "",
     link: "",
+    description: "",
   });
+  const fileInputRef = useRef(null);
+
+  const handleCodeSelect = (selectedCode) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      code: selectedCode, // Set the selected code in the formData
+    }));
+  };
+
   const toggleUploadMusicModal = () => {
-    UploadMusicModal((prevState) => !prevState);
+    setIsModalOpen((prevState) => !prevState);
     setFormData({
       musicName: "",
       code: "",
       version: "",
       link: "",
+      description: "",
     });
     setPreviewUrl(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = null; // Clear file input
+      fileInputRef.current.value = null; // 파일 입력 초기화
     }
   };
-  const fileInputRef = useRef(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -203,7 +377,6 @@ export default function UploadMusicModal() {
       ...prevFormData,
       [name]: value,
     }));
-
     console.log(`${name}: ${value}`);
   };
 
@@ -211,24 +384,68 @@ export default function UploadMusicModal() {
     fileInputRef.current.click();
   };
 
+  // const handleFileInputChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     setPreviewUrl(reader.result);
+  //     console.log("Uploaded image:", reader.result);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreviewUrl(reader.result);
-      //사용자가 업로드한 이미지 확인
-      console.log("Uploaded image:", reader.result);
-    };
-    reader.readAsDataURL(file);
+
+    if (file instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+        console.log("Uploaded image:", reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.error("전달된 파일이 Blob 형식이 아닙니다.");
+    }
   };
 
   useEffect(() => {
-    if (uploadMusicModal) {
+    if (isModalOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [uploadMusicModal]);
+  }, [isModalOpen]);
+
+  const handleSubmit = async () => {
+    console.log("Form Data Submitted: ", formData);
+    try {
+      const { musicName, code, link, description, version } = formData;
+      const path = `main`;
+      const formattedPath = path.replace("/", "-");
+      const groupId = localStorage.getItem("groupId");
+      console.log("Group ID:", groupId);
+
+      const formDataToSend = new FormData();
+      formDataToSend.append("musicName", musicName);
+      formDataToSend.append("code", code);
+      formDataToSend.append("link", link);
+      formDataToSend.append("description", description);
+      formDataToSend.append("groupId", groupId);
+      formDataToSend.append("version", version);
+      formDataToSend.append("path", formattedPath);
+      if (fileInputRef.current.files.length > 0) {
+        formDataToSend.append("image", fileInputRef.current.files[0]);
+      }
+
+      await createMusic(formDataToSend);
+
+      toggleUploadMusicModal();
+      window.location.reload();
+    } catch (error) {
+      console.error("악보 추가 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -236,7 +453,7 @@ export default function UploadMusicModal() {
         <img src={OpenUploadMusic} alt="" />
         <div>악보 업로드</div>
       </ModalOpen>
-      {uploadMusicModal && (
+      {isModalOpen && (
         <Modal>
           <Overlay onClick={toggleUploadMusicModal} />
           <ModalContent>
@@ -270,20 +487,49 @@ export default function UploadMusicModal() {
               <RightContainer>
                 <InputContainer>
                   <InputText>곡 제목</InputText>
-                  <InputValue placeholder="곡 제목을 입력해주세요" />
+                  <InputValue
+                    name="musicName"
+                    value={formData.musicName}
+                    onChange={handleInputChange}
+                    placeholder="곡 제목을 입력해주세요"
+                  />
                 </InputContainer>
                 <InputContainer>
                   <InputText>곡 코드</InputText>
-                  <UploadMusicDropdown />
-                </InputContainer>{" "}
+                  <UploadMusicDropdown
+                    name="code"
+                    value={formData.code}
+                    onChange={handleInputChange}
+                    onSelect={handleCodeSelect}
+                  />
+                </InputContainer>
                 <InputContainer>
                   <InputText>곡 버전</InputText>
-                  <InputValue placeholder="곡의 버전을 선택해주세요" />
-                </InputContainer>{" "}
+                  <InputValue
+                    name="version"
+                    value={formData.version}
+                    onChange={handleInputChange}
+                    placeholder="곡의 버전을 선택해주세요"
+                  />
+                </InputContainer>
                 <InputContainer>
                   <InputText>영상 링크</InputText>
-                  <InputValue placeholder="https://www.youtube.com" />
+                  <InputValue
+                    name="link"
+                    value={formData.link}
+                    onChange={handleInputChange}
+                    placeholder="https://www.youtube.com"
+                  />
                 </InputContainer>
+                {/* <InputContainer>
+                  <InputText>설명</InputText>
+                  <InputValue
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="설명을 입력해주세요"
+                  />
+                </InputContainer> */}
               </RightContainer>
             </MiddleContainer>
             <UploadImageBtn onClick={handleImageUploadClick}>
@@ -295,7 +541,7 @@ export default function UploadMusicModal() {
                 ref={fileInputRef}
               />
             </UploadImageBtn>
-            <SubmitBtn onClick={toggleUploadMusicModal}>저장</SubmitBtn>
+            <SubmitBtn onClick={handleSubmit}>저장</SubmitBtn>
           </ModalContent>
         </Modal>
       )}
