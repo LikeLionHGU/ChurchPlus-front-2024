@@ -105,7 +105,7 @@ const InfoChangeBtn = styled.div`
   margin-top: 200px;
   margin-left: auto;
   cursor: pointer;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 6px rgba(80, 80, 80, 0.2);
 `;
 
 const BottomContents = styled.div`
@@ -219,22 +219,24 @@ export default function ManageTeam() {
           </ImgChangeBtn>
         </TeamImg>
         <TeamInfo>
-          <PreviewInfo>
-            <TeamInformation>
-              <TeamName>팀 이름</TeamName>
-              <UserTeamName>{groupInfo[0].groupName}</UserTeamName>
-            </TeamInformation>
-            <InvitationCode>
-              <InviteCode>초대코드</InviteCode>
-              <InviteCodeText>{groupInfo[0].invitation_code}</InviteCodeText>
-              <CopyToClipboard
-                text={groupInfo[0].invitation_code}
-                onCopy={() => alert("초대코드가 복사되었습니다.")}
-              >
-                <CopyImg src={CopyIcon} alt="" />
-              </CopyToClipboard>
-            </InvitationCode>
-          </PreviewInfo>
+          {groupInfo.length > 0 && (
+            <PreviewInfo>
+              <TeamInformation>
+                <TeamName>팀 이름</TeamName>
+                <UserTeamName>{groupInfo[0].groupName}</UserTeamName>
+              </TeamInformation>
+              <InvitationCode>
+                <InviteCode>초대코드</InviteCode>
+                <InviteCodeText>{groupInfo[0].invitation_code}</InviteCodeText>
+                <CopyToClipboard
+                  text={groupInfo[0].invitation_code}
+                  onCopy={() => alert("초대코드가 복사되었습니다.")}
+                >
+                  <CopyImg src={CopyIcon} alt="" />
+                </CopyToClipboard>
+              </InvitationCode>
+            </PreviewInfo>
+          )}
           <InfoChangeBtn>저장</InfoChangeBtn>
         </TeamInfo>
       </TopContents>
