@@ -24,3 +24,13 @@ export const uploadModalState = atom({
   key: "uploadModalState",
   default: false,
 })
+
+export const readMusicModalState = atom({
+  key: "readMusicModalState",
+  default: false,
+})
+
+export const musicIdState = atom({
+  key: "musicIdState",
+  default: null,
+})

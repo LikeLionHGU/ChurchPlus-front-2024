@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import shareIcon from "../../assets/Icons/ShareConti.svg";
 import printIcon from "../../assets/Icons/printPage.svg";
-import editBtn from "../../assets/Icons/EditBtn.svg";
+import { useRecoilState } from "recoil";
+import { readMusicModalState } from "../../atom";
 
 const modalStyles = `
   width: 100vw;
@@ -107,14 +108,14 @@ const LightText = styled.div`
 `;
 
 export default function ReadContiModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [readMusicModal, setReadMusicModal] = useRecoilState(readMusicModalState);
 
   const toggleReadContiModal = () => {
-    setIsModalOpen((prevState) => !prevState);
+    setReadMusicModal((prevState) => !prevState);
   };
 
   useEffect(() => {
-    if (isModalOpen) {
+    if (readMusicModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -122,11 +123,11 @@ export default function ReadContiModal() {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [isModalOpen]);
+  }, [readMusicModal]);
 
   return (
     <>
-      {isModalOpen && (
+      {readMusicModal && (
         <Modal>
           <Overlay onClick={toggleReadContiModal} />
           <ContiModal>

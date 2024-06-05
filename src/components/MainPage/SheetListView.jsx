@@ -12,10 +12,10 @@ const SheetListView = ({ sheetMusicData }) => {
           <TableRow key={index}>
             <TableColumn>
               <img src={pageIcon} alt="페이지 아이콘" />
-              {sheetMusic.title}
+              {sheetMusic.musicName}
             </TableColumn>
             <TableColumn>{sheetMusic.version}버전</TableColumn>
-            <TableColumn>{sheetMusic.key}</TableColumn>
+            <TableColumn>{sheetMusic.code}</TableColumn>
           </TableRow>
         ))}
       </Table>

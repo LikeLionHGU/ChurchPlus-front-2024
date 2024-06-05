@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import KeySelectDropdown from "./KeySelectDropdown";
@@ -11,6 +11,10 @@ import SearchBarModal from "../../pages/MainPage/Intro/SearchBarModal";
 import KeyModal from "../../pages/MainPage/Intro/KeyModal";
 import UploadModal from "../../pages/MainPage/Intro/UploadModal";
 import DefaultGroomImg from "../../assets/Icons/DefaultGroom.svg";
+import getMusicList from "../../apis/getMusicList";
+import { useSetRecoilState } from "recoil";
+import { musicIdState, readMusicModalState } from "../../atom";
+import { useRecoilState } from "recoil";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -122,111 +126,33 @@ function MainContent() {
   const [versionSearch, setVersionSearch] = useState("");
   const [keySearch, setKeySearch] = useState("");
 
-  // 악보이미지 더미
-  const sheetMusicData = [
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "주님 말씀하시면",
-    //   version: "마커스",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-    // {
-    //   imageUrl:
-    //     "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-    //   key: "C",
-    //   title: "기쁨의 옷을 입은",
-    //   version: "어노인팅",
-    // },
-  ];
+  const [sheetMusicData,setsheetMusicData] = useState([]);
+
+  const groupId = localStorage.getItem("groupId");
+
+  useEffect(() => {
+    const fetchMusicList = async () => {
+      const fetchedMusicList = await getMusicList(groupId);
+      setsheetMusicData(fetchedMusicList);
+    };
+    fetchMusicList();
+  }, [groupId]);
+console.log("sheetMusicData:",sheetMusicData);
+
+  const readMusicModal = useSetRecoilState(readMusicModalState);
+  const toggleReadMusicModal = () => {
+    readMusicModal((prevState) => !prevState);
+  };
+  const [musicId, setMusicId] = useRecoilState(musicIdState);
+  console.log("musicId is:",musicId)
+
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
-    const formattedTitle = sheetMusic.title.toLowerCase().replace(/\s/g, "");
-    const formattedVersion = sheetMusic.version
-      .toLowerCase()
-      .replace(/\s/g, "");
+    const formattedTitle = sheetMusic.musicName ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "") : "";
+    const formattedVersion = sheetMusic.version ? sheetMusic.version.toLowerCase().replace(/\s/g, "") : "";
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
-    const formattedVersionSearch = versionSearch
-      .toLowerCase()
-      .replace(/\s/g, "");
-
+    const formattedVersionSearch = versionSearch.toLowerCase().replace(/\s/g, "");
+  
     return (
       formattedTitle.includes(formattedTitleSearch) &&
       formattedVersion.includes(formattedVersionSearch) &&
@@ -273,12 +199,18 @@ function MainContent() {
               <SheetMusicContainer>
                 <SheetMusicImage
                   className="sheet-music-image"
-                  src={sheetMusic.imageUrl}
+                  src={sheetMusic.musicImageUrl}
                   alt={`악보 이미지 ${index}`}
                 />
-                <SheetInfoOverlay className="sheet-info-overlay">
+                <SheetInfoOverlay className="sheet-info-overlay"
+                  onClick={() => {
+                    toggleReadMusicModal();
+                    setMusicId(sheetMusic.musicId)
+                    }}
+
+                  >
                   <p>
-                    {sheetMusic.title} | {sheetMusic.key} Key
+                    {sheetMusic.musicName} | {sheetMusic.code} Key
                   </p>
                 </SheetInfoOverlay>
               </SheetMusicContainer>
