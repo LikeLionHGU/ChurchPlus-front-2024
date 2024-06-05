@@ -142,7 +142,9 @@ const handleTeamClick = (group) => {
           </Groups>
         </GroupContainer>
       </SelectGroupContainer>
+      <Link to={"/JoinGroup"}>
       <AlreadyHaveTeamText>이미 팀이 있으신가요?</AlreadyHaveTeamText>
+      </Link>
     </Wrapper>
   );
 }

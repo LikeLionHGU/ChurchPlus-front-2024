@@ -3,7 +3,7 @@ import { BlueText, TextBoxVer2 } from "../../components/CreateGroupPage/Text";
 import nextBtn from "../../assets/Icons/GroupNextBtn.svg";
 import groomLogo from "../../assets/logo/GroomLogo.svg";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Logo = styled.img`
   height: 48px;
@@ -38,7 +38,6 @@ function CreateNewGroupPage() {
   const [groupName, setGroupName] = useState("");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
