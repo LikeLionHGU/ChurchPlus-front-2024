@@ -6,6 +6,11 @@ import shareIcon from "../../assets/Icons/ShareConti.svg";
 import printIcon from "../../assets/Icons/printPage.svg";
 import editBtn from "../../assets/Icons/EditBtn.svg";
 import saveBtn from "../../assets/Icons/SaveBtn.svg";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { musicIdState, readMusicModalState } from "../../atom";
+import getMusicInfo from "../../apis/getMusicInfo";
+import updateMusic from "../../apis/updateMusic";
+import deleteMusic from "../../apis/deleteMusic";
 
 const modalStyles = `
   width: 100vw;
@@ -125,23 +130,38 @@ const EditableInput = styled.input`
   padding-bottom: 35px;
   color: gray;
   border: none;
-  /* border-bottom: 1px solid gray; */
   outline: none;
   width: 419px;
 `;
 
+const LoadingMessage = styled.div`
+  margin: auto;
+  font-size: 24px;
+  font-family: "GmarketSansLight";
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: black;
+`;
+
 export default function ModifyContiModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(readMusicModalState);
   const [isEditable, setIsEditable] = useState(false);
-  const [contiData, setContiData] = useState({
-    title: "예수로 살리",
-    key: "G Key",
-    version: "마커스",
-    link: "https://github.com/LikeLionHGU/ChurchPlus-front-2024",
+  const [contiData, setContiData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const musicId = useRecoilValue(musicIdState);
+  const [formData, setFormData] = useState({
+    musicName: "",
+    code: "",
+    version: "",
+    link: "",
+    description: "",
   });
 
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
+    setIsEditable(false); // 모달을 열 때 isEditable을 false로 설정
   };
 
   const toggleEditMode = () => {
@@ -150,11 +170,33 @@ export default function ModifyContiModal() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setContiData({
-      ...contiData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    const fetchMusicInfo = async () => {
+      setIsLoading(true); // 데이터 로드 시작 시 로딩 상태 true로 설정
+      try {
+        const fetchedMusicInfo = await getMusicInfo(musicId);
+        setContiData(fetchedMusicInfo);
+        setFormData({
+          musicName: fetchedMusicInfo.musicName,
+          code: fetchedMusicInfo.code,
+          version: fetchedMusicInfo.version,
+          link: fetchedMusicInfo.link,
+          description: fetchedMusicInfo.description || "", // description이 없을 경우 빈 문자열로 설정
+        });
+      } catch (error) {
+        console.error("Failed to fetch music info:", error);
+      } finally {
+        setIsLoading(false); // 데이터 로드 완료 시 로딩 상태 false로 설정
+      }
+    };
+    fetchMusicInfo();
+  }, [musicId]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -167,83 +209,126 @@ export default function ModifyContiModal() {
     };
   }, [isModalOpen]);
 
+  const handleSubmit = async () => {
+    console.log("Form Data Submitted: ", formData);
+    try {
+      const { musicName, code, link, description, version } = formData;
+      const groupId = localStorage.getItem("groupId");
+      console.log("Group ID:", groupId);
+
+      const formDataToSend = new FormData();
+      formDataToSend.append("musicName", musicName);
+      formDataToSend.append("code", code);
+      formDataToSend.append("link", link);
+      formDataToSend.append("description", description);
+      formDataToSend.append("groupId", groupId);
+      formDataToSend.append("version", version);
+
+      await updateMusic(formDataToSend, musicId);
+      setIsEditable(false); // 저장 후 isEditable을 false로 리셋
+    } catch (error) {
+      console.error("악보 수정 실패:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if(window.confirm("삭제하시겠습니까?")){
+    try{
+      await deleteMusic(musicId);
+      window.location.reload();
+    }
+    catch (error) {
+      console.error("악보 삭제 실패:", error);
+    }
+  }
+  else {
+    alert("취소");
+  }
+}
+
   return (
     <>
       {isModalOpen && (
         <Modal>
           <Overlay onClick={toggleModifyContiModal} />
           <ContiModal>
-            <ModalTop>
-              <ContiTitle>예수로 살리</ContiTitle>
-              <Icons>
-                <img
-                  onClick={toggleModifyContiModal}
-                  src={exitBtnIcon}
-                  alt="캔슬 아이콘"
-                />
-              </Icons>
-            </ModalTop>
-            <ModalContent>
-              <ContiImage>
-                <img
-                  src="https://mblogthumb-phinf.pstatic.net/MjAyMDEyMTNfNjgg/MDAxNjA3ODA5NjA0NTM2.YM6pUqS1a5iOpS6E6qgmXv-OY2NpxuLqzKKw7zDv8-Yg.YdBycMqSyFsaoOD1SSXqqfYiRucys1Ysb7gN3f7_Eqsg.JPEG.zzseulzz/%EC%98%88%EC%88%98%EB%A1%9C_%EC%82%B4%EB%A6%AC.jpg?type=w800"
-                  alt="Conti Image"
-                />
-              </ContiImage>
-
-              <ContiInfo>
-                <Icon2>
-                  <Img src={binIcon} alt="쓰레기통 아이콘" />
-                  <Img src={shareIcon} alt="공유 아이콘" />
-                  <Img src={printIcon} alt="프린트 아이콘" />
-                </Icon2>
-                <BoldText>곡 제목</BoldText>
-                {isEditable ? (
-                  <EditableInput
-                    name="title"
-                    value={contiData.title}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <LightText>{contiData.title}</LightText>
-                )}
-                <BoldText>곡 코드</BoldText>
-                {isEditable ? (
-                  <EditableInput
-                    name="key"
-                    value={contiData.key}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <LightText>{contiData.key}</LightText>
-                )}
-                <BoldText>곡 버전</BoldText>
-                {isEditable ? (
-                  <EditableInput
-                    name="version"
-                    value={contiData.version}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <LightText>{contiData.version}</LightText>
-                )}
-                <BoldText>영상 링크</BoldText>
-                {isEditable ? (
-                  <EditableInput
-                    name="link"
-                    value={contiData.link}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <LightText>{contiData.link}</LightText>
-                )}
-                <Btn
-                  src={isEditable ? saveBtn : editBtn}
-                  alt="수정버튼"
-                  onClick={toggleEditMode}
-                />
-              </ContiInfo>
-            </ModalContent>
+            {isLoading ? (
+              <LoadingMessage>Loading...</LoadingMessage>
+            ) : (
+              <>
+                <ModalTop>
+                  <ContiTitle>{contiData.musicName}</ContiTitle>
+                  <Icons>
+                    <img
+                      onClick={toggleModifyContiModal}
+                      src={exitBtnIcon}
+                      alt="캔슬 아이콘"
+                    />
+                  </Icons>
+                </ModalTop>
+                <ModalContent>
+                  <ContiImage>
+                    <img src={contiData.musicImageUrl} alt="Conti Image" />
+                  </ContiImage>
+                  <ContiInfo>
+                    <Icon2>
+                      <Img src={binIcon} alt="쓰레기통 아이콘" onClick={handleDelete}/>
+                      <Img src={shareIcon} alt="공유 아이콘" />
+                      <Img src={printIcon} alt="프린트 아이콘" />
+                    </Icon2>
+                    <BoldText>곡 제목</BoldText>
+                    {isEditable ? (
+                      <EditableInput
+                        name="musicName"
+                        value={formData.musicName}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <LightText>{formData.musicName}</LightText>
+                    )}
+                    <BoldText>곡 코드</BoldText>
+                    {isEditable ? (
+                      <EditableInput
+                        name="code"
+                        value={formData.code}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <LightText>{formData.code}</LightText>
+                    )}
+                    <BoldText>곡 버전</BoldText>
+                    {isEditable ? (
+                      <EditableInput
+                        name="version"
+                        value={formData.version}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <LightText>{formData.version}</LightText>
+                    )}
+                    <BoldText>영상 링크</BoldText>
+                    {isEditable ? (
+                      <EditableInput
+                        name="link"
+                        value={formData.link}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <LightText>
+                        <Link href={formData.link} target="_blank">
+                          {formData.link}
+                        </Link>
+                      </LightText>
+                    )}
+                    <Btn
+                      src={isEditable ? saveBtn : editBtn}
+                      alt="수정버튼"
+                      onClick={isEditable ? handleSubmit : toggleEditMode}
+                    />
+                  </ContiInfo>
+                </ModalContent>
+              </>
+            )}
           </ContiModal>
         </Modal>
       )}
