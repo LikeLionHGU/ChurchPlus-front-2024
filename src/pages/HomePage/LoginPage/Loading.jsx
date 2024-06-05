@@ -16,30 +16,28 @@ const Loading = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // code 추출
-    const parsedQuery = new URLSearchParams(window.location.search);
-    const code = parsedQuery.get("code");
-    console.log(code);
+    const fetchData = async () => {
+      try {
+        const parsedQuery = new URLSearchParams(window.location.search);
+        const code = parsedQuery.get("code");
+        const parsedHash = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = parsedHash.get("access_token");
 
-    const parsedHash = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = parsedHash.get("access_token");
-    console.log(accessToken);
+        if (code) {
+          await sendKakaoCodeToBackend(code);
+          navigate("/SelectTeamPage");
+        } else if (accessToken) {
+          await sendAccessTokenToBackend(accessToken);
+          navigate("/SelectTeamPage");
+        }
+      } catch (error) {
+        console.error("로그인 과정에서 에러가 발생했습니다.", error);
+        // 에러 처리 로직 추가
+      }
+    };
 
-    // code가 존재하면 백엔드로 전송하고 페이지 이동
-    if (code) {
-      sendKakaoCodeToBackend(code).then(() => {
-        navigate("/SelectTeamPage"); // 로그인 후 팀생성 페이지 이동
-      });
-    }
-    if (accessToken) {
-      sendAccessTokenToBackend(accessToken).then(() => {
-        navigate("/SelectTeamPage"); // 로그인 후 팀생성 페이지 이동
-      });
-    }
-  }, [navigate]
-);
-
-  
+    fetchData();
+  }, [navigate]);
 
   return (
     <div>

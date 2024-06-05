@@ -16,6 +16,7 @@ import { BlueText } from "../../components/CreateGroupPage/Text";
 import groomLogo from "../../assets/logo/GroomLogo.svg";
 import startBtn from "../../assets/Icons/StartBtn.svg";
 import createGroup from "../../apis/createGroup";
+import joinGroup from "../../apis/JoinGroup";
 
 
 const positionImages = [
@@ -145,10 +146,12 @@ function InputPosition() {
   // state를 통해 페이지별로 사용자의 입력값이 잘 전달되고 있음
   const groupName = location.state.groupName;
   const nickname = location.state.userName;
+  const invitationCode = location.state.invitationCode
   console.log("groupName is",groupName);
   console.log("nickname is",nickname);
   console.log("memberId is",memberId);
   console.log("position is",position);
+  console.log("invitationCode is", invitationCode)
   
 
   const handleCompleteBtnClick = async () => {
@@ -156,10 +159,14 @@ function InputPosition() {
       alert("포지션을 선택해주세요.");
       return;
     }
-    // const groupName = location.state.groupName;
-    // const userName = location.state.userName;
 
-    // const memberId = localStorage.getItem("memberId");
+    try{
+      await joinGroup(invitationCode, memberId, position, nickname);
+      navigate("/SelectTeamPage");
+    } catch (error) {
+      console.error("그룹 참여 실패:", error);
+    }
+    
 
     try {
       await createGroup(groupName, memberId, position, nickname);

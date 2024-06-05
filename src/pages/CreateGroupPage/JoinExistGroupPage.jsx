@@ -35,7 +35,7 @@ const NextBtn = styled.img`
 `;
 
 function JoinExistGroupPage() {
-  const [groupName, setGroupName] = useState("");
+  const [invitationCode, setInvitationCode] = useState("");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
@@ -45,9 +45,17 @@ function JoinExistGroupPage() {
     }
   };
 
-  const handleNextBtnClick = () => {
-    navigate("/InputPosition");
+  const handleNextBtnClick = async() => {
+    if(userName.trim() !=="" && invitationCode.trim() !==""){
+    navigate("/InputPosition",{
+      state: { userName, invitationCode},
+    });
+  }else {
+    alert("빈칸을 채워주세요.");
+  }
   };
+  console.log(invitationCode);
+  console.log(userName);
 
   return (
     <div>
@@ -60,8 +68,8 @@ function JoinExistGroupPage() {
         <TextBoxVer2>
           <input
             type="text"
-            value={groupName}
-            onChange={(e) => setGroupName(e.target.value)}
+            value={invitationCode}
+            onChange={(e) => setInvitationCode(e.target.value)}
             onKeyDown={handleKeyDown}
           />
         </TextBoxVer2>
