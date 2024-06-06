@@ -15,6 +15,7 @@ import ContiStoragePage from "./pages/MainPage/ContiStoragePage";
 import CreateContiPage from "./pages/MainPage/CreateContiPage";
 import CreateNewGroupPage from "./pages/CreateGroupPage/CreateNewGroupPage";
 import JoinExistGroupPage from "./pages/CreateGroupPage/JoinExistGroupPage";
+import ContiSheetStoragePage from "./pages/MainPage/ContiSheetStoragePage";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
           <Route
             path="/ContiStoragePage"
             element={<ContiStoragePage />}
+          ></Route>
+          <Route
+            path="/ContiStoragePage/:content"
+            element={<ContiSheetStoragePage />}
           ></Route>
           <Route path="/CreateContiPage" element={<CreateContiPage />}></Route>
         </Routes>
