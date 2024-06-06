@@ -73,6 +73,15 @@ const InvitationCode = styled.div`
 
 const TeamName = styled.div``;
 
+const TeamNameInput = styled.input`
+  font-family: "GmarketSansLight";
+  font-size: 16px;
+  margin-left: 24px;
+  margin-bottom: 4px;
+  border: 0;
+  background-color: #f1f1f1;
+`;
+
 const InviteCode = styled.div``;
 
 const UserTeamName = styled.div`
@@ -173,6 +182,8 @@ export default function ManageTeam() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
   const [groupInfo, setGroupInfo] = useState([]);
+  const [newGroupName, setNewGroupName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const groupId = localStorage.getItem("groupId");
 
@@ -180,6 +191,7 @@ export default function ManageTeam() {
     const fetchGroupInfo = async () => {
       const fetchedGroupInfo = await getGroupInfo(groupId);
       setGroupInfo(fetchedGroupInfo);
+      setNewGroupName(fetchedGroupInfo[0]?.groupName || "");
     };
     fetchGroupInfo();
   }, [groupId]);
@@ -195,11 +207,22 @@ export default function ManageTeam() {
     const reader = new FileReader();
     reader.onload = () => {
       setPreviewUrl(reader.result);
-      //사용자가 업로드한 이미지 확인
       console.log("Uploaded image:", reader.result);
     };
     reader.readAsDataURL(file);
   };
+
+  const handleGroupNameChange = (e) => {
+    setNewGroupName(e.target.value);
+  };
+
+  const handleSaveGroupInfo = () => {
+    const updatedGroupInfo = [...groupInfo];
+    updatedGroupInfo[0].groupName = newGroupName;
+    setGroupInfo(updatedGroupInfo);
+    setIsEditing(false);
+  };
+
   return (
     <>
       <TopContents>
@@ -216,7 +239,7 @@ export default function ManageTeam() {
                 }}
               />
             ) : (
-              <img src={ManageTeamImg} alt="악보추가 이미지" border="0"></img>
+              <img src={ManageTeamImg} alt="악보추가 이미지" border="0" />
             )}
           </PreviewImg>
           <ImgChangeBtn onClick={handleImageUploadClick}>
@@ -234,7 +257,17 @@ export default function ManageTeam() {
             <PreviewInfo>
               <TeamInformation>
                 <TeamName>팀 이름</TeamName>
-                <UserTeamName>{groupInfo[0].groupName}</UserTeamName>
+                {isEditing ? (
+                  <TeamNameInput
+                    type="text"
+                    value={newGroupName}
+                    onChange={handleGroupNameChange}
+                  />
+                ) : (
+                  <UserTeamName onClick={() => setIsEditing(true)}>
+                    {groupInfo[0].groupName}
+                  </UserTeamName>
+                )}
               </TeamInformation>
               <InvitationCode>
                 <InviteCode>초대코드</InviteCode>
@@ -248,7 +281,9 @@ export default function ManageTeam() {
               </InvitationCode>
             </PreviewInfo>
           )}
-          <InfoChangeBtn>저장</InfoChangeBtn>
+          <InfoChangeBtn onClick={handleSaveGroupInfo} disabled={!isEditing}>
+            저장
+          </InfoChangeBtn>
         </TeamInfo>
       </TopContents>
       <BottomContents>
@@ -266,7 +301,6 @@ export default function ManageTeam() {
             <span></span>
           </Bin>
         </BlueBox>
-
         {groupInfo.map((userInfo, index) => (
           <TransparentBox key={index}>
             <Name>
