@@ -159,6 +159,8 @@ export default function ModifyContiModal() {
     description: "",
   });
 
+  console.log("musicId", musicId);
+
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
@@ -187,7 +189,8 @@ export default function ModifyContiModal() {
           code: fetchedMusicInfo.code,
           version: fetchedMusicInfo.version,
           link: fetchedMusicInfo.link,
-          description: fetchedMusicInfo.description || "",
+          description: fetchedMusicInfo.description || "", // description이 없을 경우 빈 문자열로 설정
+          image: fetchMusicInfo.musicImageUrl,
         });
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -223,6 +226,7 @@ export default function ModifyContiModal() {
       formDataToSend.append("description", description);
       formDataToSend.append("groupId", groupId);
       formDataToSend.append("version", version);
+      
 
       await updateMusic(formDataToSend, musicId);
       setIsEditable(false);
