@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ManageTeamImg from "../../asset/Images/Icons/ManageTeamImg.svg";
 import CopyIcon from "../../asset/Images/Icons/CopyIcon.svg";
+import binIcon from "../../assets/Icons/Bin.svg";
 import styled from "styled-components";
 import getGroupInfo from "../../apis/getGroupInfo";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -123,7 +124,7 @@ const BottomContents = styled.div`
 
 const BlueBox = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 0.4fr;
   background-color: #e2edff;
   width: 1117px;
   height: 50px;
@@ -145,12 +146,22 @@ const Note = styled.div`
   align-items: center;
 `;
 
+const Bin = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+  }
+`;
+
 const TransparentBox = styled.div`
   width: 1117px;
   height: 50px;
   border-bottom: 1px solid #d9d9d9;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 0.4fr;
 
   span {
     font-family: "GmarketSansLight";
@@ -251,6 +262,9 @@ export default function ManageTeam() {
           <Note>
             <span>비고</span>
           </Note>
+          <Bin>
+            <span></span>
+          </Bin>
         </BlueBox>
 
         {groupInfo.map((userInfo, index) => (
@@ -264,6 +278,11 @@ export default function ManageTeam() {
             <Note>
               <span>010-0000-0000</span>
             </Note>
+            <Bin>
+              <span>
+                <img src={binIcon} alt="휴지통" border="0"></img>
+              </span>
+            </Bin>
           </TransparentBox>
         ))}
         <TransparentBox>
