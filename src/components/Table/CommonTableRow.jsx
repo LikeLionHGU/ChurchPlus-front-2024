@@ -11,9 +11,16 @@ const TableRow = styled.tr`
   }
 `;
 
-const CommonTableRow = ({ children, hoverColor, selected }) => {
+const CommonTableRow = ({ children, hoverColor, selected, onClick }) => {
+  const handleClick = () => {
+    // console.log("Clicked on TableRow in CommonTableRow");
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <TableRow hoverColor={hoverColor} selected={selected}>
+    <TableRow hoverColor={hoverColor} selected={selected} onClick={handleClick}>
       {children}
     </TableRow>
   );
