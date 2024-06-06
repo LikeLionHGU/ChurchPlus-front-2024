@@ -106,7 +106,7 @@ const InfoChangeBtn = styled.div`
   width: 60px;
   height: 36px;
   border-radius: 14px;
-  background-color: #aec3de;
+  background-color: ${({ isEditing }) => (isEditing ? "#aec3de" : "#d5d8dc")};
   color: white;
   display: flex;
   justify-content: center;
@@ -281,7 +281,11 @@ export default function ManageTeam() {
               </InvitationCode>
             </PreviewInfo>
           )}
-          <InfoChangeBtn onClick={handleSaveGroupInfo} disabled={!isEditing}>
+          <InfoChangeBtn
+            onClick={handleSaveGroupInfo}
+            isEditing={isEditing}
+            disabled={!isEditing}
+          >
             저장
           </InfoChangeBtn>
         </TeamInfo>
