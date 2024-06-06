@@ -14,7 +14,7 @@ const DateContainer = styled.div`
 `;
 
 const ContiContainer = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-wrap: Wrap;
   margin-left: 40px;

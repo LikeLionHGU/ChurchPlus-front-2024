@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
@@ -7,6 +7,7 @@ import ReadContiModal from "../Modal/ReadContiModal";
 import ContiStepModal from "../Modal/ContiStepModal";
 import ModifyContiModal from "../Modal/ModifyContiModal";
 import getPositionAndUserName from "../../apis/getPositionAndUserName";
+import { useNavigate } from "react-router-dom";
 // import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
@@ -56,25 +57,39 @@ function Header({ menu }) {
   const memberId = localStorage.getItem("memberId");
   const groupId = localStorage.getItem("groupId");
   const [userInfo, setUserInfo] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const fetchedUserInfo = await getPositionAndUserName(memberId, groupId);
-      setUserInfo(fetchedUserInfo);
-    };
-    fetchUserInfo();
-  }, [memberId], [groupId]);
-    console.log("nickname: ", userInfo)
+  const handleSettingIconClick = () => {
+    navigate("/ManageTeamPage");
+  };
+
+  useEffect(
+    () => {
+      const fetchUserInfo = async () => {
+        const fetchedUserInfo = await getPositionAndUserName(memberId, groupId);
+        setUserInfo(fetchedUserInfo);
+      };
+      fetchUserInfo();
+    },
+    [memberId],
+    [groupId]
+  );
+  console.log("nickname: ", userInfo);
+
   return (
     <Wrapper>
       <Menu>{menu}</Menu>
       <Icons>
-        <img src={settingIcon} alt="환경설정 아이콘"></img>
+        <img
+          onClick={handleSettingIconClick}
+          src={settingIcon}
+          alt="환경설정 아이콘"
+        ></img>
         <img src={bellIcon} alt="벨아이콘"></img>
       </Icons>
       <PersonInfo>
-      {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText>
-      {/* {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText> */}
+        {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText>
+        {/* {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText> */}
       </PersonInfo>
       <ReadContiModal />
       <ContiStepModal />

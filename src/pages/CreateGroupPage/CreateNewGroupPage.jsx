@@ -1,37 +1,56 @@
 import React, { useState } from "react";
 import { BlueText, TextBoxVer2 } from "../../components/CreateGroupPage/Text";
-import nextBtn from "../../assets/Icons/GroupNextBtn.svg";
+import { NextBtn } from "../../components/CreateGroupPage/Button";
 import groomLogo from "../../assets/logo/GroomLogo.svg";
+import rightArrow from "../../assets/Icons/navArrowRight.svg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+
+const Wrapper = styled.div`
+  height: 100vh;
+`;
 
 const Logo = styled.img`
   height: 48px;
   width: 123px;
-  margin-left: 40px;
-  margin-top: 36px;
+  margin-left: 45px;
+  margin-top: 45px;
 `;
 
 const TextContainer = styled.div`
-  margin-left: 135px;
+  margin-left: 379px;
+  margin-right: 379px;
+  margin-top: 70px;
 `;
 
 const Title = styled.div`
   font-size: 44px;
-  margin-top: 54px;
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Text = styled.div`
+  font-family: "GmarketSansLight";
   font-size: 30px;
-  margin-top: 85px;
+  margin-top: 90px;
+  margin-bottom: 10px;
+  color: #0d2040;
 `;
 
-const NextBtn = styled.img`
-  height: 52px;
-  width: 114px;
-  float: right;
-  margin-right: 5%;
-  cursor: pointer;
+const BtnText = styled.div`
+  display: flex;
+`;
+
+const Next = styled.div`
+  margin-left: 15px;
+`;
+
+const ArrowImg = styled.img`
+  margin-left: 30px;
+  height: 30px;
+  width: 30px;
+  padding-bottom: 3px;
 `;
 
 function CreateNewGroupPage() {
@@ -45,19 +64,19 @@ function CreateNewGroupPage() {
     }
   };
 
-  const handleNextBtnClick = async() => {
-    if(userName.trim() !=="" && groupName.trim() !==""){
-    navigate("/InputPosition",{
-      state: { userName, groupName},
-    });
-  }else {
-    alert("빈칸을 채워주세요.");
-  }
+  const handleNextBtnClick = async () => {
+    if (userName.trim() !== "" && groupName.trim() !== "") {
+      navigate("/InputPosition", {
+        state: { userName, groupName },
+      });
+    } else {
+      alert("빈칸을 채워주세요.");
+    }
   };
   console.log(groupName);
   console.log(userName);
   return (
-    <div>
+    <Wrapper>
       <Logo src={groomLogo} alt="로고"></Logo>
       <TextContainer>
         <Title>
@@ -82,12 +101,13 @@ function CreateNewGroupPage() {
           />
         </TextBoxVer2>
       </TextContainer>
-      <NextBtn
-        src={nextBtn}
-        alt="다음 버튼"
-        onClick={handleNextBtnClick}
-      ></NextBtn>
-    </div>
+      <NextBtn onClick={handleNextBtnClick}>
+        <BtnText>
+          <Next>다음</Next>
+          <ArrowImg src={rightArrow} alt="화살표"></ArrowImg>
+        </BtnText>
+      </NextBtn>
+    </Wrapper>
   );
 }
 

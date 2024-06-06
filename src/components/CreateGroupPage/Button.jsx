@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
 const ButtonBase = css`
-  height: 53px;
+  height: 51px;
   width: 114px;
 
-  margin-top: ${(props) => props.$marginTop || "194px"};
+  margin-top: ${(props) => props.$marginTop || "80px"};
   cursor: pointer;
-  border: 1px solid rgba(204, 223, 255, 0.8);
+  border: 1px solid #6578a8;
   border-radius: 14px;
   position: relative;
   overflow: hidden;
@@ -21,7 +21,7 @@ const ButtonBase = css`
   }
 
   &:hover {
-    border-color: #aec3de;
+    border-color: rgba(125, 229, 253, 0.5);
   }
 
   &::before,
@@ -38,7 +38,7 @@ const ButtonBase = css`
   }
 
   &::before {
-    background: #aec3de;
+    background: rgba(116, 179, 238, 0.5);
     z-index: -12;
     opacity: 1;
     transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
@@ -54,7 +54,10 @@ export const NextBtn = styled.button`
   ${ButtonBase}
   float: right;
   margin-right: 8%;
-  background-color: rgba(204, 223, 255, 0.8);
+  font-family: "GmarketSansMedium";
+  background-color: rgba(62, 86, 146, 0.8);
+  color: rgba(255, 255, 255, 1);
+  font-size: 26px;
 
   img {
     top: 55%;
@@ -76,13 +79,15 @@ export const PrevBtn = styled.button`
 
 export const StartBtn = styled.button`
   ${ButtonBase}
-  height: 53px;
-  width: 168px;
-  float: right;
-  margin-right: 8.6%;
-  background-color: rgba(204, 223, 255, 0.8);
-
-  img {
+  height: 50px;
+  width: 148px;
+  font-family: "GmarketSansMedium";
+  background-color: rgba(62, 86, 146, 0.8);
+  color: rgba(255, 255, 255, 1);
+  margin-top: 20px;
+  margin-left: 45%;
+  font-size: 26px;
+  color: img {
     top: 55%;
     left: 47%;
   }

@@ -17,7 +17,7 @@ import groomLogo from "../../assets/logo/GroomLogo.svg";
 import startBtn from "../../assets/Icons/StartBtn.svg";
 import createGroup from "../../apis/createGroup";
 import joinGroup from "../../apis/JoinGroup";
-
+import { StartBtn } from "../../components/CreateGroupPage/Button";
 
 const positionImages = [
   {
@@ -65,8 +65,8 @@ const positionImages = [
 const Logo = styled.img`
   height: 48px;
   width: 123px;
-  margin-left: 40px;
-  margin-top: 36px;
+  margin-left: 45px;
+  margin-top: 45px;
 `;
 
 const Text = styled.div`
@@ -120,23 +120,12 @@ const Input = styled.div`
   color: black;
 `;
 
-const StartBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  img {
-    cursor: pointer;
-    width: 148px;
-    height: 50px;
-  }
-`;
-
 function InputPosition() {
   const navigate = useNavigate();
   // const location = useLocation();
   const [position, setposition] = useState(null);
   const location = useLocation();
   const memberId = localStorage.getItem("memberId");
-
 
   const handlePositionSelect = (index) => {
     setposition(positionImages[index].description);
@@ -146,13 +135,12 @@ function InputPosition() {
   // state를 통해 페이지별로 사용자의 입력값이 잘 전달되고 있음
   const groupName = location.state.groupName;
   const nickname = location.state.userName;
-  const invitationCode = location.state.invitationCode
-  console.log("groupName is",groupName);
-  console.log("nickname is",nickname);
-  console.log("memberId is",memberId);
-  console.log("position is",position);
-  console.log("invitationCode is", invitationCode)
-  
+  const invitationCode = location.state.invitationCode;
+  console.log("groupName is", groupName);
+  console.log("nickname is", nickname);
+  console.log("memberId is", memberId);
+  console.log("position is", position);
+  console.log("invitationCode is", invitationCode);
 
   const handleCompleteBtnClick = async () => {
     if (!position === null) {
@@ -160,13 +148,12 @@ function InputPosition() {
       return;
     }
 
-    try{
+    try {
       await joinGroup(invitationCode, memberId, position, nickname);
       navigate("/SelectTeamPage");
     } catch (error) {
       console.error("그룹 참여 실패:", error);
     }
-    
 
     try {
       await createGroup(groupName, memberId, position, nickname);
@@ -194,9 +181,7 @@ function InputPosition() {
           </PositionItem>
         ))}
       </PositionContainer>
-      <StartBtn>
-        <img onClick={handleCompleteBtnClick} src={startBtn} alt="완료 버튼" />
-      </StartBtn>
+      <StartBtn onClick={handleCompleteBtnClick}>시작하기</StartBtn>
     </BackgroundWrapper>
   );
 }
