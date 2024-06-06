@@ -332,7 +332,6 @@ export default function ModifyContiModal() {
           </ContiModal>
         </Modal>
       )}
-      <button onClick={toggleModifyContiModal}>콘티수정모달</button>
     </>
   );
 }

@@ -34,3 +34,13 @@ export const musicIdState = atom({
   key: "musicIdState",
   default: null,
 })
+
+export const musicIdListState = atom({
+  key: "musicIdListState",
+  default: [],
+})
+
+export const contiStepModalState = atom({
+  key: "contiStepModalState",
+  default: false,
+})

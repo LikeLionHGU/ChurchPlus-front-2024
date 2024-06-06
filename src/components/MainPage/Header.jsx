@@ -91,9 +91,6 @@ function Header({ menu }) {
         {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText>
         {/* {userInfo.nickname} | <BlueText> {userInfo.position} </BlueText> */}
       </PersonInfo>
-      <ReadContiModal />
-      <ContiStepModal />
-      <ModifyContiModal />
     </Wrapper>
   );
 }

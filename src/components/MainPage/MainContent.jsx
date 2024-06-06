@@ -15,6 +15,7 @@ import getMusicList from "../../apis/getMusicList";
 import { useSetRecoilState } from "recoil";
 import { musicIdState, readMusicModalState } from "../../atom";
 import { useRecoilState } from "recoil";
+import ModifyContiModal from "../Modal/ModifyContiModal";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -214,6 +215,7 @@ console.log("sheetMusicData:",sheetMusicData);
                   </p>
                 </SheetInfoOverlay>
               </SheetMusicContainer>
+              <ModifyContiModal/>
             </div>
           ))
         )}
