@@ -48,7 +48,7 @@ export const TextBoxVer2 = styled.div`
     border: none;
     outline: none;
     font-family: "GmarketSansLight";
-    font-size: 40px;
+    font-size: 30px;
     caret-color: blue;
 
     background-color: #efeff0;

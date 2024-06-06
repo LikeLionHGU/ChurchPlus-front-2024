@@ -25,7 +25,7 @@ const ContiContainer = styled.div`
 const Contents = styled.div`
   margin-left: 20px;
   min-width: 1180px;
-  border: 1px solid #3e5692;
+  /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
 `;
