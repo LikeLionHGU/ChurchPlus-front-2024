@@ -126,10 +126,11 @@ function MainContent() {
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
   const [keySearch, setKeySearch] = useState("");
-
-  const [sheetMusicData,setsheetMusicData] = useState([]);
-
+  const [sheetMusicData, setsheetMusicData] = useState([]);
   const groupId = localStorage.getItem("groupId");
+
+  const [musicId, setMusicId] = useRecoilState(musicIdState);
+  const setReadMusicModal = useSetRecoilState(readMusicModalState);
 
   useEffect(() => {
     const fetchMusicList = async () => {
@@ -138,22 +139,26 @@ function MainContent() {
     };
     fetchMusicList();
   }, [groupId]);
-console.log("sheetMusicData:",sheetMusicData);
+  console.log("sheetMusicData:", sheetMusicData);
 
-  const readMusicModal = useSetRecoilState(readMusicModalState);
   const toggleReadMusicModal = () => {
-    readMusicModal((prevState) => !prevState);
+    setReadMusicModal((prevState) => !prevState);
   };
-  const [musicId, setMusicId] = useRecoilState(musicIdState);
-  console.log("musicId is:",musicId)
 
+  console.log("musicId is:", musicId);
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
-    const formattedTitle = sheetMusic.musicName ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "") : "";
-    const formattedVersion = sheetMusic.version ? sheetMusic.version.toLowerCase().replace(/\s/g, "") : "";
+    const formattedTitle = sheetMusic.musicName
+      ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "")
+      : "";
+    const formattedVersion = sheetMusic.version
+      ? sheetMusic.version.toLowerCase().replace(/\s/g, "")
+      : "";
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
-    const formattedVersionSearch = versionSearch.toLowerCase().replace(/\s/g, "");
-  
+    const formattedVersionSearch = versionSearch
+      .toLowerCase()
+      .replace(/\s/g, "");
+
     return (
       formattedTitle.includes(formattedTitleSearch) &&
       formattedVersion.includes(formattedVersionSearch) &&
@@ -172,7 +177,6 @@ console.log("sheetMusicData:",sheetMusicData);
         <SearchBarModal />
         <KeyModal />
         <UploadModal />
-
         <Icons>
           <img
             src={viewListIcon}
@@ -193,7 +197,14 @@ console.log("sheetMusicData:",sheetMusicData);
             <DefaultText>악보를 업로드 해보세요!</DefaultText>
           </DefaultSection>
         ) : isListView ? (
-          <SheetListView sheetMusicData={filteredData} />
+          <SheetListView
+            sheetMusicData={filteredData}
+            onMusicClick={(musicId) => {
+              console.log("Clicked on music with ID:", musicId);
+              setMusicId(musicId);
+              toggleReadMusicModal();
+            }}
+          />
         ) : (
           filteredData.map((sheetMusic, index) => (
             <div key={index}>
@@ -203,22 +214,22 @@ console.log("sheetMusicData:",sheetMusicData);
                   src={sheetMusic.musicImageUrl}
                   alt={`악보 이미지 ${index}`}
                 />
-                <SheetInfoOverlay className="sheet-info-overlay"
+                <SheetInfoOverlay
+                  className="sheet-info-overlay"
                   onClick={() => {
+                    setMusicId(sheetMusic.musicId);
                     toggleReadMusicModal();
-                    setMusicId(sheetMusic.musicId)
-                    }}
-
-                  >
+                  }}
+                >
                   <p>
                     {sheetMusic.musicName} | {sheetMusic.code} Key
                   </p>
                 </SheetInfoOverlay>
               </SheetMusicContainer>
-              <ModifyContiModal/>
             </div>
           ))
         )}
+        <ModifyContiModal />
       </Contents>
     </Wrapper>
   );
