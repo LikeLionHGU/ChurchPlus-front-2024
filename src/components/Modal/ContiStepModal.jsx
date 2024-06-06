@@ -4,6 +4,12 @@ import saveBtn from "../../assets/Icons/SaveBtn.svg";
 import leftArrow from "../../assets/Icons/leftArrow.svg";
 import rightArrow from "../../assets/Icons/rightArrow.svg";
 import { BlueText } from "../CreateGroupPage/Text";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { contiStepModalState, musicIdListState } from "../../atom";
+import getContiMusicInfo from "../../apis/getContiMusicInfo";
+import createConti from "../../apis/createConti";
+
+
 
 const modalStyles = `
   width: 100vw;
@@ -50,10 +56,18 @@ const ModalTop = styled.div`
   height: 40px;
 `;
 
-const ContiTitle = styled.div`
-  margin-left: 480px;
+const ContiTitle = styled.input`
+  margin-left: 400px;
   font-size: 24px;
   font-family: "GmarketSansLight";
+  text-align: center;  
+  border: none;        
+  border-bottom: 2px solid #000;  
+  outline: none;       
+  padding: 10px 0;     
+  &::placeholder {
+    text-align: center;  
+  }
 `;
 
 const ContiNumInfo = styled.div`
@@ -85,7 +99,6 @@ const ContiInfo = styled.div`
   padding-top: 10px;
   width: 419px;
   height: 500px;
-
   img {
     cursor: pointer;
     margin-left: 340px;
@@ -101,12 +114,10 @@ const ContiInfo = styled.div`
     border: 0.9px solid gray;
     border-radius: 10px;
     resize: none;
+    padding-top: 10px;
+    padding-left: 10px;
   }
 
-  textarea::placeholder {
-    padding-top: 10px;
-    padding-left: 14px;
-  }
 `;
 
 const BoldText = styled.div`
@@ -126,7 +137,6 @@ const Link = styled.a`
 `;
 
 const Arrow = styled.img`
-  /* border: 1px solid green; */
   padding: 50px;
   cursor: pointer;
   width: 30px;
@@ -138,35 +148,74 @@ const Arrow = styled.img`
 `;
 
 export default function ContiStepModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(contiStepModalState);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [steps, setSteps] = useState([]);
+  const musicIdList = useRecoilValue(musicIdListState);
+  const memberId = localStorage.getItem("memberId");
+  const groupId = localStorage.getItem("groupId");
+  const [listName, setListName] = useState("");
+  const [placeholder, setPlaceholder] = useState("콘티명");
+  const [description, setDescription] = useState("");
+  const [musicSetList, setMusicSetList] = useState([]);
 
-  const steps = [
-    {
-      title: "예수로 살리",
-      code: "G Key",
-      version: "마커스",
-      link: "https://github.com/LikeLionHGU/ChurchPlus-front-2024",
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAyMDEyMTNfNjgg/MDAxNjA3ODA5NjA0NTM2.YM6pUqS1a5iOpS6E6qgmXv-OY2NpxuLqzKKw7zDv8-Yg.YdBycMqSyFsaoOD1SSXqqfYiRucys1Ysb7gN3f7_Eqsg.JPEG.zzseulzz/%EC%98%88%EC%88%98%EB%A1%9C_%EC%82%B4%EB%A6%AC.jpg?type=w800",
-    },
-    {
-      title: "주를 위한 이곳에",
-      code: "C Key",
-      version: "어노인팅",
-      link: "링크 2",
-      imageUrl:
-        "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2133A53A53E821BC03",
-    },
-    {
-      title: "빛나는 왕의 왕",
-      code: "A Key",
-      version: "위러브",
-      link: "링크 3",
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxOTEwMDZfMTAg/MDAxNTcwMzM5ODI4MjMx.ZAX16rp89kxvAB6ihoXtCd1ilsstNlPcSONW7TPWj1Qg.N_DHEWNVAPdgz3Oeyr9sXXX5gUFZ_YWPM_AolsYKhuYg.PNG.joseph1040/%EB%B9%9B%EB%82%98%EB%8A%94%EC%99%95%EC%9D%98%EC%99%95.png?type=w800",
-    },
-  ];
+  const handleFocus = () => {
+    setPlaceholder("");
+  };
+
+  const handleBlur = () => {
+    if (document.getElementById('contiTitleInput').value === "") {
+      setPlaceholder("콘티명");
+    }
+  };
+
+  const handleChange = (e) => {
+    setListName(e.target.value);
+  };
+  
+  useEffect(() => {
+    if (steps[currentStep]) {
+      setDescription(steps[currentStep].description || "");
+    }
+  }, [currentStep, steps]);
+
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    setDescription(newDescription);
+
+    setSteps((prevSteps) => {
+      const updatedSteps = [...prevSteps];
+      updatedSteps[currentStep] = {
+        ...updatedSteps[currentStep],
+        description: newDescription,
+      };
+      return updatedSteps;
+    });
+  };
+
+  useEffect(() => {
+    const fetchMusicInfo = async () => {
+      setIsLoading(true);
+      try {
+        const fetchedMusicInfo = await getContiMusicInfo(musicIdList, memberId, groupId);
+        setSteps(fetchedMusicInfo);
+      } catch (error) {
+        console.error("Failed to fetch music info:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMusicInfo();
+  }, [musicIdList, memberId, groupId]);
+
+  useEffect(() => {
+    const updatedMusicSetList = steps.map(step => ({
+      musicId: step.musicId,
+      description: step.description || ""
+    }));
+    setMusicSetList(updatedMusicSetList);
+  }, [steps]);
 
   const toggleContiStepModal = () => {
     setIsModalOpen((prevState) => !prevState);
@@ -184,6 +233,23 @@ export default function ContiStepModal() {
     }
   };
 
+  const handleSubmitBtnClick = async () => {
+    const requestData = {
+      memberId,
+      groupId,
+      setListName: listName,
+      musicSetList
+    };
+  console.log("requestData:",requestData)
+
+    try {
+      await createConti(requestData);
+    } catch (error) {
+      console.error("그룹 참여 실패:", error);
+    }
+  };
+
+
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -195,6 +261,9 @@ export default function ContiStepModal() {
     };
   }, [isModalOpen]);
 
+  console.log("steps", steps);
+  console.log("musicSetList", musicSetList);
+
   return (
     <>
       {isModalOpen && (
@@ -202,7 +271,14 @@ export default function ContiStepModal() {
           <Overlay onClick={toggleContiStepModal} />
           <ContiModal>
             <ModalTop>
-              <ContiTitle>{steps[currentStep].title}</ContiTitle>
+              <ContiTitle 
+                id="contiTitleInput"
+                placeholder={placeholder}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                value={listName} 
+                onChange={handleChange} 
+              />
               <ContiNumInfo>
                 현재 <BlueText>{steps.length}</BlueText>곡이 담겨있어요
               </ContiNumInfo>
@@ -211,11 +287,11 @@ export default function ContiStepModal() {
               <Arrow src={leftArrow} left onClick={handlePrevStep} />
               <ModalContent>
                 <ContiImage>
-                  <img src={steps[currentStep].imageUrl} alt="Conti Image" />
+                  <img src={steps[currentStep].musicImageUrl} alt="Conti Image" />
                 </ContiImage>
                 <ContiInfo>
                   <BoldText>곡 제목</BoldText>
-                  <LightText>{steps[currentStep].title}</LightText>
+                  <LightText>{steps[currentStep].musicName}</LightText>
                   <BoldText>곡 코드</BoldText>
                   <LightText>{steps[currentStep].code}</LightText>
                   <BoldText>곡 버전</BoldText>
@@ -227,11 +303,15 @@ export default function ContiStepModal() {
                     </Link>
                   </LightText>
                   <BoldText>메모</BoldText>
-                  <textarea placeholder="메모를 자유롭게 입력하세요"></textarea>
+                  <textarea 
+                    placeholder="메모를 자유롭게 입력하세요"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                  />
                   <img
                     src={saveBtn}
                     alt="저장버튼"
-                    onClick={toggleContiStepModal}
+                    onClick={handleSubmitBtnClick} 
                   />
                 </ContiInfo>
               </ModalContent>
@@ -240,7 +320,6 @@ export default function ContiStepModal() {
           </ContiModal>
         </Modal>
       )}
-      <button onClick={toggleContiStepModal}>콘티스탭모달</button>
     </>
   );
 }

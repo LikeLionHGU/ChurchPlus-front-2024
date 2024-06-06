@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "../Table/CommonTable";
 import TableColumn from "../Table/CommonTableColumn";
 import TableRow from "../Table/CommonTableRow";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { selectedRowsAtom } from "../../recoil/atoms/selectRowsAtom";
 import styled from "styled-components";
+import { contiStepModalState, musicIdListState } from "../../atom";
 
 const StyleCheckbox = styled.div`
   margin-left: 5px;
@@ -31,19 +32,37 @@ const Container = styled.div`
 
 const SelectContiOrderList = ({ sheetMusicData }) => {
   const [selectedRows, setSelectedRows] = useRecoilState(selectedRowsAtom);
+  const [musicIdList, setMusicIdList] = useRecoilState(musicIdListState);
+  const setContiStepModalState = useSetRecoilState(contiStepModalState);
 
-  const handleCheckboxChange = (index) => {
+  console.log("musicIdList is:", musicIdList);
+
+  const handleCheckboxChange = (index, musicId) => {
     setSelectedRows((prevSelectedRows) => {
       const existingIndex = prevSelectedRows.findIndex(
         (item) => item.index === index
       );
       if (existingIndex !== -1) {
-        return prevSelectedRows.filter((item) => item.index !== index);
+        // Remove the selected item and reassign orders
+        const newSelectedRows = prevSelectedRows
+          .filter((item) => item.index !== index)
+          .map((item, i) => ({ ...item, order: i + 1 }));
+        return newSelectedRows;
       } else {
         return [
           ...prevSelectedRows,
           { index, order: prevSelectedRows.length + 1 },
         ];
+      }
+    });
+
+    setMusicIdList((prevMusicIdList) => {
+      if (prevMusicIdList.includes(musicId)) {
+        // Remove musicId from the list
+        return prevMusicIdList.filter((id) => id !== musicId);
+      } else {
+        // Add musicId to the list
+        return [...prevMusicIdList, musicId];
       }
     });
   };
@@ -52,6 +71,18 @@ const SelectContiOrderList = ({ sheetMusicData }) => {
     const selectedRow = selectedRows.find((item) => item.index === index);
     return selectedRow ? selectedRow.order : "";
   };
+
+  useEffect(() => {
+    setSelectedRows([]);
+    setMusicIdList([]);
+    setContiStepModalState(false);
+  }, [setSelectedRows, setMusicIdList, setContiStepModalState]);
+
+  console.log("selectedRows:", selectedRows);
+
+  if (!Array.isArray(sheetMusicData) || sheetMusicData.length === 0) {
+    return <div>데이터가 없습니다.</div>;
+  }
 
   return (
     <>
@@ -66,15 +97,15 @@ const SelectContiOrderList = ({ sheetMusicData }) => {
               <Container>
                 <StyleCheckbox
                   checked={selectedRows.some((item) => item.index === index)}
-                  onClick={() => handleCheckboxChange(index)}
+                  onClick={() => handleCheckboxChange(index, sheetMusic.musicId)}
                 >
                   {getOrder(index)}
                 </StyleCheckbox>
-                {sheetMusic.title}
+                {sheetMusic.musicName}
               </Container>
             </TableColumn>
             <TableColumn>{sheetMusic.version}버전</TableColumn>
-            <TableColumn>{sheetMusic.key}</TableColumn>
+            <TableColumn>{sheetMusic.code}</TableColumn>
           </TableRow>
         ))}
       </Table>

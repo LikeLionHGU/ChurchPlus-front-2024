@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "../MainPage/SearchBar";
 import KeySelectDropdown from "../MainPage/KeySelectDropdown";
@@ -8,6 +8,10 @@ import nextBtnIcon from "../../assets/Icons/nextStepBtn.svg";
 import SelectContiOrderList from "./SelectContiOrderList";
 import { useRecoilValue } from "recoil";
 import { selectedRowsAtom } from "../../recoil/atoms/selectRowsAtom";
+import getMusicList from "../../apis/getMusicList";
+import { useSetRecoilState } from "recoil";
+import { contiStepModalState } from "../../atom";
+import ContiStepModal from "../Modal/ContiStepModal";
 
 const Wrapper = styled.div`
   /* border: 2px solid pink; */
@@ -67,112 +71,39 @@ function ContiPageContent() {
   const [titleSearch, setTitleSearch] = useState("");
   const [versionSearch, setVersionSearch] = useState("");
   const [keySearch, setKeySearch] = useState("");
+  const [sheetMusicData, setsheetMusicData] = useState([]);
   const selectedRows = useRecoilValue(selectedRowsAtom);
+  const groupId = localStorage.getItem("groupId");
+  const setContiStepModalState = useSetRecoilState(contiStepModalState);
+  
+  const toggleContiStepModal = () => {
+    selectedRows.length > 0 && setContiStepModalState((prevState) => !prevState);
+  };
 
-  // 악보이미지 더미
-  const sheetMusicData = [
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "주님 말씀하시면",
-      version: "마커스",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-    {
-      imageUrl:
-        "https://mblogthumb-phinf.pstatic.net/MjAxODA2MDZfMTc4/MDAxNTI4MjY3MzQ0NDM0.y2pvrCJr79epCxzn2zResj-6HBlmC5FbzH233jBUXZIg.jiikNEE7d1Jg6xQv4eWRyI5C7Zfg1t3ohmQuge-OZMsg.JPEG.lhy21ch/6773cda6c41114d62ed77d8bb8301588.jpg?type=w800",
-      key: "C",
-      title: "기쁨의 옷을 입은",
-      version: "어노인팅",
-    },
-  ];
+  useEffect(() => {
+    return () => {
+      console.log("ContiPageContent Closed");
+      setContiStepModalState(false);
+    }
+  })
+
+    console.log("toggleContiStepModal",contiStepModalState);
+
+
+  useEffect(() => {
+    const fetchMusicList = async () => {
+      const fetchedMusicList = await getMusicList(groupId);
+      setsheetMusicData(fetchedMusicList);
+    };
+    fetchMusicList();
+  }, [groupId]);
+console.log("sheetMusicData:",sheetMusicData);
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
-    const formattedTitle = sheetMusic.title.toLowerCase().replace(/\s/g, "");
-    const formattedVersion = sheetMusic.version
-      .toLowerCase()
-      .replace(/\s/g, "");
+    const formattedTitle = sheetMusic.musicName ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "") : "";
+    const formattedVersion = sheetMusic.version ? sheetMusic.version.toLowerCase().replace(/\s/g, "") : "";
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
-    const formattedVersionSearch = versionSearch
-      .toLowerCase()
-      .replace(/\s/g, "");
+    const formattedVersionSearch = versionSearch.toLowerCase().replace(/\s/g, "");
 
     return (
       formattedTitle.includes(formattedTitleSearch) &&
@@ -196,12 +127,16 @@ function ContiPageContent() {
           </SelectConti>
           <NumOfConti>
             현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨 있어요
-            <img src={nextBtnIcon} alt="다음버튼 아이콘" />
+            <img src={nextBtnIcon} alt="다음버튼 아이콘" 
+            onClick={toggleContiStepModal}
+            />
+            
           </NumOfConti>
         </Info>
       </FunctionWrapper>
       <Contents>
         <SelectContiOrderList sheetMusicData={filteredData} />
+        <ContiStepModal/>
       </Contents>
     </Wrapper>
   );
