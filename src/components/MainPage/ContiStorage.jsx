@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
 import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
+import getContiList from "../../apis/getContiList";
+import { useNavigate } from "react-router-dom";
 
 const DateContainer = styled.div`
   /* border: 1px solid blue; */
@@ -49,23 +51,19 @@ const Bigbox = styled.div`
   cursor: pointer;
 `;
 export default function ContiStorage() {
-  const ContiData = [
-    {
-      ContiName: "금요예배",
-    },
-    {
-      ContiName: "수요예배",
-    },
-    {
-      ContiName: "주일예배",
-    },
-    {
-      ContiName: "주일 저녁 예배",
-    },
-    {
-      ContiName: "금요예배",
-    },
-  ];
+  const groupId = localStorage.getItem("groupId");
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchContiList = async () => {
+      const fetchedContiList = await getContiList(groupId);
+      setContiData(fetchedContiList);
+    };
+    fetchContiList();
+  }, [groupId]);
+  const [ContiData, setContiData] = useState([]);
+  const handleClickConti = () => {
+    navigate("/ContiStoragePage/:content");
+  }
   return (
     <>
       <DateContainer>
@@ -75,9 +73,10 @@ export default function ContiStorage() {
       <ContiContainer>
         {ContiData.length > 0
           ? ContiData.map((conti, index) => (
-              <Conti key={index}>
+              <Conti key={index}
+              onClick={handleClickConti}>
                 <SmallBox />
-                <Bigbox>{conti.ContiName}</Bigbox>
+                <Bigbox>{conti.setListName}</Bigbox>
               </Conti>
             ))
           : null}
