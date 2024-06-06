@@ -5,6 +5,8 @@ import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
 import getContiList from "../../apis/getContiList";
 import { useNavigate } from "react-router-dom";
+import { contiIdState } from "../../atom";
+import { useRecoilState } from "recoil";
 
 const DateContainer = styled.div`
   /* border: 1px solid blue; */
@@ -18,7 +20,7 @@ const DateContainer = styled.div`
 const ContiContainer = styled.div`
   /* border: 1px solid red; */
   display: flex;
-  flex-wrap: Wrap;
+  flex-wrap: wrap;
   margin-left: 40px;
   margin-top: 15px;
   min-width: 1180px;
@@ -50,9 +52,13 @@ const Bigbox = styled.div`
   align-items: center;
   cursor: pointer;
 `;
+
 export default function ContiStorage() {
   const groupId = localStorage.getItem("groupId");
+  const [contiId, setContiId] = useRecoilState(contiIdState);
   const navigate = useNavigate();
+  const [ContiData, setContiData] = useState([]);
+
   useEffect(() => {
     const fetchContiList = async () => {
       const fetchedContiList = await getContiList(groupId);
@@ -60,10 +66,12 @@ export default function ContiStorage() {
     };
     fetchContiList();
   }, [groupId]);
-  const [ContiData, setContiData] = useState([]);
-  const handleClickConti = () => {
+
+  const handleClickConti = (index) => {
+    setContiId(ContiData[index].setListId);
     navigate("/ContiStoragePage/:content");
-  }
+  };
+
   return (
     <>
       <DateContainer>
@@ -73,8 +81,7 @@ export default function ContiStorage() {
       <ContiContainer>
         {ContiData.length > 0
           ? ContiData.map((conti, index) => (
-              <Conti key={index}
-              onClick={handleClickConti}>
+              <Conti key={index} onClick={() => handleClickConti(index)}>
                 <SmallBox />
                 <Bigbox>{conti.setListName}</Bigbox>
               </Conti>
