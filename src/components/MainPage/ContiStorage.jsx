@@ -14,17 +14,18 @@ const DateContainer = styled.div`
 `;
 
 const ContiContainer = styled.div`
-  /* border: 1px solid red; */
+  border: 1px solid red;
   display: flex;
   flex-wrap: Wrap;
-  margin-left: 20px;
+  margin-left: 40px;
   margin-top: 15px;
+  min-width: 1180px;
 `;
 
 const Conti = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 29px;
+  margin-right: 23px;
   margin-bottom: 29px;
 `;
 const SmallBox = styled.div`
