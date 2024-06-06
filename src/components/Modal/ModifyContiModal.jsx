@@ -149,7 +149,7 @@ export default function ModifyContiModal() {
   const [isModalOpen, setIsModalOpen] = useRecoilState(readMusicModalState);
   const [isEditable, setIsEditable] = useState(false);
   const [contiData, setContiData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
   const musicId = useRecoilValue(musicIdState);
   const [formData, setFormData] = useState({
     musicName: "",
@@ -163,7 +163,7 @@ export default function ModifyContiModal() {
 
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
-    setIsEditable(false); // 모달을 열 때 isEditable을 false로 설정
+    setIsEditable(false);
   };
 
   const toggleEditMode = () => {
@@ -180,7 +180,7 @@ export default function ModifyContiModal() {
 
   useEffect(() => {
     const fetchMusicInfo = async () => {
-      setIsLoading(true); // 데이터 로드 시작 시 로딩 상태 true로 설정
+      setIsLoading(true);
       try {
         const fetchedMusicInfo = await getMusicInfo(musicId);
         setContiData(fetchedMusicInfo);
@@ -195,7 +195,7 @@ export default function ModifyContiModal() {
       } catch (error) {
         console.error("Failed to fetch music info:", error);
       } finally {
-        setIsLoading(false); // 데이터 로드 완료 시 로딩 상태 false로 설정
+        setIsLoading(false);
       }
     };
     fetchMusicInfo();
@@ -229,26 +229,26 @@ export default function ModifyContiModal() {
       
 
       await updateMusic(formDataToSend, musicId);
-      setIsEditable(false); // 저장 후 isEditable을 false로 리셋
+      setIsEditable(false);
     } catch (error) {
       console.error("악보 수정 실패:", error);
     }
   };
 
   const handleDelete = async () => {
-    if(window.confirm("삭제하시겠습니까?")){
-    try{
-      await deleteMusic(musicId);
-      window.location.reload();
+    if (window.confirm("삭제하시겠습니까?")) {
+      try {
+        await deleteMusic(musicId);
+        window.location.reload();
+      } catch (error) {
+        console.error("악보 삭제 실패:", error);
+      }
+    } else {
+      alert("취소");
     }
-    catch (error) {
-      console.error("악보 삭제 실패:", error);
-    }
-  }
-  else {
-    alert("취소");
-  }
-}
+  };
+
+  console.log({ isModalOpen });
 
   return (
     <>
@@ -276,7 +276,11 @@ export default function ModifyContiModal() {
                   </ContiImage>
                   <ContiInfo>
                     <Icon2>
-                      <Img src={binIcon} alt="쓰레기통 아이콘" onClick={handleDelete}/>
+                      <Img
+                        src={binIcon}
+                        alt="쓰레기통 아이콘"
+                        onClick={handleDelete}
+                      />
                       <Img src={shareIcon} alt="공유 아이콘" />
                       <Img src={printIcon} alt="프린트 아이콘" />
                     </Icon2>

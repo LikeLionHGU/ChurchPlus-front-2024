@@ -108,7 +108,8 @@ const LightText = styled.div`
 `;
 
 export default function ReadContiModal() {
-  const [readMusicModal, setReadMusicModal] = useRecoilState(readMusicModalState);
+  const [readMusicModal, setReadMusicModal] =
+    useRecoilState(readMusicModalState);
 
   const toggleReadContiModal = () => {
     setReadMusicModal((prevState) => !prevState);
