@@ -40,9 +40,9 @@ export const TextBoxVer2 = styled.div`
   display: flex;
 
   input {
-    margin-top: 32px;
+    margin-top: 25px;
     padding-left: 2.4rem;
-    height: 70px;
+    height: 65px;
     width: 682px;
     border-radius: 16px;
     border: none;

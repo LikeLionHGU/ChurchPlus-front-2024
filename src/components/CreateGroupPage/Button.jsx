@@ -4,7 +4,7 @@ const ButtonBase = css`
   height: 51px;
   width: 114px;
 
-  margin-top: ${(props) => props.$marginTop || "80px"};
+  margin-top: ${(props) => props.$marginTop || "50px"};
   cursor: pointer;
   border: 1px solid #6578a8;
   border-radius: 14px;
