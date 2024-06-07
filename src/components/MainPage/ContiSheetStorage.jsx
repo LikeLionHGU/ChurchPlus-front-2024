@@ -5,6 +5,7 @@ import SelectYearDropdown from "./SelectYearDropDown";
 import { useSetRecoilState } from "recoil";
 import {
   contiIdState,
+  contiMusicIndexState,
   musicIdState,
   readMusicModalMemoState,
   readMusicModalState,
@@ -90,12 +91,12 @@ const SheetInfoOverlay = styled.div`
 export default function ContiSheetStorage() {
   const readMusicModal = useSetRecoilState(readMusicModalMemoState);
   const [sheetMusic, setSheetMusic] = useState([]);
-
+  const setContiMusicIndex = useSetRecoilState(contiMusicIndexState); 
   const toggleReadMusicModal = () => {
     readMusicModal((prevState) => !prevState);
   };
   const setMusicId = useSetRecoilState(musicIdState);
-  const setListId = useRecoilValue(contiIdState);
+  const setListId = localStorage.getItem("setListId");
   console.log("setListId", setListId);
 
   useEffect(() => {
@@ -127,7 +128,8 @@ export default function ContiSheetStorage() {
                 className="sheet-info-overlay"
                 onClick={() => {
                   toggleReadMusicModal();
-                  setMusicId(sheet.musicId);
+                  localStorage.setItem("musicId",sheet.musicId);
+                  setContiMusicIndex(index);
                 }}
               >
                 <p>

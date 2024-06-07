@@ -8,13 +8,16 @@ import editBtn from "../../assets/Icons/EditBtn.svg";
 import saveBtn from "../../assets/Icons/SaveBtn.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  contiIdState,
+  contiMusicIndexState,
   musicIdState,
   readMusicModalMemoState,
   readMusicModalState,
 } from "../../atom";
 import getMusicInfo from "../../apis/getMusicInfo";
 import updateMusic from "../../apis/updateMusic";
-import deleteMusic from "../../apis/deleteMusic";
+import deleteContiMusic from "../../apis/deleteContiMusic";
+import getContiMusicList from "../../apis/getcontiMusicList";
 
 const modalStyles = `
   width: 100vw;
@@ -152,9 +155,9 @@ const Link = styled.a`
 export default function ReadContiModalMemo() {
   const [isModalOpen, setIsModalOpen] = useRecoilState(readMusicModalMemoState);
   const [isEditable, setIsEditable] = useState(false);
-  const [contiData, setContiData] = useState(null);
+  const [contiData, setContiData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const musicId = useRecoilValue(musicIdState);
+  const setListId = localStorage.getItem("setListId");
   const [formData, setFormData] = useState({
     musicName: "",
     code: "",
@@ -162,11 +165,17 @@ export default function ReadContiModalMemo() {
     link: "",
     description: "",
   });
+  const contiMusicIndex = useRecoilValue(contiMusicIndexState);
+
+  console.log("setListId:",setListId)
 
   const toggleReadContiModalMemo = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
   };
+
+  const musicId = localStorage.getItem("musicId");
+  console.log("musicId",musicId);
 
   // const toggleEditMode = () => {
   //   setIsEditable((prevState) => !prevState);
@@ -184,14 +193,15 @@ export default function ReadContiModalMemo() {
     const fetchMusicInfo = async () => {
       setIsLoading(true);
       try {
-        const fetchedMusicInfo = await getMusicInfo(musicId);
-        setContiData(fetchedMusicInfo);
+        const fetchedMusicInfo = await getContiMusicList(setListId);
+        setContiData(fetchedMusicInfo[contiMusicIndex]);
+        localStorage.setItem("musicId", contiData.musicId);
         setFormData({
-          musicName: fetchedMusicInfo.musicName,
-          code: fetchedMusicInfo.code,
-          version: fetchedMusicInfo.version,
-          link: fetchedMusicInfo.link,
-          description: fetchedMusicInfo.description || "",
+          musicName: fetchedMusicInfo[contiMusicIndex].musicName,
+          code: fetchedMusicInfo[contiMusicIndex].code,
+          version: fetchedMusicInfo[contiMusicIndex].version,
+          link: fetchedMusicInfo[contiMusicIndex].link,
+          description: fetchedMusicInfo[contiMusicIndex].description || "",
         });
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -200,8 +210,10 @@ export default function ReadContiModalMemo() {
       }
     };
     fetchMusicInfo();
-  }, [musicId]);
+  }, [setListId,contiMusicIndex]);
 
+  console.log("contiMusicIndex" ,contiMusicIndex)
+  console.log("contidata",contiData);
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -235,18 +247,18 @@ export default function ReadContiModalMemo() {
   //   }
   // };
 
-  // const handleDelete = async () => {
-  //   if (window.confirm("삭제하시겠습니까?")) {
-  //     try {
-  //       await deleteMusic(musicId);
-  //       window.location.reload();
-  //     } catch (error) {
-  //       console.error("악보 삭제 실패:", error);
-  //     }
-  //   } else {
-  //     alert("취소");
-  //   }
-  // };
+  const handleDelete = async () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      try {
+        await deleteContiMusic(musicId,setListId);
+        window.location.reload();
+      } catch (error) {
+        console.error("악보 삭제 실패:", error);
+      }
+    } else {
+      alert("취소");
+    }
+  };
 
   // console.log({ isModalOpen });
 
@@ -261,7 +273,7 @@ export default function ReadContiModalMemo() {
             ) : (
               <>
                 <ModalTop>
-                  <ContiTitle>{contiData.musicName}</ContiTitle>
+                  <ContiTitle>{contiData?.musicName}</ContiTitle>
                   <Icons>
                     <img
                       onClick={toggleReadContiModalMemo}
@@ -272,15 +284,15 @@ export default function ReadContiModalMemo() {
                 </ModalTop>
                 <ModalContent>
                   <ContiImage>
-                    <img src={contiData.musicImageUrl} alt="Conti Image" />
+                    <img src={contiData?.musicImageUrl} alt="Conti Image" />
                   </ContiImage>
                   <ContiInfo>
                     <Icon2>
-                      {/* <Img
+                      <Img
                         src={binIcon}
                         alt="쓰레기통 아이콘"
                         onClick={handleDelete}
-                      /> */}
+                      />
                       <Img src={shareIcon} alt="공유 아이콘" />
                       <Img src={printIcon} alt="프린트 아이콘" />
                     </Icon2>
@@ -292,7 +304,7 @@ export default function ReadContiModalMemo() {
                         onChange={handleChange}
                       />
                     ) : (
-                      <LightText>{formData.musicName}</LightText>
+                      <LightText>{contiData?.musicName}</LightText>
                     )}
                     <BoldText>곡 코드</BoldText>
                     {isEditable ? (
@@ -304,7 +316,7 @@ export default function ReadContiModalMemo() {
                         />
                       </>
                     ) : (
-                      <LightText>{formData.code}</LightText>
+                      <LightText>{contiData?.code}</LightText>
                     )}
                     <BoldText>곡 버전</BoldText>
                     {isEditable ? (
@@ -314,7 +326,7 @@ export default function ReadContiModalMemo() {
                         onChange={handleChange}
                       />
                     ) : (
-                      <LightText>{formData.version}</LightText>
+                      <LightText>{contiData?.version}</LightText>
                     )}
                     <BoldText>영상 링크</BoldText>
                     {/* {isEditable ? (
@@ -331,7 +343,7 @@ export default function ReadContiModalMemo() {
                     </LightText>
                     {/* )} */}
                     <BoldText>메모</BoldText>
-                    <LightText>{formData.description}</LightText>
+                    <LightText>{contiData?.description}</LightText>
                     {/* <Btn
                       src={isEditable ? saveBtn : editBtn}
                       alt="수정버튼"

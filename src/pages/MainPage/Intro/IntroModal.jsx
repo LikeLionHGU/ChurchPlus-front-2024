@@ -4,8 +4,9 @@ import Famiiliary from "../../../asset/Images/Icons/Familiary.svg";
 import NotUsedToIt from "../../../asset/Images/Icons/NotUsedToIt.svg";
 import ExitButton from "../../../asset/Images/Buttons/ExitButton.svg";
 import { useSetRecoilState } from "recoil";
-import { introModalState, searchBarModalState } from "../../../atom";
+import { introModalState, newMemberState, searchBarModalState } from "../../../atom";
 import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 const modalStyles = `
   width: 100vw;
@@ -140,8 +141,8 @@ const ConfirmButton = styled.div`
 
 export default function IntroModal() {
   const setSearchBarModal = useSetRecoilState(searchBarModalState);
-  const [introModal, setIntroModal] = useRecoilState(introModalState);
-
+  const [introModal, setIntroModal] = useRecoilState(newMemberState);
+  console.log("introModal:", introModal)
   const toggleIntroModal = () => {
     setIntroModal((prevState) => !prevState);
   };
@@ -162,7 +163,6 @@ export default function IntroModal() {
   return (
     <>
       <ModalOpen onClick={toggleIntroModal}>
-        <div>인트로 모달</div>
       </ModalOpen>
       {introModal && (
         <Modal>

@@ -55,7 +55,6 @@ const Bigbox = styled.div`
 
 export default function ContiStorage() {
   const groupId = localStorage.getItem("groupId");
-  const [contiId, setContiId] = useRecoilState(contiIdState);
   const navigate = useNavigate();
   const [ContiData, setContiData] = useState([]);
 
@@ -68,7 +67,7 @@ export default function ContiStorage() {
   }, [groupId]);
 
   const handleClickConti = (index) => {
-    setContiId(ContiData[index].setListId);
+    localStorage.setItem("setListId",ContiData[index].setListId);
     navigate("/ContiStoragePage/:content");
   };
 
