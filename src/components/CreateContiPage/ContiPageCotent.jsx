@@ -75,20 +75,20 @@ function ContiPageContent() {
   const selectedRows = useRecoilValue(selectedRowsAtom);
   const groupId = localStorage.getItem("groupId");
   const setContiStepModalState = useSetRecoilState(contiStepModalState);
-  
+
   const toggleContiStepModal = () => {
-    selectedRows.length > 0 && setContiStepModalState((prevState) => !prevState);
+    selectedRows.length > 0 &&
+      setContiStepModalState((prevState) => !prevState);
   };
 
   useEffect(() => {
     return () => {
       console.log("ContiPageContent Closed");
       setContiStepModalState(false);
-    }
-  })
+    };
+  });
 
-    console.log("toggleContiStepModal",contiStepModalState);
-
+  console.log("toggleContiStepModal", contiStepModalState);
 
   useEffect(() => {
     const fetchMusicList = async () => {
@@ -97,18 +97,24 @@ function ContiPageContent() {
     };
     fetchMusicList();
   }, [groupId]);
-console.log("sheetMusicData:",sheetMusicData);
+  console.log("sheetMusicData:", sheetMusicData);
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
-    const formattedTitle = sheetMusic.musicName ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "") : "";
-    const formattedVersion = sheetMusic.version ? sheetMusic.version.toLowerCase().replace(/\s/g, "") : "";
+    const formattedTitle = sheetMusic.musicName
+      ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "")
+      : "";
+    const formattedVersion = sheetMusic.version
+      ? sheetMusic.version.toLowerCase().replace(/\s/g, "")
+      : "";
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
-    const formattedVersionSearch = versionSearch.toLowerCase().replace(/\s/g, "");
+    const formattedVersionSearch = versionSearch
+      .toLowerCase()
+      .replace(/\s/g, "");
 
     return (
       formattedTitle.includes(formattedTitleSearch) &&
       formattedVersion.includes(formattedVersionSearch) &&
-      (keySearch === "" || sheetMusic.key === keySearch)
+      (keySearch === "" || sheetMusic.code === keySearch)
     );
   });
 
@@ -127,16 +133,17 @@ console.log("sheetMusicData:",sheetMusicData);
           </SelectConti>
           <NumOfConti>
             현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨 있어요
-            <img src={nextBtnIcon} alt="다음버튼 아이콘" 
-            onClick={toggleContiStepModal}
+            <img
+              src={nextBtnIcon}
+              alt="다음버튼 아이콘"
+              onClick={toggleContiStepModal}
             />
-            
           </NumOfConti>
         </Info>
       </FunctionWrapper>
       <Contents>
         <SelectContiOrderList sheetMusicData={filteredData} />
-        <ContiStepModal/>
+        <ContiStepModal />
       </Contents>
     </Wrapper>
   );

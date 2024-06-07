@@ -102,7 +102,7 @@ const KeyItemBottom = styled.div`
   }
 `;
 
-function SelectKeyDropdown({ setSearch }) {
+function KeySelectDropdown({ setSearch }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState({ label: "", value: "" });
   const dropdownRef = useRef(null); // 드롭다운 요소에 대한 ref를 생성
@@ -193,4 +193,4 @@ function SelectKeyDropdown({ setSearch }) {
   );
 }
 
-export default SelectKeyDropdown;
+export default KeySelectDropdown;

@@ -162,7 +162,7 @@ function MainContent() {
     return (
       formattedTitle.includes(formattedTitleSearch) &&
       formattedVersion.includes(formattedVersionSearch) &&
-      (keySearch === "" || sheetMusic.key === keySearch)
+      (keySearch === "" || sheetMusic.code === keySearch)
     );
   });
 

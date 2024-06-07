@@ -197,6 +197,7 @@ const KeyItems = styled.div`
 `;
 
 const Wrapper = styled.div`
+  /* margin-bottom: 20px; */
   display: flex;
   align-items: left;
   flex-direction: column;
