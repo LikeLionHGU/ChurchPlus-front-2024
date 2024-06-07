@@ -10,6 +10,7 @@ import { memberIdState } from "../../atom";
 import { useRecoilState } from "recoil";
 import updateTeamManage from "../../apis/updateTeamManage";
 import PresentGroupName from "../../apis/getPresentGroupName";
+import updateTeamDescription from "../../apis/updateTeamDescription";
 
 const TopContents = styled.div`
   display: flex;
@@ -265,12 +266,7 @@ export default function ManageTeam() {
       description: newContactNumber,
     }));
 
-    console.log(
-      "New contact number for member ID",
-      memberId,
-      ":",
-      newContactNumber
-    );
+    console.log("New contact number for member ID", memberId, ":", newContactNumber);
   };
 
   const handleContactEditClick = (memberId) => {
@@ -338,25 +334,35 @@ export default function ManageTeam() {
     }
   };
 
+  const handleEnter = async (e, updateGroupId, updateMemberId, updateDescription) => {
+    if (e.key === "Enter") {
+      try {
+        const groupId = updateGroupId;
+        const memberId = updateMemberId;
+        const description = updateDescription;
+
+        console.log("groupId", groupId);
+        console.log("memberId", memberId);
+        console.log("description", description);
+
+        await updateTeamDescription(groupId, memberId, description);
+        window.location.reload();
+      } catch (error) {
+        console.error("그룹 멤버 삭제 실패:", error);
+      }
+    }
+  };
+
   return (
     <>
       <TopContents>
         <TeamImg>
           <PreviewImg>
-            <img
-              src={previewUrl || presentGroupInfo.groupImage}
-              alt="악보추가 이미지"
-              border="0"
-            />
+            <img src={previewUrl || presentGroupInfo.groupImage} alt="악보추가 이미지" border="0" />
           </PreviewImg>
           <ImgChangeBtn onClick={handleImageUploadClick}>
             <UploadImg>이미지 업로드</UploadImg>
-            <input
-              type="file"
-              style={{ display: "none" }}
-              onChange={handleFileInputChange}
-              ref={fileInputRef}
-            />
+            <input type="file" style={{ display: "none" }} onChange={handleFileInputChange} ref={fileInputRef} />
           </ImgChangeBtn>
         </TeamImg>
         <TeamInfo>
@@ -365,34 +371,21 @@ export default function ManageTeam() {
               <TeamInformation>
                 <TeamName>팀 이름</TeamName>
                 {isEditing ? (
-                  <TeamNameInput
-                    type="text"
-                    value={newGroupName}
-                    onChange={handleGroupNameChange}
-                  />
+                  <TeamNameInput type="text" value={newGroupName} onChange={handleGroupNameChange} />
                 ) : (
-                  <UserTeamName onClick={() => setIsEditing(true)}>
-                    {groupInfo[0].groupName}
-                  </UserTeamName>
+                  <UserTeamName onClick={() => setIsEditing(true)}>{groupInfo[0].groupName}</UserTeamName>
                 )}
               </TeamInformation>
               <InvitationCode>
                 <InviteCode>초대코드</InviteCode>
                 <InviteCodeText>{groupInfo[0].invitation_code}</InviteCodeText>
-                <CopyToClipboard
-                  text={groupInfo[0].invitation_code}
-                  onCopy={() => alert("초대코드가 복사되었습니다.")}
-                >
+                <CopyToClipboard text={groupInfo[0].invitation_code} onCopy={() => alert("초대코드가 복사되었습니다.")}>
                   <CopyImg src={CopyIcon} alt="" />
                 </CopyToClipboard>
               </InvitationCode>
             </PreviewInfo>
           )}
-          <InfoChangeBtn
-            onClick={handleSubmit}
-            isEditing={isEditing}
-            disabled={!isEditing}
-          >
+          <InfoChangeBtn onClick={handleSubmit} isEditing={isEditing} disabled={!isEditing}>
             저장
           </InfoChangeBtn>
         </TeamInfo>
@@ -425,13 +418,13 @@ export default function ManageTeam() {
                 <ContactNumberInput
                   type="text"
                   value={contactNumber[userInfo.memberId] || ""}
-                  onChange={(e) =>
-                    handleContactNumberChange(e, userInfo.memberId)
-                  }
+                  onChange={(e) => handleContactNumberChange(e, userInfo.memberId)}
+                  onKeyDown={(e) => handleEnter(e, groupId, userInfo.memberId, formData.description)}
                 />
               ) : (
                 <span onClick={() => handleContactEditClick(userInfo.memberId)}>
-                  {contactNumber[userInfo.memberId] || "연락처를 입력해주세요"}
+                  {contactNumber[userInfo.memberId] ||
+                    (groupInfo[index].description ? groupInfo[index].description : "연락처를 입력하세요")}
                 </span>
               )}
             </Note>
