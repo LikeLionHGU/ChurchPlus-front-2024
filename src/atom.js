@@ -49,3 +49,8 @@ export const contiStepModalState = atom({
   key: "contiStepModalState",
   default: false,
 });
+
+export const contiIdState = atom({
+  key: "contiIdState",
+  default: null,
+})

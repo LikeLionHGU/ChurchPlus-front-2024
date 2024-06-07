@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
 import { useSetRecoilState } from "recoil";
-import { readMusicModalState } from "../../atom";
+import { contiIdState, musicIdState, readMusicModalState } from "../../atom";
+import { useRecoilValue } from "recoil";
+import getContiMusicList from "../../apis/getcontiMusicList";
+import ModifyContiModal from "../Modal/ModifyContiModal";
 
 const DateContainer = styled.div`
   /* border: 1px solid blue; */
@@ -78,55 +81,35 @@ const SheetInfoOverlay = styled.div`
   }
 `;
 
-const sheetMusic = [
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music1",
-    musicId: 1,
-    musicName: "Music 1",
-    code: "C",
-  },
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music2",
-    musicId: 2,
-    musicName: "Music 2",
-    code: "D",
-  },
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music3",
-    musicId: 3,
-    musicName: "Music 3",
-    code: "E",
-  },
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music3",
-    musicId: 3,
-    musicName: "Music 3",
-    code: "E",
-  },
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music3",
-    musicId: 3,
-    musicName: "Music 3",
-    code: "E",
-  },
-  {
-    musicImageUrl: "https://dummyimage.com/200x200/000/fff&text=Music3",
-    musicId: 3,
-    musicName: "Music 3",
-    code: "E",
-  },
-];
+
 
 export default function ContiSheetStorage() {
   const readMusicModal = useSetRecoilState(readMusicModalState);
+  const [sheetMusic,setSheetMusic] = useState([]);
+
   const toggleReadMusicModal = () => {
     readMusicModal((prevState) => !prevState);
   };
-  const [musicId, setMusicId] = useState(null);
+  const setMusicId = useSetRecoilState(musicIdState);
+  const setListId = useRecoilValue(contiIdState);
+  console.log("setListId",setListId)
+
+
+  useEffect(() => {
+    const fetchMusicList = async () => {
+      const fetchedMusicList = await getContiMusicList(setListId);
+      setSheetMusic(fetchedMusicList);
+    };
+    fetchMusicList();
+  }, [setListId]);
+console.log("sheetMusicData:",sheetMusic);
+
+
 
   return (
     <>
       <DateContainer>
+        <ModifyContiModal/>
         <SelectYearDropdown />
         <SelectMonthDropdown />
       </DateContainer>
