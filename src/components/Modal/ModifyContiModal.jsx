@@ -301,7 +301,6 @@ export default function ModifyContiModal() {
             ) : (
               <>
                 <ModalTop>
-                  <ContiTitle>{contiData.musicName}</ContiTitle>
                   <Icons>
                     <img onClick={toggleModifyContiModal} src={exitBtnIcon} alt="캔슬 아이콘" />
                   </Icons>
@@ -337,8 +336,7 @@ export default function ModifyContiModal() {
                   <ContiInfo>
                     <Icon2>
                       <Img src={binIcon} alt="쓰레기통 아이콘" onClick={handleDelete} />
-                      <Img src={shareIcon} alt="공유 아이콘" />
-                      <Img src={printIcon} alt="프린트 아이콘" onClick={handlePrintBtnClick} />
+                      <Img src={shareIcon} alt="공유 아이콘" onClick={handlePrintBtnClick} />
                     </Icon2>
                     <BoldText>곡 제목</BoldText>
                     {isEditable ? (
