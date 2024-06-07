@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
 import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
 import getContiList from "../../apis/getContiList";
 import { useNavigate } from "react-router-dom";
-import { contiIdState } from "../../atom";
-import { useRecoilState } from "recoil";
 
 const DateContainer = styled.div`
-  /* border: 1px solid blue; */
   font-family: "GmarketSansLight";
   font-size: 20px;
   margin-top: 5px;
@@ -18,7 +14,6 @@ const DateContainer = styled.div`
 `;
 
 const ContiContainer = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-wrap: wrap;
   margin-left: 40px;
@@ -32,6 +27,7 @@ const Conti = styled.div`
   margin-right: 23px;
   margin-bottom: 29px;
 `;
+
 const SmallBox = styled.div`
   width: 95px;
   height: 18px;
@@ -57,6 +53,14 @@ export default function ContiStorage() {
   const groupId = localStorage.getItem("groupId");
   const navigate = useNavigate();
   const [ContiData, setContiData] = useState([]);
+  const [monthSearch, setMonthSearch] = useState("06");
+  const [yearSearch, setYearSearch] = useState("2024");
+
+  const filteredData = ContiData.filter((conti) => {
+    return (
+      monthSearch === conti.month && yearSearch === conti.year
+    );
+  });
 
   useEffect(() => {
     const fetchContiList = async () => {
@@ -67,19 +71,27 @@ export default function ContiStorage() {
   }, [groupId]);
 
   const handleClickConti = (index) => {
-    localStorage.setItem("setListId",ContiData[index].setListId);
+    localStorage.setItem("setListId", ContiData[index].setListId);
+    localStorage.setItem("setListName", ContiData[index].setListName);
     navigate("/ContiStoragePage/:content");
   };
+
+  console.log("ContiData", ContiData);
+  console.log("monthSearch", monthSearch);
+  console.log("yearSearch", yearSearch);
+  if (ContiData.length > 0) {
+    console.log("ContiData[0].month", ContiData[0].month);
+  }
 
   return (
     <>
       <DateContainer>
-        <SelectYearDropdown />
-        <SelectMonthDropdown />
+        <SelectYearDropdown setSearch={setYearSearch} />
+        <SelectMonthDropdown setSearch={setMonthSearch} />
       </DateContainer>
       <ContiContainer>
-        {ContiData.length > 0
-          ? ContiData.map((conti, index) => (
+        {ContiData.length > 0 && filteredData.length > 0
+          ? filteredData.map((conti, index) => (
               <Conti key={index} onClick={() => handleClickConti(index)}>
                 <SmallBox />
                 <Bigbox>{conti.setListName}</Bigbox>

@@ -5,9 +5,11 @@ import leftArrow from "../../assets/Icons/leftArrow.svg";
 import rightArrow from "../../assets/Icons/rightArrow.svg";
 import { BlueText } from "../CreateGroupPage/Text";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { contiStepModalState, musicIdListState } from "../../atom";
+import { contiStepModalState, monthState, musicIdListState, yearState } from "../../atom";
 import getContiMusicInfo from "../../apis/getContiMusicInfo";
 import createConti from "../../apis/createConti";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 
 
@@ -159,6 +161,10 @@ export default function ContiStepModal() {
   const [placeholder, setPlaceholder] = useState("콘티명");
   const [description, setDescription] = useState("");
   const [musicSetList, setMusicSetList] = useState([]);
+  const navigate = useNavigate();
+  const setMonthState = useSetRecoilState(monthState);
+  const setYearState = useSetRecoilState(yearState);
+
 
   const handleFocus = () => {
     setPlaceholder("");
@@ -243,7 +249,11 @@ export default function ContiStepModal() {
   console.log("requestData:",requestData)
 
     try {
-      await createConti(requestData);
+      const response = await createConti(requestData);
+      console.log( "response",response);
+      setMonthState(response.data.month);
+      setYearState(response.data.year);
+      navigate("/ContiStoragePage");
     } catch (error) {
       console.error("그룹 참여 실패:", error);
     }

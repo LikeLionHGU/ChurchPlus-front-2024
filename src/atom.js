@@ -69,3 +69,13 @@ export const newMemberState = atom({
   key: "newMemberState",
   default: false,
 })
+
+export const monthState = atom({
+  key: "monthState",
+  default: "06"
+})
+
+export const yearState = atom({
+  key: "yearState",
+  default: "2024",
+})
