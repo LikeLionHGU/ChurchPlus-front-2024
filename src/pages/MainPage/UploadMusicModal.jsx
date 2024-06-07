@@ -90,13 +90,13 @@ const UploadImage = styled.div`
   width: 390px;
   height: 360px;
   overflow: hidden;
+`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-position: top;
-  }
+const ImageUploadPhoto = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-position: top;
 `;
 
 const RightContainer = styled.div`
@@ -311,16 +311,7 @@ export default function UploadMusicModal() {
             <MiddleContainer>
               <UploadImage>
                 {previewUrl ? (
-                  <img
-                    src={previewUrl}
-                    alt="Uploaded"
-                    // style={{
-                    //   width: "100%",
-                    //   height: "100%",
-                    //   objectFit: "contian",
-                    //   backgroundPosition: "top",
-                    // }}
-                  />
+                  <ImageUploadPhoto src={previewUrl} alt="Uploaded" />
                 ) : (
                   <img
                     src={ImageUploadLogo}
