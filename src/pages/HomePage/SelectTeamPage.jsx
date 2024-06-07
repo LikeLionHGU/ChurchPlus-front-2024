@@ -21,23 +21,24 @@ const Wrapper = styled.div`
 `;
 
 const HomePageLogo = styled.img`
-  margin-top: 110px;
+  margin-top: 88px;
   width: 271px;
   height: 101px;
 `;
 
 const ChoseGroup = styled.div`
-  margin-top: 40px;
+  margin-top: 35px;
   font-size: 35px;
   color: black;
   font-weight: 100;
+  font-family: "GmarketSansLight";
 `;
 const SelectGroupContainer = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 40px;
 `;
 
 const GroupContainer = styled.div`
@@ -68,33 +69,52 @@ const CreateGroupText = styled.div`
   text-align: center;
   color: black;
   margin-top: 17px;
-  font-weight: lighter;
+  font-family: "GmarketSansLight";
 `;
 
-const Group = styled.img`
-  width: 230px;
-  height: 230px;
+const Group = styled.div`
+  width: 240px;
+  height: 240px;
   margin-right: 145px;
   border-radius: 30px;
   cursor: pointer;
   overflow: hidden;
+  /* border: 1px solid red;ㄴ */
+
+  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.25);
 `;
+
+const DefaultGroupImg = styled.img`
+  /* border: 1px solid green; */
+  width: 100%;
+  height: 100%;
+`;
+
 const GroupName = styled.div`
   font-size: 25px;
   text-align: center;
   margin-right: 145px;
   margin-top: 17px;
   color: black;
-  font-weight: lighter;
+  font-family: "GmarketSansLight";
+`;
+
+const ButtomContainer = styled.div`
+  display: flex;
+  justify-content: right;
+  width: 100vw;
+  /* border: 1px solid red; */
 `;
 
 const AlreadyHaveTeamText = styled.div`
-  margin-left: auto;
-  margin-right: 100px;
+  /* border: 1px solid green; */
   text-decoration: underline;
+  margin-right: 118px;
   margin-top: 65px;
   cursor: pointer;
   color: #474b54;
+  font-size: 18px;
+  font-family: "GmarketSansLight";
 `;
 
 function SelectTeamPage() {
@@ -113,10 +133,19 @@ useEffect(() => {
   fetchGroups();
 }, [memberId]);
 
-const handleTeamClick = (group) => {
-  // alert(`${group.groupName}팀을 선택하셨습니다.`);
-  localStorage.setItem("groupId", group.groupId);
-};
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      const fetchedGroups = await groupList(memberId);
+      setGroups(fetchedGroups);
+    };
+    fetchGroups();
+  }, [memberId]);
+
+  const handleTeamClick = (group) => {
+    // alert(`${group.groupName}팀을 선택하셨습니다.`);
+    localStorage.setItem("groupId", group.groupId);
+  };
 
   return (
     <Wrapper>
@@ -124,19 +153,22 @@ const handleTeamClick = (group) => {
       <ChoseGroup>이용할 팀을 선택해주세요.</ChoseGroup>
       <SelectGroupContainer>
         <GroupContainer>
-          
-              {groups.map((group,index) =>(
-                <div key={index}>
-            <Groups>
-            <Link to={"/main"}>
-            <Group src={ChoseGroupImg} alt=" 첫번째 팀" 
-            onClick={() => handleTeamClick(group)}/>
-            </Link>
-            <GroupName>{group.groupName}</GroupName>
-          </Groups>
-                </div>
-              ))}
-              
+          {groups.map((group, index) => (
+            <div key={index}>
+              <Groups>
+                <Link to={"/main"}>
+                  <Group>
+                    <DefaultGroupImg
+                      src={ChoseGroupImg}
+                      alt=" 첫번째 팀"
+                      onClick={() => handleTeamClick(group)}
+                    />
+                  </Group>
+                </Link>
+                <GroupName>{group.groupName}</GroupName>
+              </Groups>
+            </div>
+          ))}
 
           <Groups>
             <Link to={"/CreateNewGroup"}>
@@ -148,9 +180,11 @@ const handleTeamClick = (group) => {
           </Groups>
         </GroupContainer>
       </SelectGroupContainer>
-      <Link to={"/JoinGroup"}>
-      <AlreadyHaveTeamText>이미 팀이 있으신가요?</AlreadyHaveTeamText>
-      </Link>
+      <ButtomContainer>
+        <Link to={"/JoinGroup"}>
+          <AlreadyHaveTeamText>이미 팀이 있으신가요?</AlreadyHaveTeamText>
+        </Link>
+      </ButtomContainer>
     </Wrapper>
   );
 }

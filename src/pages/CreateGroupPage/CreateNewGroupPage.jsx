@@ -20,21 +20,21 @@ const Logo = styled.img`
 const TextContainer = styled.div`
   margin-left: 379px;
   margin-right: 379px;
-  margin-top: 70px;
+  /* margin-top: 70px; */
 `;
 
 const Title = styled.div`
-  font-size: 44px;
-  margin-top: 60px;
+  font-size: 42px;
+  margin-top: 32px;
   display: flex;
   justify-content: center;
 `;
 
 const Text = styled.div`
   font-family: "GmarketSansLight";
-  font-size: 30px;
-  margin-top: 90px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-top: 65px;
+  margin-bottom: 4px;
   color: #0d2040;
 `;
 
