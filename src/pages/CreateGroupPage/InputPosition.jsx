@@ -71,14 +71,14 @@ const Logo = styled.img`
 
 const Text = styled.div`
   font-size: 40px;
-  padding-left: 8.5%;
-  margin-top: 50px;
+  padding-left: 35%;
+  margin-top: 30px;
   color: black;
   /* border: 1px solid red; */
 `;
 
 const PositionContainer = styled.div`
-  margin: 76px auto 0px auto;
+  margin: 70px auto 0px auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   width: 85%;
