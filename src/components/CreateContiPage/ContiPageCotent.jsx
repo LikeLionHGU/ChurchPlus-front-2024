@@ -57,6 +57,10 @@ const NumOfConti = styled.div`
     padding-bottom: 4px;
     cursor: pointer;
   }
+
+  img.disabled {
+    filter: grayscale(80%);
+  }
 `;
 
 const Contents = styled.div`
@@ -134,7 +138,8 @@ function ContiPageContent() {
           <NumOfConti>
             현재 <BlueText>{selectedRows.length}</BlueText>곡이 담겨 있어요
             <img
-              src={nextBtnIcon}
+              className={selectedRows.length > 0 ? "active" : "disabled"}
+              src={selectedRows.length > 0 ? nextBtnIcon : nextBtnIcon}
               alt="다음버튼 아이콘"
               onClick={toggleContiStepModal}
             />
