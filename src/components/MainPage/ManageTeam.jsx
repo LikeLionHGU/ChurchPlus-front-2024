@@ -202,7 +202,6 @@ export default function ManageTeam() {
     description: "",
   });
   const [presentGroupInfo, setPresentGroupInfo] = useState([]);
-
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
