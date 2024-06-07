@@ -308,6 +308,8 @@ export default function ManageTeam() {
       }
 
       await updateTeamManage(formDataToSend, groupId);
+
+      window.location.reload();
     } catch (error) {
       console.error("팀 정보 수정 실패:", error);
     }
@@ -337,19 +339,11 @@ export default function ManageTeam() {
       <TopContents>
         <TeamImg>
           <PreviewImg>
-            {/* {previewUrl ? (
-              <img
-                src={previewUrl}
-                alt="Uploaded"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            ) : ( */}
-            <img src={ManageTeamImg} alt="악보추가 이미지" border="0" />
-            {/* )} */}
+            <img
+              src={presentGroupInfo.groupImage}
+              alt="악보추가 이미지"
+              border="0"
+            />
           </PreviewImg>
           <ImgChangeBtn onClick={handleImageUploadClick}>
             <UploadImg>이미지 업로드</UploadImg>
@@ -437,6 +431,7 @@ export default function ManageTeam() {
                 </span>
               )}
             </Note>
+
             <Bin>
               <span>
                 <img
