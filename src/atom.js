@@ -40,6 +40,11 @@ export const musicIdState = atom({
   default: null,
 });
 
+export const setListIdState = atom({
+  key: "setListIdState",
+  default: null,
+});
+
 export const musicIdListState = atom({
   key: "musicIdListState",
   default: [],
@@ -53,4 +58,4 @@ export const contiStepModalState = atom({
 export const contiIdState = atom({
   key: "contiIdState",
   default: null,
-})
+});

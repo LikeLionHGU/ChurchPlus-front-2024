@@ -3,10 +3,16 @@ import styled from "styled-components";
 import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
 import { useSetRecoilState } from "recoil";
-import { contiIdState, musicIdState, readMusicModalState } from "../../atom";
+import {
+  contiIdState,
+  musicIdState,
+  readMusicModalMemoState,
+  readMusicModalState,
+} from "../../atom";
 import { useRecoilValue } from "recoil";
 import getContiMusicList from "../../apis/getcontiMusicList";
 import ModifyContiModal from "../Modal/ModifyContiModal";
+import ReadContiModalMemo from "../Modal/ReadContiModalMemo";
 
 const DateContainer = styled.div`
   /* border: 1px solid blue; */
@@ -81,19 +87,16 @@ const SheetInfoOverlay = styled.div`
   }
 `;
 
-
-
 export default function ContiSheetStorage() {
-  const readMusicModal = useSetRecoilState(readMusicModalState);
-  const [sheetMusic,setSheetMusic] = useState([]);
+  const readMusicModal = useSetRecoilState(readMusicModalMemoState);
+  const [sheetMusic, setSheetMusic] = useState([]);
 
   const toggleReadMusicModal = () => {
     readMusicModal((prevState) => !prevState);
   };
   const setMusicId = useSetRecoilState(musicIdState);
   const setListId = useRecoilValue(contiIdState);
-  console.log("setListId",setListId)
-
+  console.log("setListId", setListId);
 
   useEffect(() => {
     const fetchMusicList = async () => {
@@ -102,14 +105,12 @@ export default function ContiSheetStorage() {
     };
     fetchMusicList();
   }, [setListId]);
-console.log("sheetMusicData:",sheetMusic);
-
-
+  console.log("sheetMusicData:", sheetMusic);
 
   return (
     <>
       <DateContainer>
-        <ModifyContiModal/>
+        <ReadContiModalMemo />
         <SelectYearDropdown />
         <SelectMonthDropdown />
       </DateContainer>

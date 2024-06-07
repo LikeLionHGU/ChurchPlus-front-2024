@@ -168,9 +168,9 @@ export default function ReadContiModalMemo() {
     setIsEditable(false);
   };
 
-  const toggleEditMode = () => {
-    setIsEditable((prevState) => !prevState);
-  };
+  // const toggleEditMode = () => {
+  //   setIsEditable((prevState) => !prevState);
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -213,42 +213,42 @@ export default function ReadContiModalMemo() {
     };
   }, [isModalOpen]);
 
-  const handleSubmit = async () => {
-    console.log("Form Data Submitted: ", formData);
-    try {
-      const { musicName, code, link, description, version } = formData;
-      const groupId = localStorage.getItem("groupId");
-      console.log("Group ID:", groupId);
+  // const handleSubmit = async () => {
+  //   console.log("Form Data Submitted: ", formData);
+  //   try {
+  //     const { musicName, code, link, description, version } = formData;
+  //     const groupId = localStorage.getItem("groupId");
+  //     console.log("Group ID:", groupId);
 
-      const formDataToSend = new FormData();
-      formDataToSend.append("musicName", musicName);
-      formDataToSend.append("code", code);
-      formDataToSend.append("link", link);
-      formDataToSend.append("description", description);
-      formDataToSend.append("groupId", groupId);
-      formDataToSend.append("version", version);
+  //     const formDataToSend = new FormData();
+  //     formDataToSend.append("musicName", musicName);
+  //     formDataToSend.append("code", code);
+  //     formDataToSend.append("link", link);
+  //     formDataToSend.append("description", description);
+  //     formDataToSend.append("groupId", groupId);
+  //     formDataToSend.append("version", version);
 
-      await updateMusic(formDataToSend, musicId);
-      setIsEditable(false);
-    } catch (error) {
-      console.error("악보 수정 실패:", error);
-    }
-  };
+  //     await updateMusic(formDataToSend, musicId);
+  //     setIsEditable(false);
+  //   } catch (error) {
+  //     console.error("악보 수정 실패:", error);
+  //   }
+  // };
 
-  const handleDelete = async () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      try {
-        await deleteMusic(musicId);
-        window.location.reload();
-      } catch (error) {
-        console.error("악보 삭제 실패:", error);
-      }
-    } else {
-      alert("취소");
-    }
-  };
+  // const handleDelete = async () => {
+  //   if (window.confirm("삭제하시겠습니까?")) {
+  //     try {
+  //       await deleteMusic(musicId);
+  //       window.location.reload();
+  //     } catch (error) {
+  //       console.error("악보 삭제 실패:", error);
+  //     }
+  //   } else {
+  //     alert("취소");
+  //   }
+  // };
 
-  console.log({ isModalOpen });
+  // console.log({ isModalOpen });
 
   return (
     <>
@@ -276,11 +276,11 @@ export default function ReadContiModalMemo() {
                   </ContiImage>
                   <ContiInfo>
                     <Icon2>
-                      <Img
+                      {/* <Img
                         src={binIcon}
                         alt="쓰레기통 아이콘"
                         onClick={handleDelete}
-                      />
+                      /> */}
                       <Img src={shareIcon} alt="공유 아이콘" />
                       <Img src={printIcon} alt="프린트 아이콘" />
                     </Icon2>
