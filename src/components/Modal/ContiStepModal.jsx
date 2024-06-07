@@ -5,12 +5,7 @@ import leftArrow from "../../assets/Icons/leftArrow.svg";
 import rightArrow from "../../assets/Icons/rightArrow.svg";
 import { BlueText } from "../CreateGroupPage/Text";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  contiStepModalState,
-  monthState,
-  musicIdListState,
-  yearState,
-} from "../../atom";
+import { contiStepModalState, monthState, musicIdListState, yearState } from "../../atom";
 import getContiMusicInfo from "../../apis/getContiMusicInfo";
 import createConti from "../../apis/createConti";
 import { useNavigate } from "react-router-dom";
@@ -206,11 +201,7 @@ export default function ContiStepModal() {
     const fetchMusicInfo = async () => {
       setIsLoading(true);
       try {
-        const fetchedMusicInfo = await getContiMusicInfo(
-          musicIdList,
-          memberId,
-          groupId
-        );
+        const fetchedMusicInfo = await getContiMusicInfo(musicIdList, memberId, groupId);
         setSteps(fetchedMusicInfo);
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -231,6 +222,7 @@ export default function ContiStepModal() {
 
   const toggleContiStepModal = () => {
     setIsModalOpen((prevState) => !prevState);
+    setCurrentStep(0); // 모달이 열릴 때 currentStep을 0으로 초기화
   };
 
   const handlePrevStep = () => {
@@ -276,6 +268,7 @@ export default function ContiStepModal() {
     };
   }, [isModalOpen]);
 
+  console.log("currentStep", currentStep);
   console.log("steps", steps);
   console.log("musicSetList", musicSetList);
 
@@ -301,37 +294,34 @@ export default function ContiStepModal() {
             <Flex>
               <Arrow src={leftArrow} left onClick={handlePrevStep} />
               <ModalContent>
-                <ContiImage>
-                  <img
-                    src={steps[currentStep].musicImageUrl}
-                    alt="Conti Image"
-                  />
-                </ContiImage>
-                <ContiInfo>
-                  <BoldText>곡 제목</BoldText>
-                  <LightText>{steps[currentStep].musicName}</LightText>
-                  <BoldText>곡 코드</BoldText>
-                  <LightText>{steps[currentStep].code}</LightText>
-                  <BoldText>곡 버전</BoldText>
-                  <LightText>{steps[currentStep].version}</LightText>
-                  <BoldText>영상 링크</BoldText>
-                  <LightText>
-                    <Link href={steps[currentStep].link} target="_blank">
-                      {steps[currentStep].link}
-                    </Link>
-                  </LightText>
-                  <BoldText>메모</BoldText>
-                  <textarea
-                    placeholder="메모를 자유롭게 입력하세요"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                  />
-                  <img
-                    src={saveBtn}
-                    alt="저장버튼"
-                    onClick={handleSubmitBtnClick}
-                  />
-                </ContiInfo>
+                {steps[currentStep] && (
+                  <>
+                    <ContiImage>
+                      <img src={steps[currentStep].musicImageUrl} alt="Conti Image" />
+                    </ContiImage>
+                    <ContiInfo>
+                      <BoldText>곡 제목</BoldText>
+                      <LightText>{steps[currentStep].musicName}</LightText>
+                      <BoldText>곡 코드</BoldText>
+                      <LightText>{steps[currentStep].code}</LightText>
+                      <BoldText>곡 버전</BoldText>
+                      <LightText>{steps[currentStep].version}</LightText>
+                      <BoldText>영상 링크</BoldText>
+                      <LightText>
+                        <Link href={steps[currentStep].link} target="_blank">
+                          {steps[currentStep].link}
+                        </Link>
+                      </LightText>
+                      <BoldText>메모</BoldText>
+                      <textarea
+                        placeholder="메모를 자유롭게 입력하세요"
+                        value={description}
+                        onChange={handleDescriptionChange}
+                      />
+                      <img src={saveBtn} alt="저장버튼" onClick={handleSubmitBtnClick} />
+                    </ContiInfo>
+                  </>
+                )}
               </ModalContent>
               <Arrow src={rightArrow} onClick={handleNextStep} />
             </Flex>
