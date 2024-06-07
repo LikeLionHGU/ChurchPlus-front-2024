@@ -5,6 +5,9 @@ import binIcon from "../../assets/Icons/Bin.svg";
 import styled from "styled-components";
 import getGroupInfo from "../../apis/getGroupInfo";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import deleteGroupMember from "../../apis/deleteGroupMember";
+import { memberIdsState } from "../../atom";
+import { useRecoilState } from "recoil";
 
 const TopContents = styled.div`
   display: flex;
@@ -183,8 +186,8 @@ export default function ManageTeam() {
   const fileInputRef = useRef(null);
   const [groupInfo, setGroupInfo] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
+  const [memberIds, setMemberIds] = useRecoilState(memberIdsState);
   const [isEditing, setIsEditing] = useState(false);
-
   const groupId = localStorage.getItem("groupId");
 
   useEffect(() => {
@@ -192,11 +195,15 @@ export default function ManageTeam() {
       const fetchedGroupInfo = await getGroupInfo(groupId);
       setGroupInfo(fetchedGroupInfo);
       setNewGroupName(fetchedGroupInfo[0]?.groupName || "");
+
+      const ids = fetchedGroupInfo.map((info) => info.memberId);
+      setMemberIds(ids);
     };
     fetchGroupInfo();
-  }, [groupId]);
+  }, [groupId, setMemberIds]);
 
   console.log("groupInfo: ", groupInfo);
+  console.log("memberIds: ", memberIds);
 
   const handleImageUploadClick = () => {
     fileInputRef.current.click();
@@ -221,6 +228,23 @@ export default function ManageTeam() {
     updatedGroupInfo[0].groupName = newGroupName;
     setGroupInfo(updatedGroupInfo);
     setIsEditing(false);
+  };
+
+  const handleDelete = async (deleteGroupId, deleteMemberId) => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      try {
+        const groupId = deleteGroupId;
+        const memberId = deleteMemberId;
+
+        await deleteGroupMember(groupId, memberId);
+        setGroupInfo(groupInfo.filter((info) => info.memberId !== memberId));
+        setMemberIds(memberIds.filter((id) => id !== memberId));
+      } catch (error) {
+        console.error("그룹 멤버 삭제 실패:", error);
+      }
+    } else {
+      alert("취소");
+    }
   };
 
   return (
@@ -318,44 +342,16 @@ export default function ManageTeam() {
             </Note>
             <Bin>
               <span>
-                <img src={binIcon} alt="휴지통" border="0"></img>
+                <img
+                  src={binIcon}
+                  alt="휴지통"
+                  border="0"
+                  onClick={() => handleDelete(groupId, userInfo.memberId)}
+                ></img>
               </span>
             </Bin>
           </TransparentBox>
         ))}
-        <TransparentBox>
-          <Name>
-            <span></span>
-          </Name>
-          <Position>
-            <span></span>
-          </Position>
-          <Note>
-            <span></span>
-          </Note>
-        </TransparentBox>
-        <TransparentBox>
-          <Name>
-            <span></span>
-          </Name>
-          <Position>
-            <span></span>
-          </Position>
-          <Note>
-            <span></span>
-          </Note>
-        </TransparentBox>
-        <TransparentBox>
-          <Name>
-            <span></span>
-          </Name>
-          <Position>
-            <span></span>
-          </Position>
-          <Note>
-            <span></span>
-          </Note>
-        </TransparentBox>
       </BottomContents>
     </>
   );
