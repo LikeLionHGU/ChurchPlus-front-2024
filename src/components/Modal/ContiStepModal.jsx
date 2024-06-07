@@ -5,13 +5,16 @@ import leftArrow from "../../assets/Icons/leftArrow.svg";
 import rightArrow from "../../assets/Icons/rightArrow.svg";
 import { BlueText } from "../CreateGroupPage/Text";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { contiStepModalState, monthState, musicIdListState, yearState } from "../../atom";
+import {
+  contiStepModalState,
+  monthState,
+  musicIdListState,
+  yearState,
+} from "../../atom";
 import getContiMusicInfo from "../../apis/getContiMusicInfo";
 import createConti from "../../apis/createConti";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-
-
 
 const modalStyles = `
   width: 100vw;
@@ -62,13 +65,13 @@ const ContiTitle = styled.input`
   margin-left: 400px;
   font-size: 24px;
   font-family: "GmarketSansLight";
-  text-align: center;  
-  border: none;        
-  border-bottom: 2px solid #000;  
-  outline: none;       
-  padding: 10px 0;     
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  padding: 10px 0;
   &::placeholder {
-    text-align: center;  
+    text-align: center;
   }
 `;
 
@@ -119,7 +122,6 @@ const ContiInfo = styled.div`
     padding-top: 10px;
     padding-left: 10px;
   }
-
 `;
 
 const BoldText = styled.div`
@@ -147,6 +149,7 @@ const Arrow = styled.img`
   top: 50%;
   transform: translateY(-50%);
   ${(props) => (props.left ? "left: 20px;" : "right: 20px;")}
+  z-index: 2;
 `;
 
 export default function ContiStepModal() {
@@ -165,13 +168,12 @@ export default function ContiStepModal() {
   const setMonthState = useSetRecoilState(monthState);
   const setYearState = useSetRecoilState(yearState);
 
-
   const handleFocus = () => {
     setPlaceholder("");
   };
 
   const handleBlur = () => {
-    if (document.getElementById('contiTitleInput').value === "") {
+    if (document.getElementById("contiTitleInput").value === "") {
       setPlaceholder("콘티명");
     }
   };
@@ -179,7 +181,7 @@ export default function ContiStepModal() {
   const handleChange = (e) => {
     setListName(e.target.value);
   };
-  
+
   useEffect(() => {
     if (steps[currentStep]) {
       setDescription(steps[currentStep].description || "");
@@ -204,7 +206,11 @@ export default function ContiStepModal() {
     const fetchMusicInfo = async () => {
       setIsLoading(true);
       try {
-        const fetchedMusicInfo = await getContiMusicInfo(musicIdList, memberId, groupId);
+        const fetchedMusicInfo = await getContiMusicInfo(
+          musicIdList,
+          memberId,
+          groupId
+        );
         setSteps(fetchedMusicInfo);
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -216,9 +222,9 @@ export default function ContiStepModal() {
   }, [musicIdList, memberId, groupId]);
 
   useEffect(() => {
-    const updatedMusicSetList = steps.map(step => ({
+    const updatedMusicSetList = steps.map((step) => ({
       musicId: step.musicId,
-      description: step.description || ""
+      description: step.description || "",
     }));
     setMusicSetList(updatedMusicSetList);
   }, [steps]);
@@ -244,13 +250,13 @@ export default function ContiStepModal() {
       memberId,
       groupId,
       setListName: listName,
-      musicSetList
+      musicSetList,
     };
-  console.log("requestData:",requestData)
+    console.log("requestData:", requestData);
 
     try {
       const response = await createConti(requestData);
-      console.log( "response",response);
+      console.log("response", response);
       setMonthState(response.data.month);
       setYearState(response.data.year);
       navigate("/ContiStoragePage");
@@ -258,7 +264,6 @@ export default function ContiStepModal() {
       console.error("그룹 참여 실패:", error);
     }
   };
-
 
   useEffect(() => {
     if (isModalOpen) {
@@ -281,13 +286,13 @@ export default function ContiStepModal() {
           <Overlay onClick={toggleContiStepModal} />
           <ContiModal>
             <ModalTop>
-              <ContiTitle 
+              <ContiTitle
                 id="contiTitleInput"
                 placeholder={placeholder}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                value={listName} 
-                onChange={handleChange} 
+                value={listName}
+                onChange={handleChange}
               />
               <ContiNumInfo>
                 현재 <BlueText>{steps.length}</BlueText>곡이 담겨있어요
@@ -297,7 +302,10 @@ export default function ContiStepModal() {
               <Arrow src={leftArrow} left onClick={handlePrevStep} />
               <ModalContent>
                 <ContiImage>
-                  <img src={steps[currentStep].musicImageUrl} alt="Conti Image" />
+                  <img
+                    src={steps[currentStep].musicImageUrl}
+                    alt="Conti Image"
+                  />
                 </ContiImage>
                 <ContiInfo>
                   <BoldText>곡 제목</BoldText>
@@ -313,7 +321,7 @@ export default function ContiStepModal() {
                     </Link>
                   </LightText>
                   <BoldText>메모</BoldText>
-                  <textarea 
+                  <textarea
                     placeholder="메모를 자유롭게 입력하세요"
                     value={description}
                     onChange={handleDescriptionChange}
@@ -321,7 +329,7 @@ export default function ContiStepModal() {
                   <img
                     src={saveBtn}
                     alt="저장버튼"
-                    onClick={handleSubmitBtnClick} 
+                    onClick={handleSubmitBtnClick}
                   />
                 </ContiInfo>
               </ModalContent>
