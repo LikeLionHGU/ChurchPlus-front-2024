@@ -297,23 +297,25 @@ export default function ManageTeam() {
   };
 
   const handleSubmit = async () => {
-    console.log("Form Data Submitted: ", formData);
-    try {
-      const { groupName, description } = formData;
-      console.log("Group ID:", groupId);
+    if (window.confirm("팀 정보를 수정하시겠습니까?")) {
+      console.log("Form Data Submitted: ", formData);
+      try {
+        const { groupName, description } = formData;
+        console.log("Group ID:", groupId);
 
-      const formDataToSend = new FormData();
-      formDataToSend.append("groupName", groupName);
-      formDataToSend.append("description", description);
-      if (fileInputRef.current.files.length > 0) {
-        formDataToSend.append("groupImage", fileInputRef.current.files[0]);
+        const formDataToSend = new FormData();
+        formDataToSend.append("groupName", groupName);
+        formDataToSend.append("description", description);
+        if (fileInputRef.current.files.length > 0) {
+          formDataToSend.append("groupImage", fileInputRef.current.files[0]);
+        }
+
+        await updateTeamManage(formDataToSend, groupId);
+
+        window.location.reload();
+      } catch (error) {
+        console.error("팀 정보 수정 실패:", error);
       }
-
-      await updateTeamManage(formDataToSend, groupId);
-
-      window.location.reload();
-    } catch (error) {
-      console.error("팀 정보 수정 실패:", error);
     }
   };
 
