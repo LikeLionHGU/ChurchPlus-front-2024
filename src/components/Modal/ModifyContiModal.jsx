@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import exitBtnIcon from "../../assets/Icons/ExitBtn.svg";
 import binIcon from "../../assets/Icons/Bin.svg";
@@ -11,6 +11,7 @@ import { musicIdState, readMusicModalState } from "../../atom";
 import getMusicInfo from "../../apis/getMusicInfo";
 import updateMusic from "../../apis/updateMusic";
 import deleteMusic from "../../apis/deleteMusic";
+import getImageDownloadUrl from "../../apis/getImageDownloadUrl";
 
 const modalStyles = `
   width: 100vw;
@@ -158,12 +159,19 @@ export default function ModifyContiModal() {
     link: "",
     description: "",
   });
-
-  console.log("musicId", musicId);
+  const fileInputRef = useRef(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [isImageUpdated, setIsImageUpdated] = useState(false); // 이미지가 업데이트되었는지 여부를 추적하는 상태 변수
+  const [imageDownloadUrl, setImageDownloadUrl] = useState([]);
 
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
+
+    // 이미지가 업데이트되었을 경우 페이지를 리로드
+    if (isImageUpdated) {
+      window.location.reload();
+    }
   };
 
   const toggleEditMode = () => {
@@ -178,6 +186,26 @@ export default function ModifyContiModal() {
     });
   };
 
+  const handleImageUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+        setIsImageUpdated(true); // 이미지가 업로드되었음을 표시
+        console.log("Uploaded image:", reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.error("전달된 파일이 유효하지 않습니다.");
+    }
+  };
+
   useEffect(() => {
     const fetchMusicInfo = async () => {
       setIsLoading(true);
@@ -190,7 +218,7 @@ export default function ModifyContiModal() {
           version: fetchedMusicInfo.version,
           link: fetchedMusicInfo.link,
           description: fetchedMusicInfo.description || "", // description이 없을 경우 빈 문자열로 설정
-          image: fetchMusicInfo.musicImageUrl,
+          image: fetchedMusicInfo.musicImageUrl,
         });
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -226,7 +254,11 @@ export default function ModifyContiModal() {
       formDataToSend.append("description", description);
       formDataToSend.append("groupId", groupId);
       formDataToSend.append("version", version);
-      
+
+      // 이미지 파일이 존재할 경우에만 추가
+      if (fileInputRef.current.files[0]) {
+        formDataToSend.append("image", fileInputRef.current.files[0]);
+      }
 
       await updateMusic(formDataToSend, musicId);
       setIsEditable(false);
@@ -248,7 +280,15 @@ export default function ModifyContiModal() {
     }
   };
 
-  console.log({ isModalOpen });
+  const handlePrintBtnClick = async () => {
+    try {
+      const fetchedMusicInfo = await getImageDownloadUrl(musicId);
+      setImageDownloadUrl(fetchedMusicInfo);
+      window.open(fetchedMusicInfo, "_blank");
+    } catch (error) {
+      console.error("악보 삭제 실패:", error);
+    }
+  };
 
   return (
     <>
@@ -263,66 +303,64 @@ export default function ModifyContiModal() {
                 <ModalTop>
                   <ContiTitle>{contiData.musicName}</ContiTitle>
                   <Icons>
-                    <img
-                      onClick={toggleModifyContiModal}
-                      src={exitBtnIcon}
-                      alt="캔슬 아이콘"
-                    />
+                    <img onClick={toggleModifyContiModal} src={exitBtnIcon} alt="캔슬 아이콘" />
                   </Icons>
                 </ModalTop>
                 <ModalContent>
-                  <ContiImage>
-                    <img src={contiData.musicImageUrl} alt="Conti Image" />
-                  </ContiImage>
+                  {isEditable ? (
+                    previewUrl ? (
+                      <ContiImage onClick={handleImageUploadClick}>
+                        <img src={previewUrl} alt="Uploaded" />
+                        <input
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={handleFileInputChange}
+                          ref={fileInputRef}
+                        />
+                      </ContiImage>
+                    ) : (
+                      <ContiImage onClick={handleImageUploadClick}>
+                        <img src={contiData.musicImageUrl} alt="Conti Image" />
+                        <input
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={handleFileInputChange}
+                          ref={fileInputRef}
+                        />
+                      </ContiImage>
+                    )
+                  ) : (
+                    <ContiImage>
+                      <img src={contiData.musicImageUrl} alt="Conti Image" />
+                    </ContiImage>
+                  )}
                   <ContiInfo>
                     <Icon2>
-                      <Img
-                        src={binIcon}
-                        alt="쓰레기통 아이콘"
-                        onClick={handleDelete}
-                      />
+                      <Img src={binIcon} alt="쓰레기통 아이콘" onClick={handleDelete} />
                       <Img src={shareIcon} alt="공유 아이콘" />
-                      <Img src={printIcon} alt="프린트 아이콘" />
+                      <Img src={printIcon} alt="프린트 아이콘" onClick={handlePrintBtnClick} />
                     </Icon2>
                     <BoldText>곡 제목</BoldText>
                     {isEditable ? (
-                      <EditableInput
-                        name="musicName"
-                        value={formData.musicName}
-                        onChange={handleChange}
-                      />
+                      <EditableInput name="musicName" value={formData.musicName} onChange={handleChange} />
                     ) : (
                       <LightText>{formData.musicName}</LightText>
                     )}
                     <BoldText>곡 코드</BoldText>
                     {isEditable ? (
-                      <>
-                        <EditableInput
-                          name="code"
-                          value={formData.code}
-                          onChange={handleChange}
-                        />
-                      </>
+                      <EditableInput name="code" value={formData.code} onChange={handleChange} />
                     ) : (
                       <LightText>{formData.code}</LightText>
                     )}
                     <BoldText>곡 버전</BoldText>
                     {isEditable ? (
-                      <EditableInput
-                        name="version"
-                        value={formData.version}
-                        onChange={handleChange}
-                      />
+                      <EditableInput name="version" value={formData.version} onChange={handleChange} />
                     ) : (
                       <LightText>{formData.version}</LightText>
                     )}
                     <BoldText>영상 링크</BoldText>
                     {isEditable ? (
-                      <EditableInput
-                        name="link"
-                        value={formData.link}
-                        onChange={handleChange}
-                      />
+                      <EditableInput name="link" value={formData.link} onChange={handleChange} />
                     ) : (
                       <LightText>
                         <Link href={formData.link} target="_blank">

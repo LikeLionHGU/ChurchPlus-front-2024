@@ -6,7 +6,7 @@ import styled from "styled-components";
 import getGroupInfo from "../../apis/getGroupInfo";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import deleteGroupMember from "../../apis/deleteGroupMember";
-import { memberIdsState } from "../../atom";
+import { memberIdState } from "../../atom";
 import { useRecoilState } from "recoil";
 import updateTeamManage from "../../apis/updateTeamManage";
 import PresentGroupName from "../../apis/getPresentGroupName";
@@ -194,7 +194,8 @@ export default function ManageTeam() {
   const [groupInfo, setGroupInfo] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [memberIds, setMemberIds] = useRecoilState(memberIdsState);
+  const [memberIds, setMemberIds] = useRecoilState(memberIdState);
+
   const [isEditing, setIsEditing] = useState(false);
   const groupId = localStorage.getItem("groupId");
   const [formData, setFormData] = useState({

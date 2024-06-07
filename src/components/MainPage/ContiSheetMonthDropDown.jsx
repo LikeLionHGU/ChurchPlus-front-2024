@@ -4,29 +4,29 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
+import { useNavigate } from "react-router-dom";
+import { monthState } from "../../atom";
+import { useRecoilState } from "recoil";
 
-export default function SelectYearDropdown({ setSearch }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedYear, setSelectedYear] = React.useState("2024");
-  const open = Boolean(anchorEl);
+export default function ContiSheetMonthDropDown() {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [month,setMonth] = useRecoilState(monthState);
+    const [selectedMonth, setSelectedMonth] = React.useState(month);
+    const open = Boolean(anchorEl);
+    const navigate = useNavigate();
 
-  React.useEffect(() => {
-    console.log("Year setSearch called with:", "2024");
-    setSearch("2024");
-  }, [setSearch]);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = (year) => {
-    setAnchorEl(null);
-    if (year) {
-      setSelectedYear(year);
-      console.log("Year handleClose called with:", year);
-      setSearch(year);
-    }
-  };
+  
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = (month) => {
+      setAnchorEl(null);
+      if (month) {
+        setMonth(month);
+        navigate("/ContiStoragePage");
+      }
+    };
 
   const menuItemStyle = {
     fontFamily: "GmarketSansLight",
@@ -38,7 +38,20 @@ export default function SelectYearDropdown({ setSearch }) {
     },
   };
 
-  const options = ["2022", "2023", "2024"];
+  const options = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ];
 
   return (
     <div>
@@ -54,7 +67,7 @@ export default function SelectYearDropdown({ setSearch }) {
           fontFamily: "GmarketSansLight",
         }}
       >
-        {selectedYear}년
+        {parseInt(selectedMonth, 10)}월
         <img src={DateDropdown} alt="" />
       </Button>
       <Menu
@@ -72,7 +85,7 @@ export default function SelectYearDropdown({ setSearch }) {
       >
         {options.map((option) => (
           <MenuItem key={option} sx={menuItemStyle} onClick={() => handleClose(option)}>
-            {option + "년"}
+            {parseInt(option, 10)}월
           </MenuItem>
         ))}
       </Menu>
