@@ -202,6 +202,7 @@ export default function ManageTeam() {
     description: "",
   });
   const [presentGroupInfo, setPresentGroupInfo] = useState([]);
+
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
@@ -281,6 +282,7 @@ export default function ManageTeam() {
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
+
     const reader = new FileReader();
     reader.onload = () => {
       setPreviewUrl(reader.result);
@@ -340,7 +342,7 @@ export default function ManageTeam() {
         <TeamImg>
           <PreviewImg>
             <img
-              src={presentGroupInfo.groupImage}
+              src={previewUrl || presentGroupInfo.groupImage}
               alt="악보추가 이미지"
               border="0"
             />
