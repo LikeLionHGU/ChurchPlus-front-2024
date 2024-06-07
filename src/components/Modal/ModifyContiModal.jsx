@@ -241,6 +241,7 @@ export default function ModifyContiModal() {
   }, [isModalOpen]);
 
   const handleSubmit = async () => {
+    alert("악보를 수정하시겠습니까?");
     console.log("Form Data Submitted: ", formData);
     try {
       const { musicName, code, link, description, version } = formData;
@@ -302,7 +303,11 @@ export default function ModifyContiModal() {
               <>
                 <ModalTop>
                   <Icons>
-                    <img onClick={toggleModifyContiModal} src={exitBtnIcon} alt="캔슬 아이콘" />
+                    <img
+                      onClick={toggleModifyContiModal}
+                      src={exitBtnIcon}
+                      alt="캔슬 아이콘"
+                    />
                   </Icons>
                 </ModalTop>
                 <ModalContent>
@@ -340,25 +345,41 @@ export default function ModifyContiModal() {
                     </Icon2>
                     <BoldText>곡 제목</BoldText>
                     {isEditable ? (
-                      <EditableInput name="musicName" value={formData.musicName} onChange={handleChange} />
+                      <EditableInput
+                        name="musicName"
+                        value={formData.musicName}
+                        onChange={handleChange}
+                      />
                     ) : (
                       <LightText>{formData.musicName}</LightText>
                     )}
                     <BoldText>곡 코드</BoldText>
                     {isEditable ? (
-                      <EditableInput name="code" value={formData.code} onChange={handleChange} />
+                      <EditableInput
+                        name="code"
+                        value={formData.code}
+                        onChange={handleChange}
+                      />
                     ) : (
                       <LightText>{formData.code}</LightText>
                     )}
                     <BoldText>곡 버전</BoldText>
                     {isEditable ? (
-                      <EditableInput name="version" value={formData.version} onChange={handleChange} />
+                      <EditableInput
+                        name="version"
+                        value={formData.version}
+                        onChange={handleChange}
+                      />
                     ) : (
                       <LightText>{formData.version}</LightText>
                     )}
                     <BoldText>영상 링크</BoldText>
                     {isEditable ? (
-                      <EditableInput name="link" value={formData.link} onChange={handleChange} />
+                      <EditableInput
+                        name="link"
+                        value={formData.link}
+                        onChange={handleChange}
+                      />
                     ) : (
                       <LightText>
                         <Link href={formData.link} target="_blank">
