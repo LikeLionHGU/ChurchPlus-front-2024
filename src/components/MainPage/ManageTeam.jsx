@@ -9,6 +9,7 @@ import deleteGroupMember from "../../apis/deleteGroupMember";
 import { memberIdsState } from "../../atom";
 import { useRecoilState } from "recoil";
 import updateTeamManage from "../../apis/updateTeamManage";
+import PresentGroupName from "../../apis/getPresentGroupName";
 
 const TopContents = styled.div`
   display: flex;
@@ -89,6 +90,7 @@ const TeamNameInput = styled.input`
 const ContactNumberInput = styled.input`
   font-family: "GmarketSansLight";
   font-size: 16px;
+  margin-left: 25px;
 `;
 
 const InviteCode = styled.div``;
@@ -188,7 +190,6 @@ const TransparentBox = styled.div`
 `;
 
 export default function ManageTeam() {
-  const [previewUrl, setPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
   const [groupInfo, setGroupInfo] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
@@ -200,6 +201,8 @@ export default function ManageTeam() {
     groupName: "",
     description: "",
   });
+  const [presentGroupInfo, setPresentGroupInfo] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     const fetchGroupInfo = async () => {
@@ -213,13 +216,26 @@ export default function ManageTeam() {
       setFormData((prevFormData) => ({
         ...prevFormData,
         groupName: fetchedGroupInfo[0]?.groupName || "",
+        groupImage: fetchedGroupInfo[0]?.groupImage || "",
+        description: fetchedGroupInfo[0]?.description || "",
       }));
     };
     fetchGroupInfo();
   }, [groupId, setMemberIds]);
 
+  useEffect(() => {
+    const fetchGroups = async () => {
+      const fetchedGroups = await PresentGroupName(groupId);
+      setPresentGroupInfo(fetchedGroups);
+    };
+    fetchGroups();
+  }, [groupId]);
+
+  console.log("presentGroupInfo", presentGroupInfo);
+
   console.log("groupInfo: ", groupInfo);
   console.log("memberIds: ", memberIds);
+  console.log("formdata: ", formData);
 
   const handleImageUploadClick = () => {
     fileInputRef.current.click();
@@ -321,7 +337,7 @@ export default function ManageTeam() {
       <TopContents>
         <TeamImg>
           <PreviewImg>
-            {previewUrl ? (
+            {/* {previewUrl ? (
               <img
                 src={previewUrl}
                 alt="Uploaded"
@@ -331,9 +347,9 @@ export default function ManageTeam() {
                   objectFit: "cover",
                 }}
               />
-            ) : (
-              <img src={ManageTeamImg} alt="악보추가 이미지" border="0" />
-            )}
+            ) : ( */}
+            <img src={ManageTeamImg} alt="악보추가 이미지" border="0" />
+            {/* )} */}
           </PreviewImg>
           <ImgChangeBtn onClick={handleImageUploadClick}>
             <UploadImg>이미지 업로드</UploadImg>
