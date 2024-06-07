@@ -169,14 +169,12 @@ export default function ReadContiModalMemo() {
   const contiMusicIndex = useRecoilValue(contiMusicIndexState);
   const [imageDownloadUrl, setImageDownloadUrl] = useState([]);
 
-
-  console.log("setListId:",setListId)
+  console.log("setListId:", setListId);
 
   const toggleReadContiModalMemo = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
   };
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -208,21 +206,18 @@ export default function ReadContiModalMemo() {
     };
     fetchMusicInfo();
   }, [setListId, contiMusicIndex]);
-  
+
   useEffect(() => {
     if (contiData && contiData.musicId) {
       localStorage.setItem("musicId", contiData.musicId);
     }
   }, [contiData]);
-  
-    
 
   const musicId = localStorage.getItem("musicId");
-  console.log("musicId",musicId);
-  
+  console.log("musicId", musicId);
 
-  console.log("contiMusicIndex" ,contiMusicIndex)
-  console.log("contidata",contiData);
+  console.log("contiMusicIndex", contiMusicIndex);
+  console.log("contidata", contiData);
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -237,7 +232,7 @@ export default function ReadContiModalMemo() {
   const handleDelete = async () => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
-        await deleteContiMusic(musicId,setListId);
+        await deleteContiMusic(musicId, setListId);
         window.location.reload();
       } catch (error) {
         console.error("악보 삭제 실패:", error);
@@ -255,7 +250,7 @@ export default function ReadContiModalMemo() {
     } catch (error) {
       console.error("악보 삭제 실패:", error);
     }
-  }
+  };
 
   // console.log({ isModalOpen });
 
@@ -270,13 +265,8 @@ export default function ReadContiModalMemo() {
             ) : (
               <>
                 <ModalTop>
-                  <ContiTitle>{contiData?.musicName}</ContiTitle>
                   <Icons>
-                    <img
-                      onClick={toggleReadContiModalMemo}
-                      src={exitBtnIcon}
-                      alt="캔슬 아이콘"
-                    />
+                    <img onClick={toggleReadContiModalMemo} src={exitBtnIcon} alt="캔슬 아이콘" />
                   </Icons>
                 </ModalTop>
                 <ModalContent>
@@ -285,43 +275,26 @@ export default function ReadContiModalMemo() {
                   </ContiImage>
                   <ContiInfo>
                     <Icon2>
-                      <Img
-                        src={binIcon}
-                        alt="쓰레기통 아이콘"
-                        onClick={handleDelete}
-                      />
-                      <Img src={shareIcon} alt="공유 아이콘" />
-                      <Img src={printIcon} alt="프린트 아이콘" onClick={handlePrintBtnClick} />
+                      <Img src={binIcon} alt="쓰레기통 아이콘" onClick={handleDelete} />
+                      <Img src={shareIcon} alt="공유 아이콘" onClick={handlePrintBtnClick} />
                     </Icon2>
                     <BoldText>곡 제목</BoldText>
                     {isEditable ? (
-                      <EditableInput
-                        name="musicName"
-                        value={formData.musicName}
-                        onChange={handleChange}
-                      />
+                      <EditableInput name="musicName" value={formData.musicName} onChange={handleChange} />
                     ) : (
                       <LightText>{contiData?.musicName}</LightText>
                     )}
                     <BoldText>곡 코드</BoldText>
                     {isEditable ? (
                       <>
-                        <EditableInput
-                          name="code"
-                          value={formData.code}
-                          onChange={handleChange}
-                        />
+                        <EditableInput name="code" value={formData.code} onChange={handleChange} />
                       </>
                     ) : (
                       <LightText>{contiData?.code}</LightText>
                     )}
                     <BoldText>곡 버전</BoldText>
                     {isEditable ? (
-                      <EditableInput
-                        name="version"
-                        value={formData.version}
-                        onChange={handleChange}
-                      />
+                      <EditableInput name="version" value={formData.version} onChange={handleChange} />
                     ) : (
                       <LightText>{contiData?.version}</LightText>
                     )}

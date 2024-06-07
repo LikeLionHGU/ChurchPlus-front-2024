@@ -4,19 +4,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
-import { yearState } from "../../atom";
+import { useNavigate } from "react-router-dom";
+import { monthState, yearState } from "../../atom";
 import { useRecoilState } from "recoil";
 
-export default function SelectYearDropdown({ setSearch }) {
+export default function ContiSheetYearDropDown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [year, setYear] = useRecoilState(yearState);
   const [selectedYear, setSelectedYear] = React.useState(year);
   const open = Boolean(anchorEl);
-
-  React.useEffect(() => {
-    console.log("Year setSearch called with:", "2024");
-    setSearch(year);
-  }, [setSearch]);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,10 +22,8 @@ export default function SelectYearDropdown({ setSearch }) {
   const handleClose = (year) => {
     setAnchorEl(null);
     if (year) {
-      setSelectedYear(year);
-      console.log("Year handleClose called with:", year);
-      setSearch(year);
       setYear(year);
+      navigate("/ContiStoragePage");
     }
   };
 
