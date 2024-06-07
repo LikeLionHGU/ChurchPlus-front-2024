@@ -63,7 +63,7 @@ export const contiIdState = atom({
 export const contiMusicIndexState = atom({
   key: "contiMusicIndexState",
   default: null,
-})
+});
 
 export const newMemberState = atom({
   key: "newMemberState",
@@ -79,3 +79,4 @@ export const yearState = atom({
   key: "yearState",
   default: "2024",
 })
+
