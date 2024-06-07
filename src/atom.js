@@ -68,9 +68,15 @@ export const contiMusicIndexState = atom({
 export const newMemberState = atom({
   key: "newMemberState",
   default: false,
-});
+})
 
-export const memberIdsState = atom({
-  key: "memberIdsState",
-  default: [],
-});
+export const monthState = atom({
+  key: "monthState",
+  default: "06"
+})
+
+export const yearState = atom({
+  key: "yearState",
+  default: "2024",
+})
+

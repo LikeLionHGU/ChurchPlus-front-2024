@@ -4,16 +4,31 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import DateDropdown from "../../asset/Images/Icons/DateDropdownIcon.svg";
-import { borderRadius, fontFamily, width } from "@mui/system";
+import { monthState } from "../../atom";
+import { useRecoilState } from "recoil";
 
-export default function SelectMonthDropdown() {
+export default function SelectMonthDropdown({ setSearch }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [month,setMonth] = useRecoilState(monthState);
+  const [selectedMonth, setSelectedMonth] = React.useState(month);
   const open = Boolean(anchorEl);
+
+  React.useEffect(() => {
+    setSearch(month);
+  }, [setSearch]);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+
+  const handleClose = (month) => {
     setAnchorEl(null);
+    if (month) {
+      setSelectedMonth(month);
+      console.log("Month handleClose called with:", month);
+      setSearch(month);
+      setMonth(month);
+    }
   };
 
   const menuItemStyle = {
@@ -27,15 +42,15 @@ export default function SelectMonthDropdown() {
   };
 
   const options = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "11",
     "12",
@@ -55,7 +70,7 @@ export default function SelectMonthDropdown() {
           fontFamily: "GmarketSansLight",
         }}
       >
-        1월
+        {parseInt(selectedMonth, 10)}월
         <img src={DateDropdown} alt="" />
       </Button>
       <Menu
@@ -65,15 +80,15 @@ export default function SelectMonthDropdown() {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose()}
         TransitionComponent={Fade}
         PaperProps={{
           sx: { borderRadius: "10px" },
         }}
       >
         {options.map((option) => (
-          <MenuItem key={option} sx={menuItemStyle} onClick={handleClose}>
-            {option + "월"}
+          <MenuItem key={option} sx={menuItemStyle} onClick={() => handleClose(option)}>
+            {parseInt(option, 10)}월
           </MenuItem>
         ))}
       </Menu>

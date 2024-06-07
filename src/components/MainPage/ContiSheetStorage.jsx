@@ -8,15 +8,13 @@ import {
   contiMusicIndexState,
   musicIdState,
   readMusicModalMemoState,
-  readMusicModalState,
 } from "../../atom";
-import { useRecoilValue } from "recoil";
 import getContiMusicList from "../../apis/getcontiMusicList";
 import ModifyContiModal from "../Modal/ModifyContiModal";
 import ReadContiModalMemo from "../Modal/ReadContiModalMemo";
+import ContiSheetMonthDropDown from "./ContiSheetMonthDropDown";
 
 const DateContainer = styled.div`
-  /* border: 1px solid blue; */
   font-family: "GmarketSansLight";
   font-size: 20px;
   margin-top: 5px;
@@ -25,7 +23,6 @@ const DateContainer = styled.div`
 `;
 
 const ContiContainer = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-wrap: Wrap;
   margin-left: 20px;
@@ -35,14 +32,12 @@ const ContiContainer = styled.div`
 const Contents = styled.div`
   margin-left: 20px;
   min-width: 1180px;
-  /* border: 1px solid #3e5692; */
   display: flex;
   flex-wrap: wrap;
 `;
 
 const SheetMusicContainer = styled.div`
   position: relative;
-  /* border: 1px solid #3e5692; */
 
   &:hover .sheet-music-image {
     filter: brightness(60%);
@@ -88,16 +83,25 @@ const SheetInfoOverlay = styled.div`
   }
 `;
 
+const ContiName = styled.div`
+  font-family: "GmarketSansLight";
+  font-size: 20px;
+  margin-top: 13px;
+`
+
 export default function ContiSheetStorage() {
   const readMusicModal = useSetRecoilState(readMusicModalMemoState);
   const [sheetMusic, setSheetMusic] = useState([]);
-  const setContiMusicIndex = useSetRecoilState(contiMusicIndexState); 
+  const [monthSearch, setMonthSearch] = useState("06");
+  const [yearSearch, setYearSearch] = useState("2024");
+  const setContiMusicIndex = useSetRecoilState(contiMusicIndexState);
+  const setMusicId = useSetRecoilState(musicIdState);
+  const setListId = localStorage.getItem("setListId");
+  const contiName = localStorage.getItem("setListName");
+
   const toggleReadMusicModal = () => {
     readMusicModal((prevState) => !prevState);
   };
-  const setMusicId = useSetRecoilState(musicIdState);
-  const setListId = localStorage.getItem("setListId");
-  console.log("setListId", setListId);
 
   useEffect(() => {
     const fetchMusicList = async () => {
@@ -106,14 +110,14 @@ export default function ContiSheetStorage() {
     };
     fetchMusicList();
   }, [setListId]);
-  console.log("sheetMusicData:", sheetMusic);
 
   return (
     <>
       <DateContainer>
         <ReadContiModalMemo />
-        <SelectYearDropdown />
-        <SelectMonthDropdown />
+        <SelectYearDropdown setSearch={setYearSearch} />
+        <ContiSheetMonthDropDown />
+        <ContiName>{contiName}</ContiName>
       </DateContainer>
       <ContiContainer>
         <Contents>
@@ -128,7 +132,7 @@ export default function ContiSheetStorage() {
                 className="sheet-info-overlay"
                 onClick={() => {
                   toggleReadMusicModal();
-                  localStorage.setItem("musicId",sheet.musicId);
+                  localStorage.setItem("musicId", sheet.musicId);
                   setContiMusicIndex(index);
                 }}
               >

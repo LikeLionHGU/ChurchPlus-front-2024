@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import exitBtnIcon from "../../assets/Icons/ExitBtn.svg";
 import binIcon from "../../assets/Icons/Bin.svg";
@@ -158,12 +158,18 @@ export default function ModifyContiModal() {
     link: "",
     description: "",
   });
-
-  console.log("musicId", musicId);
+  const fileInputRef = useRef(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [isImageUpdated, setIsImageUpdated] = useState(false); // 이미지가 업데이트되었는지 여부를 추적하는 상태 변수
 
   const toggleModifyContiModal = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
+
+    // 이미지가 업데이트되었을 경우 페이지를 리로드
+    if (isImageUpdated) {
+      window.location.reload();
+    }
   };
 
   const toggleEditMode = () => {
@@ -178,6 +184,26 @@ export default function ModifyContiModal() {
     });
   };
 
+  const handleImageUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+        setIsImageUpdated(true); // 이미지가 업로드되었음을 표시
+        console.log("Uploaded image:", reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.error("전달된 파일이 유효하지 않습니다.");
+    }
+  };
+
   useEffect(() => {
     const fetchMusicInfo = async () => {
       setIsLoading(true);
@@ -190,7 +216,7 @@ export default function ModifyContiModal() {
           version: fetchedMusicInfo.version,
           link: fetchedMusicInfo.link,
           description: fetchedMusicInfo.description || "", // description이 없을 경우 빈 문자열로 설정
-          image: fetchMusicInfo.musicImageUrl,
+          image: fetchedMusicInfo.musicImageUrl,
         });
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -226,7 +252,11 @@ export default function ModifyContiModal() {
       formDataToSend.append("description", description);
       formDataToSend.append("groupId", groupId);
       formDataToSend.append("version", version);
-      
+
+      // 이미지 파일이 존재할 경우에만 추가
+      if (fileInputRef.current.files[0]) {
+        formDataToSend.append("image", fileInputRef.current.files[0]);
+      }
 
       await updateMusic(formDataToSend, musicId);
       setIsEditable(false);
@@ -247,8 +277,6 @@ export default function ModifyContiModal() {
       alert("취소");
     }
   };
-
-  console.log({ isModalOpen });
 
   return (
     <>
@@ -271,8 +299,18 @@ export default function ModifyContiModal() {
                   </Icons>
                 </ModalTop>
                 <ModalContent>
-                  <ContiImage>
-                    <img src={contiData.musicImageUrl} alt="Conti Image" />
+                  <ContiImage onClick={handleImageUploadClick}>
+                    {previewUrl ? (
+                      <img src={previewUrl} alt="Uploaded" />
+                    ) : (
+                      <img src={contiData.musicImageUrl} alt="Conti Image" />
+                    )}
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={handleFileInputChange}
+                      ref={fileInputRef}
+                    />
                   </ContiImage>
                   <ContiInfo>
                     <Icon2>
@@ -296,13 +334,11 @@ export default function ModifyContiModal() {
                     )}
                     <BoldText>곡 코드</BoldText>
                     {isEditable ? (
-                      <>
-                        <EditableInput
-                          name="code"
-                          value={formData.code}
-                          onChange={handleChange}
-                        />
-                      </>
+                      <EditableInput
+                        name="code"
+                        value={formData.code}
+                        onChange={handleChange}
+                      />
                     ) : (
                       <LightText>{formData.code}</LightText>
                     )}
