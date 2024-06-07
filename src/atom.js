@@ -63,9 +63,14 @@ export const contiIdState = atom({
 export const contiMusicIndexState = atom({
   key: "contiMusicIndexState",
   default: null,
-})
+});
 
 export const newMemberState = atom({
   key: "newMemberState",
   default: false,
-})
+});
+
+export const memberIdsState = atom({
+  key: "memberIdsState",
+  default: [],
+});
