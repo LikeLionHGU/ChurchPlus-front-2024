@@ -3,12 +3,8 @@ import styled from "styled-components";
 import bellIcon from "../../assets/Icons/bell.svg";
 import settingIcon from "../../assets/Icons/setting.svg";
 import { BlueText } from "../CreateGroupPage/Text";
-import ReadContiModal from "../Modal/ReadContiModal";
-import ContiStepModal from "../Modal/ContiStepModal";
-import ModifyContiModal from "../Modal/ModifyContiModal";
 import getPositionAndUserName from "../../apis/getPositionAndUserName";
 import { useNavigate } from "react-router-dom";
-// import TeamManagementModal from "./TeamManagementModal";
 
 const Wrapper = styled.div`
   height: 100px;

@@ -7,7 +7,11 @@ import printIcon from "../../assets/Icons/printPage.svg";
 import editBtn from "../../assets/Icons/EditBtn.svg";
 import saveBtn from "../../assets/Icons/SaveBtn.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { musicIdState, readMusicModalState } from "../../atom";
+import {
+  musicIdState,
+  readMusicModalMemoState,
+  readMusicModalState,
+} from "../../atom";
 import getMusicInfo from "../../apis/getMusicInfo";
 import updateMusic from "../../apis/updateMusic";
 import deleteMusic from "../../apis/deleteMusic";
@@ -145,8 +149,8 @@ const Link = styled.a`
   color: black;
 `;
 
-export default function ModifyContiModal() {
-  const [isModalOpen, setIsModalOpen] = useRecoilState(readMusicModalState);
+export default function ReadContiModalMemo() {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(readMusicModalMemoState);
   const [isEditable, setIsEditable] = useState(false);
   const [contiData, setContiData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -159,7 +163,7 @@ export default function ModifyContiModal() {
     description: "",
   });
 
-  const toggleModifyContiModal = () => {
+  const toggleReadContiModalMemo = () => {
     setIsModalOpen((prevState) => !prevState);
     setIsEditable(false);
   };
@@ -250,7 +254,7 @@ export default function ModifyContiModal() {
     <>
       {isModalOpen && (
         <Modal>
-          <Overlay onClick={toggleModifyContiModal} />
+          <Overlay onClick={toggleReadContiModalMemo} />
           <ContiModal>
             {isLoading ? (
               <LoadingMessage>Loading...</LoadingMessage>
@@ -260,7 +264,7 @@ export default function ModifyContiModal() {
                   <ContiTitle>{contiData.musicName}</ContiTitle>
                   <Icons>
                     <img
-                      onClick={toggleModifyContiModal}
+                      onClick={toggleReadContiModalMemo}
                       src={exitBtnIcon}
                       alt="캔슬 아이콘"
                     />
@@ -313,24 +317,26 @@ export default function ModifyContiModal() {
                       <LightText>{formData.version}</LightText>
                     )}
                     <BoldText>영상 링크</BoldText>
-                    {isEditable ? (
+                    {/* {isEditable ? (
                       <EditableInput
                         name="link"
                         value={formData.link}
                         onChange={handleChange}
                       />
-                    ) : (
-                      <LightText>
-                        <Link href={formData.link} target="_blank">
-                          {formData.link}
-                        </Link>
-                      </LightText>
-                    )}
-                    <Btn
+                    ) : ( */}
+                    <LightText>
+                      <Link href={formData.link} target="_blank">
+                        {formData.link}
+                      </Link>
+                    </LightText>
+                    {/* )} */}
+                    <BoldText>메모</BoldText>
+                    <LightText>{formData.description}</LightText>
+                    {/* <Btn
                       src={isEditable ? saveBtn : editBtn}
                       alt="수정버튼"
                       onClick={isEditable ? handleSubmit : toggleEditMode}
-                    />
+                    /> */}
                   </ContiInfo>
                 </ModalContent>
               </>
