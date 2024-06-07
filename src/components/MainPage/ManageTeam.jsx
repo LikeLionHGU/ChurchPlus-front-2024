@@ -8,6 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import deleteGroupMember from "../../apis/deleteGroupMember";
 import { memberIdsState } from "../../atom";
 import { useRecoilState } from "recoil";
+import updateTeamManage from "../../apis/updateTeamManage";
 
 const TopContents = styled.div`
   display: flex;
@@ -83,6 +84,11 @@ const TeamNameInput = styled.input`
   margin-bottom: 4px;
   border: 0;
   background-color: #f1f1f1;
+`;
+
+const ContactNumberInput = styled.input`
+  font-family: "GmarketSansLight";
+  font-size: 16px;
 `;
 
 const InviteCode = styled.div``;
@@ -186,9 +192,14 @@ export default function ManageTeam() {
   const fileInputRef = useRef(null);
   const [groupInfo, setGroupInfo] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [memberIds, setMemberIds] = useRecoilState(memberIdsState);
   const [isEditing, setIsEditing] = useState(false);
   const groupId = localStorage.getItem("groupId");
+  const [formData, setFormData] = useState({
+    groupName: "",
+    description: "",
+  });
 
   useEffect(() => {
     const fetchGroupInfo = async () => {
@@ -198,6 +209,11 @@ export default function ManageTeam() {
 
       const ids = fetchedGroupInfo.map((info) => info.memberId);
       setMemberIds(ids);
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        groupName: fetchedGroupInfo[0]?.groupName || "",
+      }));
     };
     fetchGroupInfo();
   }, [groupId, setMemberIds]);
@@ -209,6 +225,44 @@ export default function ManageTeam() {
     fileInputRef.current.click();
   };
 
+  const handleGroupNameChange = (e) => {
+    setNewGroupName(e.target.value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      groupName: e.target.value,
+    }));
+    console.log("New group name:", e.target.value);
+  };
+
+  const [isEditingContact, setIsEditingContact] = useState({});
+
+  const handleContactNumberChange = (e, memberId) => {
+    const newContactNumber = e.target.value;
+    setContactNumber((prevContactNumber) => ({
+      ...prevContactNumber,
+      [memberId]: newContactNumber,
+    }));
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      description: newContactNumber,
+    }));
+
+    console.log(
+      "New contact number for member ID",
+      memberId,
+      ":",
+      newContactNumber
+    );
+  };
+
+  const handleContactEditClick = (memberId) => {
+    setIsEditingContact((prev) => ({
+      ...prev,
+      [memberId]: true,
+    }));
+  };
+
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -217,18 +271,33 @@ export default function ManageTeam() {
       console.log("Uploaded image:", reader.result);
     };
     reader.readAsDataURL(file);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      groupImage: file,
+    }));
   };
 
-  const handleGroupNameChange = (e) => {
-    setNewGroupName(e.target.value);
+  const handleSubmit = async () => {
+    console.log("Form Data Submitted: ", formData);
+    try {
+      const { groupName, description } = formData;
+      console.log("Group ID:", groupId);
+
+      const formDataToSend = new FormData();
+      formDataToSend.append("groupName", groupName);
+      formDataToSend.append("description", description);
+      if (fileInputRef.current.files.length > 0) {
+        formDataToSend.append("groupImage", fileInputRef.current.files[0]);
+      }
+
+      await updateTeamManage(formDataToSend, groupId);
+    } catch (error) {
+      console.error("팀 정보 수정 실패:", error);
+    }
   };
 
-  const handleSaveGroupInfo = () => {
-    const updatedGroupInfo = [...groupInfo];
-    updatedGroupInfo[0].groupName = newGroupName;
-    setGroupInfo(updatedGroupInfo);
-    setIsEditing(false);
-  };
+  console.log("formdata : ", formData);
 
   const handleDelete = async (deleteGroupId, deleteMemberId) => {
     if (window.confirm("삭제하시겠습니까?")) {
@@ -306,7 +375,7 @@ export default function ManageTeam() {
             </PreviewInfo>
           )}
           <InfoChangeBtn
-            onClick={handleSaveGroupInfo}
+            onClick={handleSubmit}
             isEditing={isEditing}
             disabled={!isEditing}
           >
@@ -323,7 +392,7 @@ export default function ManageTeam() {
             <span>포지션</span>
           </Position>
           <Note>
-            <span>비고</span>
+            <span>연락처</span>
           </Note>
           <Bin>
             <span></span>
@@ -338,7 +407,19 @@ export default function ManageTeam() {
               <span>{userInfo.position}</span>
             </Position>
             <Note>
-              <span>010-0000-0000</span>
+              {isEditingContact[userInfo.memberId] ? (
+                <ContactNumberInput
+                  type="text"
+                  value={contactNumber[userInfo.memberId] || ""}
+                  onChange={(e) =>
+                    handleContactNumberChange(e, userInfo.memberId)
+                  }
+                />
+              ) : (
+                <span onClick={() => handleContactEditClick(userInfo.memberId)}>
+                  {contactNumber[userInfo.memberId] || "연락처를 입력해주세요"}
+                </span>
+              )}
             </Note>
             <Bin>
               <span>
