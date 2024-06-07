@@ -18,6 +18,7 @@ import getMusicInfo from "../../apis/getMusicInfo";
 import updateMusic from "../../apis/updateMusic";
 import deleteContiMusic from "../../apis/deleteContiMusic";
 import getContiMusicList from "../../apis/getcontiMusicList";
+import getImageDownloadUrl from "../../apis/getImageDownloadUrl";
 
 const modalStyles = `
   width: 100vw;
@@ -166,6 +167,8 @@ export default function ReadContiModalMemo() {
     description: "",
   });
   const contiMusicIndex = useRecoilValue(contiMusicIndexState);
+  const [imageDownloadUrl, setImageDownloadUrl] = useState([]);
+
 
   console.log("setListId:",setListId)
 
@@ -174,12 +177,6 @@ export default function ReadContiModalMemo() {
     setIsEditable(false);
   };
 
-  const musicId = localStorage.getItem("musicId");
-  console.log("musicId",musicId);
-
-  // const toggleEditMode = () => {
-  //   setIsEditable((prevState) => !prevState);
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -194,14 +191,14 @@ export default function ReadContiModalMemo() {
       setIsLoading(true);
       try {
         const fetchedMusicInfo = await getContiMusicList(setListId);
-        setContiData(fetchedMusicInfo[contiMusicIndex]);
-        localStorage.setItem("musicId", contiData.musicId);
+        const currentMusicData = fetchedMusicInfo[contiMusicIndex];
+        setContiData(currentMusicData);
         setFormData({
-          musicName: fetchedMusicInfo[contiMusicIndex].musicName,
-          code: fetchedMusicInfo[contiMusicIndex].code,
-          version: fetchedMusicInfo[contiMusicIndex].version,
-          link: fetchedMusicInfo[contiMusicIndex].link,
-          description: fetchedMusicInfo[contiMusicIndex].description || "",
+          musicName: currentMusicData.musicName,
+          code: currentMusicData.code,
+          version: currentMusicData.version,
+          link: currentMusicData.link,
+          description: currentMusicData.description || "",
         });
       } catch (error) {
         console.error("Failed to fetch music info:", error);
@@ -210,7 +207,19 @@ export default function ReadContiModalMemo() {
       }
     };
     fetchMusicInfo();
-  }, [setListId,contiMusicIndex]);
+  }, [setListId, contiMusicIndex]);
+  
+  useEffect(() => {
+    if (contiData && contiData.musicId) {
+      localStorage.setItem("musicId", contiData.musicId);
+    }
+  }, [contiData]);
+  
+    
+
+  const musicId = localStorage.getItem("musicId");
+  console.log("musicId",musicId);
+  
 
   console.log("contiMusicIndex" ,contiMusicIndex)
   console.log("contidata",contiData);
@@ -225,28 +234,6 @@ export default function ReadContiModalMemo() {
     };
   }, [isModalOpen]);
 
-  // const handleSubmit = async () => {
-  //   console.log("Form Data Submitted: ", formData);
-  //   try {
-  //     const { musicName, code, link, description, version } = formData;
-  //     const groupId = localStorage.getItem("groupId");
-  //     console.log("Group ID:", groupId);
-
-  //     const formDataToSend = new FormData();
-  //     formDataToSend.append("musicName", musicName);
-  //     formDataToSend.append("code", code);
-  //     formDataToSend.append("link", link);
-  //     formDataToSend.append("description", description);
-  //     formDataToSend.append("groupId", groupId);
-  //     formDataToSend.append("version", version);
-
-  //     await updateMusic(formDataToSend, musicId);
-  //     setIsEditable(false);
-  //   } catch (error) {
-  //     console.error("악보 수정 실패:", error);
-  //   }
-  // };
-
   const handleDelete = async () => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
@@ -259,6 +246,16 @@ export default function ReadContiModalMemo() {
       alert("취소");
     }
   };
+
+  const handlePrintBtnClick = async () => {
+    try {
+      const fetchedMusicInfo = await getImageDownloadUrl(musicId);
+      setImageDownloadUrl(fetchedMusicInfo);
+      window.open(fetchedMusicInfo, "_blank");
+    } catch (error) {
+      console.error("악보 삭제 실패:", error);
+    }
+  }
 
   // console.log({ isModalOpen });
 
@@ -294,7 +291,7 @@ export default function ReadContiModalMemo() {
                         onClick={handleDelete}
                       />
                       <Img src={shareIcon} alt="공유 아이콘" />
-                      <Img src={printIcon} alt="프린트 아이콘" />
+                      <Img src={printIcon} alt="프린트 아이콘" onClick={handlePrintBtnClick} />
                     </Icon2>
                     <BoldText>곡 제목</BoldText>
                     {isEditable ? (
