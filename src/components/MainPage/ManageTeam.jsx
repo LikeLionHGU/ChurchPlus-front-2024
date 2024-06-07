@@ -6,7 +6,7 @@ import styled from "styled-components";
 import getGroupInfo from "../../apis/getGroupInfo";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import deleteGroupMember from "../../apis/deleteGroupMember";
-import { memberIdsState } from "../../atom";
+import { memberIdState } from "../../atom";
 import { useRecoilState } from "recoil";
 
 const TopContents = styled.div`
@@ -186,7 +186,7 @@ export default function ManageTeam() {
   const fileInputRef = useRef(null);
   const [groupInfo, setGroupInfo] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
-  const [memberIds, setMemberIds] = useRecoilState(memberIdsState);
+  const [memberIds, setMemberIds] = useRecoilState(memberIdState);
   const [isEditing, setIsEditing] = useState(false);
   const groupId = localStorage.getItem("groupId");
 
