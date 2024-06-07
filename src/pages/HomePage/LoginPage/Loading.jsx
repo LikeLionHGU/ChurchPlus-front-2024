@@ -22,6 +22,7 @@ const Loading = () => {
         const code = parsedQuery.get("code");
         const parsedHash = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = parsedHash.get("access_token");
+      
 
         if (code) {
           await sendKakaoCodeToBackend(code);

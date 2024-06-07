@@ -17,6 +17,7 @@ const sendAccessTokenToBackend = async (accessToken) => {
 
     // memberId를 로컬 스토리지에 저장
     localStorage.setItem("memberId", serverResponse.data.memberId);
+    localStorage.setItem("isNew", serverResponse.data.isNew);
 
     return serverResponse.data; //서버에서 반환한 데이터를 반환할 수 있음
   } catch (error) {

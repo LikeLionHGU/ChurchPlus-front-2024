@@ -128,7 +128,6 @@ function MainContent() {
   const [keySearch, setKeySearch] = useState("");
   const [sheetMusicData, setsheetMusicData] = useState([]);
   const groupId = localStorage.getItem("groupId");
-
   const [musicId, setMusicId] = useRecoilState(musicIdState);
   const setReadMusicModal = useSetRecoilState(readMusicModalState);
 

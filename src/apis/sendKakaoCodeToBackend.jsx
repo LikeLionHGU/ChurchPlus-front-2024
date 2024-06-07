@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // API 요청을 보내는 함수 정의
 const sendKakaoCodeToBackend = async (code) => {
   try {
@@ -10,9 +11,10 @@ const sendKakaoCodeToBackend = async (code) => {
     );
     // 서버로부터의 응답 처리
     console.log("Login successful with server response:", serverResponse);
-
+    
     // memberId를 로컬 스토리지에 저장
     localStorage.setItem("memberId", serverResponse.data.memberId);
+    localStorage.setItem("isNew", serverResponse.data.isNew);
 
     return serverResponse.data; // 서버에서 반환한 데이터를 반환할 수 있음
   } catch (error) {

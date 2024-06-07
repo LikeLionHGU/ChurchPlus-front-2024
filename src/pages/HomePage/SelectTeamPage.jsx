@@ -8,6 +8,8 @@ import ManageProFileImg from "../../asset/Images/Buttons/ManageProFile.svg";
 import { Link } from "react-router-dom";
 import InputGroupName from "../CreateGroupPage/InputGroupName";
 import groupList from "../../apis/groupList";
+import { newMemberState } from "../../atom";
+import { useSetRecoilState } from "recoil";
 
 const Wrapper = styled.div`
   display: flex;
@@ -116,8 +118,21 @@ const AlreadyHaveTeamText = styled.div`
 `;
 
 function SelectTeamPage() {
-  const memberId = localStorage.getItem("memberId");
-  const [groups, setGroups] = useState([]);
+const memberId = localStorage.getItem("memberId");
+const [groups,setGroups] = useState([]);
+const isNew = localStorage.getItem("isNew")
+const getNewMemberState = useSetRecoilState(newMemberState);
+console.log("isNew", isNew)
+getNewMemberState(isNew);
+  
+useEffect(() => {
+  const fetchGroups = async () => {
+    const fetchedGroups = await groupList(memberId);
+    setGroups(fetchedGroups);
+  };
+  fetchGroups();
+}, [memberId]);
+
 
   useEffect(() => {
     const fetchGroups = async () => {
