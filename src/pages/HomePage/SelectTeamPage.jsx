@@ -118,21 +118,20 @@ const AlreadyHaveTeamText = styled.div`
 `;
 
 function SelectTeamPage() {
-const memberId = localStorage.getItem("memberId");
-const [groups,setGroups] = useState([]);
-const isNew = localStorage.getItem("isNew")
-const getNewMemberState = useSetRecoilState(newMemberState);
-console.log("isNew", isNew)
-getNewMemberState(isNew);
-  
-useEffect(() => {
-  const fetchGroups = async () => {
-    const fetchedGroups = await groupList(memberId);
-    setGroups(fetchedGroups);
-  };
-  fetchGroups();
-}, [memberId]);
+  const memberId = localStorage.getItem("memberId");
+  const [groups, setGroups] = useState([]);
+  const isNew = localStorage.getItem("isNew");
+  const getNewMemberState = useSetRecoilState(newMemberState);
+  console.log("isNew", isNew);
+  getNewMemberState(isNew);
 
+  useEffect(() => {
+    const fetchGroups = async () => {
+      const fetchedGroups = await groupList(memberId);
+      setGroups(fetchedGroups);
+    };
+    fetchGroups();
+  }, [memberId]);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -158,11 +157,7 @@ useEffect(() => {
               <Groups>
                 <Link to={"/main"}>
                   <Group>
-                    <DefaultGroupImg
-                      src={ChoseGroupImg}
-                      alt=" 첫번째 팀"
-                      onClick={() => handleTeamClick(group)}
-                    />
+                    <DefaultGroupImg src={group.groupImage} alt=" 첫번째 팀" onClick={() => handleTeamClick(group)} />
                   </Group>
                 </Link>
                 <GroupName>{group.groupName}</GroupName>
