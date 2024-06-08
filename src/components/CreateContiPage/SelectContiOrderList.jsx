@@ -125,6 +125,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { selectedRowsAtom } from "../../recoil/atoms/selectRowsAtom";
 import styled from "styled-components";
 import { contiStepModalState, musicIdListState } from "../../atom";
+import DefaultGroomImg from "../../assets/Icons/DefaultGroom.svg";
 
 const StyleCheckbox = styled.div`
   margin-left: 5px;
@@ -147,6 +148,27 @@ const StyleCheckbox = styled.div`
 const Container = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const DefaultSection = styled.div`
+  /* border: 1px solid #3e5692; */
+  width: 322px;
+  height: 316px;
+  margin-top: 173px;
+  margin-left: 360px;
+
+  img {
+    margin-left: 17px;
+    height: 209;
+    width: 288px;
+  }
+`;
+
+const DefaultText = styled.div`
+  font-size: 30px;
+  color: #aec3de;
+  margin-left: 4px;
+  margin-top: 64px;
 `;
 
 const SelectContiOrderList = ({ sheetMusicData }) => {
@@ -197,7 +219,14 @@ const SelectContiOrderList = ({ sheetMusicData }) => {
   console.log("selectedRows:", selectedRows);
 
   if (!Array.isArray(sheetMusicData) || sheetMusicData.length === 0) {
-    return <div>데이터가 없습니다.</div>;
+    return (
+      <div>
+        <DefaultSection>
+          <img src={DefaultGroomImg} alt="디폴트 구름 이미지"></img>
+          <DefaultText>악보를 업로드 해보세요!</DefaultText>
+        </DefaultSection>
+      </div>
+    );
   }
 
   return (
