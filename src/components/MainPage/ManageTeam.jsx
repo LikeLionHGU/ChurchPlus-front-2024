@@ -290,6 +290,7 @@ export default function ManageTeam() {
       ...prevData,
       groupImage: file,
     }));
+    setIsEditing(true);
   };
 
   const handleSubmit = async () => {
@@ -385,7 +386,12 @@ export default function ManageTeam() {
               </InvitationCode>
             </PreviewInfo>
           )}
-          <InfoChangeBtn onClick={handleSubmit} isEditing={isEditing} disabled={!isEditing}>
+          <InfoChangeBtn
+            // onClick={handleSubmit}
+            isEditing={isEditing}
+            onClick={isEditing ? handleSubmit : null}
+            disabled={!isEditing}
+          >
             저장
           </InfoChangeBtn>
         </TeamInfo>
