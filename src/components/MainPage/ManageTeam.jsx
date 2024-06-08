@@ -294,6 +294,7 @@ export default function ManageTeam() {
       ...prevData,
       groupImage: file,
     }));
+    setIsEditing(true);
   };
 
   const handleSubmit = async () => {
