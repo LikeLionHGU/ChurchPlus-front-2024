@@ -20,46 +20,16 @@ import joinGroup from "../../apis/JoinGroup";
 import { StartBtn } from "../../components/CreateGroupPage/Button";
 
 const positionImages = [
-  {
-    image: img1,
-    description: "리더",
-  },
-  {
-    image: img2,
-    description: "메인 신디",
-  },
-  {
-    image: img3,
-    description: "세컨 신디",
-  },
-  {
-    image: img4,
-    description: "드럼",
-  },
-  {
-    image: img5,
-    description: "어쿠스틱 기타",
-  },
-  {
-    image: img6,
-    description: "일렉 기타",
-  },
-  {
-    image: img7,
-    description: "베이스 기타",
-  },
-  {
-    image: img8,
-    description: "싱어",
-  },
-  {
-    image: img9,
-    description: "엔지니어",
-  },
-  {
-    image: img10,
-    description: "목사님",
-  },
+  { image: img1, description: "리더" },
+  { image: img2, description: "메인 신디" },
+  { image: img3, description: "세컨 신디" },
+  { image: img4, description: "드럼" },
+  { image: img5, description: "어쿠스틱 기타" },
+  { image: img6, description: "일렉 기타" },
+  { image: img7, description: "베이스 기타" },
+  { image: img8, description: "싱어" },
+  { image: img9, description: "엔지니어" },
+  { image: img10, description: "목사님" },
 ];
 
 const Logo = styled.img`
@@ -95,8 +65,7 @@ const PositionItem = styled.div`
 const ImageContainer = styled.div`
   height: 120px;
   width: 120px;
-  border: 7px solid
-    ${({ $isSelected }) => ($isSelected ? "#ccdfff" : "transparent")};
+  border: 7px solid ${({ $isSelected }) => ($isSelected ? "#ccdfff" : "transparent")};
   border-radius: 30px;
 `;
 
@@ -123,12 +92,12 @@ const Input = styled.div`
 function InputPosition() {
   const navigate = useNavigate();
   // const location = useLocation();
-  const [position, setposition] = useState(null);
+  const [position, setPosition] = useState(null);
   const location = useLocation();
   const memberId = localStorage.getItem("memberId");
 
   const handlePositionSelect = (index) => {
-    setposition(positionImages[index].description);
+    setPosition(positionImages[index].description);
     alert(`${positionImages[index].description} 포지션을 선택하셨습니다.`);
   };
 
@@ -143,7 +112,7 @@ function InputPosition() {
   console.log("invitationCode is", invitationCode);
 
   const handleCompleteBtnClick = async () => {
-    if (!position === null) {
+    if (!position) {
       alert("포지션을 선택해주세요.");
       return;
     }
@@ -161,6 +130,8 @@ function InputPosition() {
       navigate("/SelectTeamPage");
     } catch (error) {
       console.error("그룹 추가 실패:", error);
+      alert("팀 이름이 존재합니다 !");
+      navigate("/createNewGroup");
     }
   };
 
@@ -172,12 +143,12 @@ function InputPosition() {
       </Text>
 
       <PositionContainer>
-        {positionImages.map((position, index) => (
+        {positionImages.map((item, index) => (
           <PositionItem key={index} onClick={() => handlePositionSelect(index)}>
-            <ImageContainer $isSelected={position === index}>
-              <PositionImage src={position.image} alt={position.description} />
+            <ImageContainer $isSelected={position === item.description}>
+              <PositionImage src={item.image} alt={item.description} />
             </ImageContainer>
-            <Input>{position.description}</Input>
+            <Input>{item.description}</Input>
           </PositionItem>
         ))}
       </PositionContainer>
