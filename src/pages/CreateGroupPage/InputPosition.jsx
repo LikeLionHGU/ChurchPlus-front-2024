@@ -130,8 +130,8 @@ function InputPosition() {
       navigate("/SelectTeamPage");
     } catch (error) {
       console.error("그룹 추가 실패:", error);
-      alert("팀 이름이 존재합니다 !");
-      navigate("/createNewGroup");
+      // alert("팀 이름이 존재합니다 !");
+      // navigate("/createNewGroup");
     }
   };
 
