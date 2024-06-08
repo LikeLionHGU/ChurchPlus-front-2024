@@ -390,8 +390,9 @@ export default function ManageTeam() {
             </PreviewInfo>
           )}
           <InfoChangeBtn
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
             isEditing={isEditing}
+            onClick={isEditing ? handleSubmit : null}
             disabled={!isEditing}
           >
             저장
