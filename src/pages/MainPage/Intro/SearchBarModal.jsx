@@ -4,7 +4,6 @@ import { KeyModalState, searchBarModalState } from "../../../atom";
 import { useSetRecoilState } from "recoil";
 import { useRecoilState } from "recoil";
 
-
 const modalStyles = `
   width: 100vw;
   height: 100vh;
@@ -22,17 +21,16 @@ const Modal = styled.div`
 
 const Overlay = styled.div`
   ${modalStyles}
-
 `;
 
 const ModalContent = styled.div`
   position: absolute;
   top: 33%;
-  left: 26%;
+  left: 23%;
   transform: translate(-50%, -50%);
   height: 122px;
   width: 248px;
-  background-color: #AEC3DE;
+  background-color: #aec3de;
   border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -42,69 +40,67 @@ const ModalContent = styled.div`
   /* font-family: "GmarketSansLight"; */
   font-size: 16px;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;
     border-width: 30px;
     border-style: solid;
     border-color: transparent transparent #aec3de transparent;
-    transform: translateX(-50%) scaleX(0.4);;
+    transform: translateX(-50%) scaleX(0.4);
   }
 `;
 const FirstText = styled.div`
-  margin-top:16px;
-`
+  margin-top: 16px;
+`;
 
 const NextButton = styled.div`
-    width: 48px;
-    height: 26px;
-    border-radius: 10px;
-    background-color: #8197bf;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    font-size: 12px;
-    cursor: pointer;
-`
+  width: 48px;
+  height: 26px;
+  border-radius: 10px;
+  background-color: #8197bf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 12px;
+  cursor: pointer;
+`;
 
-export default function SearchBarModal(){
-
-  const [searchBarModal,setSearchBarModal] = useRecoilState(searchBarModalState);
+export default function SearchBarModal() {
+  const [searchBarModal, setSearchBarModal] = useRecoilState(searchBarModalState);
   const setKeyModal = useSetRecoilState(KeyModalState);
 
   const closeSearchBarModal = () => {
-    setSearchBarModal(false); 
+    setSearchBarModal(false);
   };
-  
+
   const openKeyModal = () => {
     closeSearchBarModal();
     setKeyModal(true);
-  }
+  };
 
   useEffect(() => {
-    if (searchBarModal) { 
+    if (searchBarModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [searchBarModal]); 
+  }, [searchBarModal]);
 
-  return ( 
+  return (
     <>
-
-    {searchBarModal && (
+      {searchBarModal && (
         <Modal>
-            <Overlay onClick={closeSearchBarModal}/>
-            <ModalContent>
+          <Overlay onClick={closeSearchBarModal} />
+          <ModalContent>
             <FirstText>검색 기능을 통해 모든 악보를</FirstText>
             <div>한 눈에 볼 수 있습니다 ! 손 쉽게</div>
             <div>찾고 싶은 악보를 찾아보세요 !</div>
             <NextButton onClick={openKeyModal}>다음</NextButton>
-            </ModalContent>
-            </Modal>
-    )}
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 }

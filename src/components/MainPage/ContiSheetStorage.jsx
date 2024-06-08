@@ -3,16 +3,12 @@ import styled from "styled-components";
 import SelectMonthDropdown from "./SelectMonthDropDown";
 import SelectYearDropdown from "./SelectYearDropDown";
 import { useSetRecoilState } from "recoil";
-import {
-  contiIdState,
-  contiMusicIndexState,
-  musicIdState,
-  readMusicModalMemoState,
-} from "../../atom";
+import { contiIdState, contiMusicIndexState, musicIdState, readMusicModalMemoState } from "../../atom";
 import getContiMusicList from "../../apis/getcontiMusicList";
 import ModifyContiModal from "../Modal/ModifyContiModal";
 import ReadContiModalMemo from "../Modal/ReadContiModalMemo";
 import ContiSheetMonthDropDown from "./ContiSheetMonthDropDown";
+import ContiSheetYearDropDown from "./ContiSheetYearDropDown";
 
 const DateContainer = styled.div`
   font-family: "GmarketSansLight";
@@ -87,7 +83,7 @@ const ContiName = styled.div`
   font-family: "GmarketSansLight";
   font-size: 20px;
   margin-top: 13px;
-`
+`;
 
 export default function ContiSheetStorage() {
   const readMusicModal = useSetRecoilState(readMusicModalMemoState);
@@ -115,7 +111,7 @@ export default function ContiSheetStorage() {
     <>
       <DateContainer>
         <ReadContiModalMemo />
-        <SelectYearDropdown setSearch={setYearSearch} />
+        <ContiSheetYearDropDown />
         <ContiSheetMonthDropDown />
         <ContiName>{contiName}</ContiName>
       </DateContainer>
@@ -123,11 +119,7 @@ export default function ContiSheetStorage() {
         <Contents>
           {sheetMusic.map((sheet, index) => (
             <SheetMusicContainer key={index}>
-              <SheetMusicImage
-                className="sheet-music-image"
-                src={sheet.musicImageUrl}
-                alt={`악보 이미지 ${index}`}
-              />
+              <SheetMusicImage className="sheet-music-image" src={sheet.musicImageUrl} alt={`악보 이미지 ${index}`} />
               <SheetInfoOverlay
                 className="sheet-info-overlay"
                 onClick={() => {

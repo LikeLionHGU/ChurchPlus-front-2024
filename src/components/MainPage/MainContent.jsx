@@ -147,16 +147,10 @@ function MainContent() {
   console.log("musicId is:", musicId);
 
   const filteredData = sheetMusicData.filter((sheetMusic) => {
-    const formattedTitle = sheetMusic.musicName
-      ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "")
-      : "";
-    const formattedVersion = sheetMusic.version
-      ? sheetMusic.version.toLowerCase().replace(/\s/g, "")
-      : "";
+    const formattedTitle = sheetMusic.musicName ? sheetMusic.musicName.toLowerCase().replace(/\s/g, "") : "";
+    const formattedVersion = sheetMusic.version ? sheetMusic.version.toLowerCase().replace(/\s/g, "") : "";
     const formattedTitleSearch = titleSearch.toLowerCase().replace(/\s/g, "");
-    const formattedVersionSearch = versionSearch
-      .toLowerCase()
-      .replace(/\s/g, "");
+    const formattedVersionSearch = versionSearch.toLowerCase().replace(/\s/g, "");
 
     return (
       formattedTitle.includes(formattedTitleSearch) &&
@@ -177,16 +171,8 @@ function MainContent() {
         <KeyModal />
         <UploadModal />
         <Icons>
-          <img
-            src={viewListIcon}
-            alt="리스트뷰 아이콘"
-            onClick={() => setIsListView(true)}
-          />
-          <img
-            src={viewGridIcon}
-            alt="그리드뷰 아이콘"
-            onClick={() => setIsListView(false)}
-          />
+          <img src={viewListIcon} alt="리스트뷰 아이콘" onClick={() => setIsListView(true)} />
+          <img src={viewGridIcon} alt="그리드뷰 아이콘" onClick={() => setIsListView(false)} />
         </Icons>
       </FunctionWrapper>
       <Contents>
