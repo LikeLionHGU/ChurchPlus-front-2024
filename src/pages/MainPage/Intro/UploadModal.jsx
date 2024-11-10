@@ -4,13 +4,16 @@ import { uploadModalState } from "../../../atom";
 import { useRecoilState } from "recoil";
 
 const modalStyles = `
+  margin-top:120px;
+  margin-left: 700px;
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
+  top: 0%;
+  left: 0%;
   right: 0;
   bottom: 0;
-  position: fixed;
+  position: absolute;
+
 `;
 
 const Modal = styled.div`
@@ -24,8 +27,8 @@ const Overlay = styled.div`
 
 const ModalContent = styled.div`
   position: absolute;
-  top: 33%;
-  left: 62%;
+  top: 0%;
+  left: 0%;
   transform: translate(-50%, -50%);
   height: 122px;
   width: 235px;

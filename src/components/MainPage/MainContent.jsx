@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const FunctionWrapper = styled.div`
+  position: relative;
   display: flex;
   height: 42px;
   margin-bottom: 34px;
@@ -161,14 +162,14 @@ function MainContent() {
 
   return (
     <Wrapper>
+      <KeyModal />
       <FunctionWrapper>
         <SearchBar setSearch={setTitleSearch} placeholder="곡 제목 검색" />
+        <SearchBarModal />
         <SearchBar setSearch={setVersionSearch} placeholder="곡 버전 검색" />
         <KeySelectDropdown setSearch={setKeySearch} />
         <UploadMusicModal />
         <IntroModal />
-        <SearchBarModal />
-        <KeyModal />
         <UploadModal />
         <Icons>
           <img src={viewListIcon} alt="리스트뷰 아이콘" onClick={() => setIsListView(true)} />
