@@ -5,13 +5,16 @@ import { useSetRecoilState } from "recoil";
 import { useRecoilState } from "recoil";
 
 const modalStyles = `
+  margin-top: 50px;
+  margin-left: 800px;
   width: 100vw;
   height: 100vh;
-  top: 0;
-  left: 0;
+  top: 0%;
+  left: 0%;
   right: 0;
   bottom: 0;
-  position: fixed;
+  position: absolute;
+
 `;
 
 const Modal = styled.div`
@@ -25,8 +28,8 @@ const Overlay = styled.div`
 
 const ModalContent = styled.div`
   position: absolute;
-  top: 7%;
-  left: 53%;
+  top: 0%;
+  left: 0%;
   transform: translate(-50%, -50%);
   height: 100px;
   width: 247px;
